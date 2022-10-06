@@ -1,0 +1,38 @@
+---
+title: "Mass Spec Preppy - How to"
+format: html
+editor: visual
+---
+
+### 1. Sample list template
+
+Download the sample template using the download button in the upper left corner of the app.
+
+Open the Excel template and edit the form.
+
+| table column                    | explanation                                                                 |
+|---------------------------------|-----------------------------------------------------------------------------|
+| *sample*                        | name of your sample                                                         |
+| *protein concentration (µg/µl)* | determined protein concentration of sample                                  |
+| *OT-2 slot*                     | OT-2 slot were the sample is standing (max N = 4)                           |
+| *OT-2 position*                 | OT-2 position inside the slot (max N = 24)                                  |
+| *volume*                        | sample volume inside the sample tube (essential for liquid height function) |
+| *preparation plate position*    | the position in the preparation plate (leave as it is !)                    |
+
+**IF YOU DO NOT SPECIFY THE SAMPLE NAME ALL OTHER INFORMATION IN THE ROWS ARE NEGLECTED !**
+
+#### Sample volume
+
+Sample volume is set by the user in the table. However, all volumes below 60µl were taken out with 0.5mm distance from the bottom.
+
+### 2. Parameters
+
+Just select the desired parameters like enzyme:protein ratio etc.
+
+**ADVICE: Use the calculated concentrations since they are optimized for adding always 2µl of enzyme to the sample !**
+
+### 3. Processing and Download
+
+After processing you can download the OT-2 protocols and decklayouts etc.
+
+The downloaded zip-folder contains the decklayout plots and the python scripts for the OT-2.

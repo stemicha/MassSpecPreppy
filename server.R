@@ -289,7 +289,7 @@ shinyServer(function(input, output) {
       OT2_protocol_part1_out[23] <- paste(substr(x = OT2_protocol_part1_out[23],
                                                  start = 1,
                                                  stop = nchar(OT2_protocol_part1_out[23])-2),
-                                          "|",file_out_tmp,
+                                          " | ",file_out_tmp,
                                           "\",",
                                           sep="",
                                           collapse = "")
@@ -299,7 +299,7 @@ shinyServer(function(input, output) {
       OT2_protocol_part1_wo_alk_red_out[23] <- paste(substr(x = OT2_protocol_part1_wo_alk_red_out[23],
                                                  start = 1,
                                                  stop = nchar(OT2_protocol_part1_wo_alk_red_out[23])-2),
-                                          "|",file_out_tmp,
+                                          " | ",file_out_tmp,
                                           "\",",
                                           sep="",
                                           collapse = "")
@@ -310,7 +310,7 @@ shinyServer(function(input, output) {
       OT2_protocol_part2_sequential_out[23] <- paste(substr(x = OT2_protocol_part2_sequential_out[23],
                                                             start = 1,
                                                             stop = nchar(OT2_protocol_part2_sequential_out[23])-2),
-                                                     "|",file_out_tmp,
+                                                     " | ",file_out_tmp,
                                                      "\",",
                                                      sep="",
                                                      collapse = "")
@@ -320,7 +320,7 @@ shinyServer(function(input, output) {
       OT2_protocol_part2_mix_out[23] <- paste(substr(x = OT2_protocol_part2_mix_out[23],
                                                             start = 1,
                                                             stop = nchar(OT2_protocol_part2_mix_out[23])-2),
-                                                     "|",file_out_tmp,
+                                                     " | ",file_out_tmp,
                                                      "\",",
                                                      sep="",
                                                      collapse = "")
@@ -330,7 +330,7 @@ shinyServer(function(input, output) {
       OT2_protocol_part3_vial_out[23] <- paste(substr(x = OT2_protocol_part3_vial_out[23],
                                                      start = 1,
                                                      stop = nchar(OT2_protocol_part3_vial_out[23])-2),
-                                              "|",file_out_tmp,
+                                              " | ",file_out_tmp,
                                               "\",",
                                               sep="",
                                               collapse = "")
@@ -340,7 +340,7 @@ shinyServer(function(input, output) {
       OT2_protocol_part3_EvoTip_out[23] <- paste(substr(x = OT2_protocol_part3_EvoTip_out[23],
                                                       start = 1,
                                                       stop = nchar(OT2_protocol_part3_EvoTip_out[23])-2),
-                                               "|",file_out_tmp,
+                                               " | ",file_out_tmp,
                                                "\",",
                                                sep="",
                                                collapse = "")
@@ -350,7 +350,7 @@ shinyServer(function(input, output) {
       OT2_protocol_part4_post_EvoTip_out[23] <- paste(substr(x = OT2_protocol_part4_post_EvoTip_out[23],
                                                         start = 1,
                                                         stop = nchar(OT2_protocol_part4_post_EvoTip_out[23])-2),
-                                                 "|",file_out_tmp,
+                                                 " | ",file_out_tmp,
                                                  "\",",
                                                  sep="",
                                                  collapse = "")

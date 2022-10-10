@@ -137,7 +137,9 @@ shinyServer(function(input, output) {
       
       input_amount = input$input_sample_amount
       
-      OT2_template_tmp <- OT2_template %>% rowwise() %>%  mutate(volume_needed = input_amount/`protein concentration (µg/µl)`)
+      OT2_template_tmp <- OT2_template %>% 
+        rowwise() %>%  
+        mutate(volume_needed = input_amount/`protein concentration (µg/µl)`)
       
       # errror: above 10µl for amount! --------------------------------------------------
       OT2_template_tmp_low_conc <- OT2_template_tmp %>% 
@@ -241,6 +243,9 @@ shinyServer(function(input, output) {
       
       
       # load OT-2 python protocol max. 96 samples -------------------------------
+      #generate file name
+      inFile <- input$input_sample_file
+      file_out_tmp <- stringi::stri_extract_first(str = inFile$name, regex = ".*(?=\\.)")
       
       # Progress: loading protocol templates
       incProgress(0.6, detail = "loading protocol templates")
@@ -281,35 +286,75 @@ shinyServer(function(input, output) {
       # part 1
       OT2_protocol_part1_out <- OT2_protocol_part1
       OT2_protocol_part1_out[16] <- input_JSON
-      
+      OT2_protocol_part1_out[23] <- paste(substr(x = OT2_protocol_part1_out[23],
+                                                 start = 1,
+                                                 stop = nchar(OT2_protocol_part1_out[23])-2),
+                                          "|",file_out_tmp,
+                                          "\",",
+                                          sep="",
+                                          collapse = "")
       # part 1 w/o alk red
       OT2_protocol_part1_wo_alk_red_out <- OT2_protocol_part1_wo_alk_red
       OT2_protocol_part1_wo_alk_red_out[16] <- input_JSON
+      OT2_protocol_part1_wo_alk_red_out[23] <- paste(substr(x = OT2_protocol_part1_wo_alk_red_out[23],
+                                                 start = 1,
+                                                 stop = nchar(OT2_protocol_part1_wo_alk_red_out[23])-2),
+                                          "|",file_out_tmp,
+                                          "\",",
+                                          sep="",
+                                          collapse = "")
       
       # part 2 (enzyme sequential)
       OT2_protocol_part2_sequential_out <- OT2_protocol_part2_sequential
       OT2_protocol_part2_sequential_out[16] <- input_JSON
-      
+      OT2_protocol_part2_sequential_out[23] <- paste(substr(x = OT2_protocol_part2_sequential_out[23],
+                                                            start = 1,
+                                                            stop = nchar(OT2_protocol_part2_sequential_out[23])-2),
+                                                     "|",file_out_tmp,
+                                                     "\",",
+                                                     sep="",
+                                                     collapse = "")
       # part 2 (enzyme Mix)
       OT2_protocol_part2_mix_out <- OT2_protocol_part2_mix
       OT2_protocol_part2_mix_out[16] <- input_JSON
-      
+      OT2_protocol_part2_mix_out[23] <- paste(substr(x = OT2_protocol_part2_mix_out[23],
+                                                            start = 1,
+                                                            stop = nchar(OT2_protocol_part2_mix_out[23])-2),
+                                                     "|",file_out_tmp,
+                                                     "\",",
+                                                     sep="",
+                                                     collapse = "")
       # part 3 MSvial
       OT2_protocol_part3_vial_out <- OT2_protocol_part3_vial
       OT2_protocol_part3_vial_out[16] <- input_JSON
-      
+      OT2_protocol_part3_vial_out[23] <- paste(substr(x = OT2_protocol_part3_vial_out[23],
+                                                     start = 1,
+                                                     stop = nchar(OT2_protocol_part3_vial_out[23])-2),
+                                              "|",file_out_tmp,
+                                              "\",",
+                                              sep="",
+                                              collapse = "")
       # part 3 EvoTip
       OT2_protocol_part3_EvoTip_out <- OT2_protocol_part3_EvoTip
       OT2_protocol_part3_EvoTip_out[16] <- input_JSON
-      
+      OT2_protocol_part3_EvoTip_out[23] <- paste(substr(x = OT2_protocol_part3_EvoTip_out[23],
+                                                      start = 1,
+                                                      stop = nchar(OT2_protocol_part3_EvoTip_out[23])-2),
+                                               "|",file_out_tmp,
+                                               "\",",
+                                               sep="",
+                                               collapse = "")
       # part 4 EvoTip
       OT2_protocol_part4_post_EvoTip_out <- OT2_protocol_part4_post_EvoTip
       OT2_protocol_part4_post_EvoTip_out[16] <- input_JSON
-      
-      #generate file name
-      inFile <- input$input_sample_file
-      file_out_tmp <- stringi::stri_extract_first(str = inFile$name, regex = ".*(?=\\.)")
-      
+      OT2_protocol_part4_post_EvoTip_out[23] <- paste(substr(x = OT2_protocol_part4_post_EvoTip_out[23],
+                                                        start = 1,
+                                                        stop = nchar(OT2_protocol_part4_post_EvoTip_out[23])-2),
+                                                 "|",file_out_tmp,
+                                                 "\",",
+                                                 sep="",
+                                                 collapse = "")
+     
       # Progress: generate output
       incProgress(1, detail = "generate output")
       

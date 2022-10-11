@@ -21,6 +21,7 @@ output:
       number_sections: true
 params:
   number_of_samples: NA
+  file_name: NA
   reduction_and_alkylation: NA
   sample_amount: NA
   LysC_Trypsin_Mix_ratio: NA
@@ -75,6 +76,8 @@ htmltools::img(src = knitr::image_uri("Mass_Spec_Preppy_hexbin_small.png"),
                alt = 'logo', 
                style = 'position:absolute; top:50px; right:0; padding:10px;width: 300;height: 153px;')
 ```
+
+**filename:** <span style="color:#4A7CB3; font-weight: bold; font-size:18.0pt">`r params$file_name`</span>
 
 # Things to pay attention
 

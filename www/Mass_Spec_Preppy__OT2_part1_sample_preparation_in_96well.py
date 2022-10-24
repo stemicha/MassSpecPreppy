@@ -21,7 +21,7 @@ def get_values(*names):
 #specify meta data
 metadata = {
      "protocolName": "Mass Spec Preppy: step 1 > sample preparation in 96well format WITH reduction/alkylation & add SP3 beads",
-     "apiLevel": "2.12",
+     "apiLevel": "2.13",
      "description": "This part of the Mass Spec Preppy workflow will prepare the specified protein amount of the samples in a 96well plate WITH reduction/alkylation and SP3 bead addition",
      "author": "Stephan Michalik <stephan.michalik@uni-greifswald.de>"}
 
@@ -79,17 +79,19 @@ def run(protocol: protocol_api.ProtocolContext):
   #setup labware
   #tips
   tiprack20_1 = protocol.load_labware("opentrons_96_tiprack_20ul", "10",label = "OT_96_tiprack_20ul_1")
-  tiprack20_2 = protocol.load_labware("opentrons_96_tiprack_20ul", "7",label = "OT_96_tiprack_20ul_2")
-  tiprack20_3 = protocol.load_labware("opentrons_96_tiprack_20ul", "11",label = "OT_96_tiprack_20ul_3")
-  tiprack20_4 = protocol.load_labware("opentrons_96_tiprack_20ul", "8",label = "OT_96_tiprack_20ul_4")
-  tiprack20_5 = protocol.load_labware("opentrons_96_tiprack_20ul", "9",label = "OT_96_tiprack_20ul_5")
+  tiprack20_2 = protocol.load_labware("opentrons_96_tiprack_20ul", "11",label = "OT_96_tiprack_20ul_2")
+  tiprack20_3 = protocol.load_labware("opentrons_96_tiprack_20ul", "8",label = "OT_96_tiprack_20ul_3")
+  tiprack20_4 = protocol.load_labware("opentrons_96_tiprack_20ul", "9",label = "OT_96_tiprack_20ul_4")
+  tiprack20_5 = protocol.load_labware("opentrons_96_tiprack_20ul", "6",label = "OT_96_tiprack_20ul_5")
 
   #preparation plate
-  prep_plate = protocol.load_labware("nest_96_wellplate_100ul_pcr_full_skirt", "6", label = "preparation_plate")
+  hs_mod = protocol.load_module('heaterShakerModuleV1', '7')
+  prep_plate = hs_mod.load_labware('opentrons_96_pcr_adapter_nest_wellplate_100ul_pcr_full_skirt',label = "preparation_plate")
+  #prep_plate = protocol.load_labware("nest_96_wellplate_100ul_pcr_full_skirt", "6", label = "preparation_plate")
   
   #pipettes
-  p20 = protocol.load_instrument("p20_single_gen2", mount = "left", tip_racks = [tiprack20_1,tiprack20_2])
-  m20 = protocol.load_instrument("p20_multi_gen2", mount = "right", tip_racks = [tiprack20_3,tiprack20_4,tiprack20_5])
+  p20 = protocol.load_instrument("p20_single_gen2", mount = "left", tip_racks = [tiprack20_1,tiprack20_3])
+  m20 = protocol.load_instrument("p20_multi_gen2", mount = "right", tip_racks = [tiprack20_2,tiprack20_4,tiprack20_5])
 
   #reagent plate
   #column 1 = 150µl buffer in each well
@@ -114,6 +116,8 @@ def run(protocol: protocol_api.ProtocolContext):
   #prep plate column positions
   prep_plate_columns_position = ["A1","A2","A3","A4","A5","A6","A7","A8","A9","A10","A11","A12"]
 
+  # close latch HS
+  hs_mod.close_labware_latch()
   
   #transfer buffer
   p20.pick_up_tip()
@@ -188,8 +192,12 @@ def run(protocol: protocol_api.ProtocolContext):
                  mix_after=(2, 5),
                  touch_tip = False)
   
+  #HS step
+  hs_mod.set_and_wait_for_temperature(37)
+  protocol.delay(minutes=30)
+  hs_mod.deactivate_heater()
   #pause step
-  protocol.pause("take preparation plate out for incubation for 30 minutes at 37°C for reduction. Put it back afterwards!!! and resume")
+  #protocol.pause("take preparation plate out for incubation for 30 minutes at 37°C for reduction. Put it back afterwards!!! and resume")
   
   
 
@@ -202,8 +210,12 @@ def run(protocol: protocol_api.ProtocolContext):
                  mix_after=(2, 5),
                  touch_tip = False)
   
+  #HS step
+  hs_mod.set_and_wait_for_temperature(37)
+  protocol.delay(minutes=15)
+  hs_mod.deactivate_heater()
   #pause step 
-  protocol.pause("take preparation plate out for incubation for 15 minutes at 37°C for alkylation. Put it back afterwards!!! and resume")
+  #protocol.pause("take preparation plate out for incubation for 15 minutes at 37°C for alkylation. Put it back afterwards!!! and resume")
 
   #15.625µl
 

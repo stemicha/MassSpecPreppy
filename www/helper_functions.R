@@ -41,7 +41,7 @@ ggplot(slot_template_96,aes(col_pos,row_pos))+
 prep_plate_plot <- function(label = "preparation plate (96 NEST 100ul plate)",
                           OT_slot = "6",
                           number_of_samples = 12,
-                          text_color = "black"){
+                          text_color = "black", outline = F, outline_color = "orangered"){
   
   
   slot_template_96 <- read_excel("www/slot_template_96well.xlsx")
@@ -50,7 +50,7 @@ prep_plate_plot <- function(label = "preparation plate (96 NEST 100ul plate)",
   if(number_of_samples!=0){slot_template_96$samples[1:number_of_samples] <- TRUE}
   
   
-  ggplot(slot_template_96,aes(col_pos,row_pos))+
+  prep_tmp_p<- ggplot(slot_template_96,aes(col_pos,row_pos))+
     geom_tile()+
     geom_point(size = 5, mapping = aes(color = samples))+
     scale_color_manual(values = c("FALSE" = "darkgrey", "TRUE"= "#00897B"))+
@@ -65,6 +65,11 @@ prep_plate_plot <- function(label = "preparation plate (96 NEST 100ul plate)",
               size = 2,angle = 0, color = "white")+
     scale_y_discrete(limits=rev)
   
+  if(outline==T){
+    prep_tmp_p <- prep_tmp_p+
+      theme(panel.border = element_rect(colour = outline_color, fill=NA, size=5))
+  }
+  prep_tmp_p
 }
 
 # samples 1.5ml tube plot -----------------------------------------------------------
@@ -306,13 +311,18 @@ plot_deck_layout_step1 <- function(red_alk = TRUE,
     
     
     Slot10 <- tip_rack_plot(label = "20ul_tips_1",text_color = text_color, OT_slot = 10,number_of_used_tips = ifelse(sample_dil_tips>96,96,sample_dil_tips))
-    Slot7 <- tip_rack_plot(label = "20ul_tips_2",text_color = text_color,OT_slot = 7,number_of_used_tips = ifelse((sample_dil_tips-96)>=96,96,ifelse((sample_dil_tips-96)<0,0,(sample_dil_tips-96))))
-    Slot11 <- tip_rack_plot(label = "20ul_tips_3",text_color = text_color,OT_slot = 11,number_of_used_tips = ifelse(prep__tips>96,96,prep__tips))
-    Slot8 <- tip_rack_plot(label = "20ul_tips_4",text_color = text_color,OT_slot = 8,number_of_used_tips = ifelse((prep__tips-96)>=96,96,ifelse((prep__tips-96)<0,0,(prep__tips-96))))
-    Slot9 <- tip_rack_plot(label = "20ul_tips_5",text_color = text_color,OT_slot = 9,number_of_used_tips = ifelse((prep__tips-192)>=192,192,ifelse((prep__tips-192)<0,0,(prep__tips-192))))
+    Slot11 <- tip_rack_plot(label = "20ul_tips_2",text_color = text_color,OT_slot = 11,number_of_used_tips = ifelse((prep__tips-96)>=96,96,ifelse((prep__tips-96)<0,0,(prep__tips-96))))
+    Slot8 <- tip_rack_plot(label = "20ul_tips_3",text_color = text_color,OT_slot = 8,number_of_used_tips = ifelse(prep__tips>96,96,prep__tips))
+    Slot9 <- tip_rack_plot(label = "20ul_tips_4",text_color = text_color,OT_slot = 9,number_of_used_tips = ifelse((prep__tips-192)>=192,192,ifelse((prep__tips-192)<0,0,(prep__tips-192))))
+    Slot6 <- tip_rack_plot(label = "20ul_tips_5",text_color = text_color,OT_slot = 6,number_of_used_tips = ifelse((sample_dil_tips-96)>=96,96,ifelse((sample_dil_tips-96)<0,0,(sample_dil_tips-96))))
     
     #preparation plate
-    Slot6<- prep_plate_plot(label = "sample plate (96well NEST plate)",text_color = text_color,OT_slot = 6,number_of_samples = prep_plate_number_of_samples)
+    Slot7<- prep_plate_plot(label = "HEAT/SHAKER MODULE +\nsample plate (96well NEST plate)",
+                            text_color = text_color,
+                            OT_slot = 7,
+                            outline = T,
+                            outline_color = "orangered",
+                            number_of_samples = prep_plate_number_of_samples)
     #samples plot
     Slot4 <- sample_rack_plot(label = "samples_1 (24x 1.5ml tube rack)",text_color = text_color,OT_slot = 4,number_of_samples = ifelse(number_of_samples>24,24,number_of_samples))
     Slot1 <- sample_rack_plot(label = "samples_2 (24x 1.5ml tube rack)",text_color = text_color,OT_slot = 1,number_of_samples = ifelse((number_of_samples-24)>=24,24,ifelse((number_of_samples-24)<0,0,(number_of_samples-24))))
@@ -445,7 +455,11 @@ plot_deck_layout_step2_SP3 <- function(number_of_samples = 96,
     Slot6 <- tip_rack_plot(label = "20ul_tips_2",text_color = text_color, OT_slot = 6,number_of_used_tips = ifelse((digest_tips-96)>=96,96,ifelse((digest_tips-96)<0,0,(digest_tips-96))))
     
     #preparation plate
-    Slot1<- prep_plate_plot(label = "MAGNET MODULE +\nsample plate (96well NEST plate)",text_color = text_color,OT_slot = 1,number_of_samples = number_of_samples)
+    Slot1<- prep_plate_plot(label = "MAGNET MODULE +\nsample plate (96well NEST plate)",
+                            text_color = text_color,OT_slot = 1,
+                            number_of_samples = number_of_samples,
+                            outline = T,
+                            outline_color = "dodgerblue")
       
     
     deck_layout_plot_out<- (Slot10+Slot11+pipettes)/
@@ -491,7 +505,10 @@ plot_deck_layout_step3_MSvial <- function(number_of_samples = 96,
   Slot9 <- plot_spacer()
 
   #preparation plate
-  Slot1<- prep_plate_plot(label = "MAGNET MODULE +\nsample plate (96well NEST plate)",text_color = text_color,OT_slot = 1,number_of_samples = number_of_samples)
+  Slot1<- prep_plate_plot(label = "MAGNET MODULE +\nsample plate (96well NEST plate)",
+                          text_color = text_color,OT_slot = 1,number_of_samples = number_of_samples,
+                          outline = T,
+                          outline_color = "dodgerblue")
   
   
   deck_layout_plot_out<- (Slot10+Slot11+pipettes)/
@@ -547,7 +564,10 @@ plot_deck_layout_step3_EvoTips <- function(number_of_samples = 96,
   Slot9 <- tip_rack_plot(label = "300ul_tips_1",text_color = text_color, OT_slot = 9,number_of_used_tips = ifelse(tips_300ul>96,96,tips_300ul))
   
   #preparation plate
-  Slot1<- prep_plate_plot(label = "MAGNET MODULE +\nsample plate (96well NEST plate)",text_color = text_color,OT_slot = 1,number_of_samples = number_of_samples)
+  Slot1<- prep_plate_plot(label = "MAGNET MODULE +\nsample plate (96well NEST plate)",
+                          text_color = text_color,OT_slot = 1,number_of_samples = number_of_samples,
+                          outline = T,
+                          outline_color = "dodgerblue")
   
   
   deck_layout_plot_out<- (Slot10+Slot11+pipettes)/
@@ -589,7 +609,10 @@ plot_deck_layout_step4_EvoTips <- function(number_of_samples = 96,
   Slot9 <- plot_spacer()
   
   #preparation plate
-  Slot1<- prep_plate_plot(label = "MAGNET MODULE +\nsample plate (96well NEST plate)",text_color = text_color,OT_slot = 1,number_of_samples = number_of_samples)
+  Slot1<- prep_plate_plot(label = "MAGNET MODULE +\nsample plate (96well NEST plate)",
+                          text_color = text_color,OT_slot = 1,number_of_samples = number_of_samples,
+                          outline = T,
+                          outline_color = "dodgerblue")
   #regents
   Slot2 <- prep_plate_plot(label = "elution plate (96well NEST plate)",text_color = text_color,OT_slot = 2,number_of_samples = number_of_samples)
   

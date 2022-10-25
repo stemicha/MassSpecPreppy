@@ -232,3 +232,6 @@ def run(protocol: protocol_api.ProtocolContext):
                  mix_before = (12,20),
                  touch_tip = False)
   #vol = 20.625µl
+  
+  # open latch HS
+  hs_mod.open_labware_latch()

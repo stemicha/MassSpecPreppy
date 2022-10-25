@@ -1,9 +1,9 @@
 ## SP3 - Mass Spec Preppy - part1 - sample preparation with reduction and alkylation 
 ##########################################################################################################################################################
-
 # dependencies
 import json
 from opentrons import protocol_api
+from opentrons.types import Location, Point
 import csv
 import os
 import math
@@ -45,6 +45,11 @@ def vol_height_1_5_ml(initial_volume, aspirate_volume, height_below_mm):
 #run protocol from here on
 #remember python counts from 0 in iteration and postion in lists etc.!!!!
 def run(protocol: protocol_api.ProtocolContext):
+  # input x, y, z values here (in mm). 
+  # The coordinates are absolute 
+  # with reference to the bottom left corner of slot 1 as origin.
+  # x, y, and z can be a float or integer
+  locPause = Location(Point(40, 340, 150), None) # location for slot 10
   
   #get csv values from JSON above
   [csv_sample, sample_amount, trypsin_ratio, trypsin_stock_concentration,LysC_ratio,LysC_stock_concentration,EvoTips_amount_ng,LysC_Trypsin_Mix_stock_concentration,LysC_Trypsin_Mix_ratio] = get_values("csv_sample","sample_amount","trypsin_ratio", "trypsin_stock_concentration","LysC_ratio","LysC_stock_concentration","EvoTips_amount_ng","LysC_Trypsin_Mix_stock_concentration","LysC_Trypsin_Mix_ratio")
@@ -193,6 +198,7 @@ def run(protocol: protocol_api.ProtocolContext):
                  touch_tip = False)
   
   #HS step
+  p20.move_to(locPause)
   hs_mod.set_and_wait_for_temperature(37)
   protocol.delay(minutes=30)
   hs_mod.deactivate_heater()
@@ -211,6 +217,7 @@ def run(protocol: protocol_api.ProtocolContext):
                  touch_tip = False)
   
   #HS step
+  p20.move_to(locPause)
   hs_mod.set_and_wait_for_temperature(37)
   protocol.delay(minutes=15)
   hs_mod.deactivate_heater()

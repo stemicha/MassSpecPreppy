@@ -5,7 +5,7 @@
 ## dependencies
 import json
 from opentrons import protocol_api
-from opentrons.types import Point
+from opentrons.types import Location, Point
 import csv
 import os
 import math
@@ -29,6 +29,11 @@ metadata = {
 #run protocol from here on
 #remember python counts from 0 in iteration and postion in lists etc.!!!!
 def run(protocol: protocol_api.ProtocolContext):
+  # input x, y, z values here (in mm). 
+  # The coordinates are absolute 
+  # with reference to the bottom left corner of slot 1 as origin.
+  # x, y, and z can be a float or integer
+  locPause = Location(Point(40, 340, 150), None) # location for slot 10
   
   #get csv values from JSON above
   [csv_sample, sample_amount, trypsin_ratio, trypsin_stock_concentration,LysC_ratio,LysC_stock_concentration,EvoTips_amount_ng,LysC_Trypsin_Mix_stock_concentration,LysC_Trypsin_Mix_ratio] = get_values("csv_sample","sample_amount","trypsin_ratio", "trypsin_stock_concentration","LysC_ratio","LysC_stock_concentration","EvoTips_amount_ng","LysC_Trypsin_Mix_stock_concentration","LysC_Trypsin_Mix_ratio")
@@ -146,6 +151,7 @@ def run(protocol: protocol_api.ProtocolContext):
             m300.drop_tip()
         
         #engage magnet
+        m300.move_to(locPause)
         magnet_module.engage(height=MAGNET_HEIGHT)
         protocol.delay(minutes=INCUBATION_TIME, msg=f'Incubating on MagDeck for \
 f{INCUBATION_TIME} minutes.')
@@ -236,6 +242,7 @@ f{INCUBATION_TIME} minutes.')
   remove_supernatant(vol = 170, waste_position = reagents.wells_by_name()["A11"])
   
   #air dry beads
+  m300.move_to(locPause)
   protocol.delay(minutes=15, msg="air dry beads for 15 minutes")
   
   #transfer digest buffer

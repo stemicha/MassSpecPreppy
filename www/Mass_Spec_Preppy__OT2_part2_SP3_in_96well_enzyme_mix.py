@@ -125,6 +125,8 @@ def run(protocol: protocol_api.ProtocolContext):
   ##############################################
   def resuspend_beads_m300(vol, buffer_position):
         def resuspend_mix(side, vol, reps, well):
+            # offset + 4 mm in z-axis and 1.8fold to x axis for dispensing at reaction tube wall above bead pellet
+            # bead_loc = well.bottom().move(Point(x=side*OFFSET_RADIAL*1.8, z=OFFSET_Z+4))
             bead_loc = well.bottom().move(Point(x=side*OFFSET_RADIAL, z=OFFSET_Z))
             for _ in range(reps):
                 m300.aspirate(vol*0.7, well.bottom(OFFSET_Z)) #offset from bottom

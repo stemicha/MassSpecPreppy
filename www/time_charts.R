@@ -4,20 +4,17 @@ library(patchwork)
 
 
 #colors
-manual_colors <-  c("OT-2" = "dodgerblue4","manual"= "orange","incubation_time" = "grey")
+manual_colors <-  c("OT-2" = "dodgerblue4","manual"= "orange","H/S incubation_time" = "grey")
 
 
 #part1
 part1<- tribble(~item, ~activity,~manual_OT_2,~start,~end,
         1,"sample dilution","OT-2",0,58,
         2,"reduction","OT-2",58,63,
-        3,"reduction","manual",63,64,
-        4,"reduction","incubation_time",64,94,
-        5,"reduction","manual",94,95,
-        6,"alkylation","OT-2",95,100,
-        7,"alkylation","manual",100,101,
-        8,"alkylation","incubation_time",101,116,
-        9,"SP3 beads dispensing","OT-2",116,131
+        3,"reduction","H/S incubation_time",63,93,
+        6,"alkylation","OT-2",93,98,
+        8,"alkylation","H/S incubation_time",98,113,
+        9,"SP3 beads dispensing","OT-2",113,128
         )
 
 

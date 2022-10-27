@@ -29,6 +29,11 @@ metadata = {
 #run protocol from here on
 #remember python counts from 0 in iteration and postion in lists etc.!!!!
 def run(protocol: protocol_api.ProtocolContext):
+  # input x, y, z values here (in mm). 
+  # The coordinates are absolute 
+  # with reference to the bottom left corner of slot 1 as origin.
+  # x, y, and z can be a float or integer
+  locPause = Location(Point(40, 340, 150), None) # location for slot 10
   
   #get csv values from JSON above
   [csv_sample, sample_amount, trypsin_ratio, trypsin_stock_concentration,LysC_ratio,LysC_stock_concentration,EvoTips_amount_ng,LysC_Trypsin_Mix_stock_concentration,LysC_Trypsin_Mix_ratio] = get_values("csv_sample","sample_amount","trypsin_ratio", "trypsin_stock_concentration","LysC_ratio","LysC_stock_concentration","EvoTips_amount_ng","LysC_Trypsin_Mix_stock_concentration","LysC_Trypsin_Mix_ratio")
@@ -127,7 +132,9 @@ def run(protocol: protocol_api.ProtocolContext):
   ##############################################
   def resuspend_beads_m300(vol, buffer_position):
         def resuspend_mix(side, vol, reps, well):
-            bead_loc = well.bottom().move(Point(x=side*OFFSET_RADIAL, z=OFFSET_Z))
+            # offset + 2 mm in z-axis and 1.4fold to x axis for dispensing at reaction tube wall above bead pellet
+            bead_loc = well.bottom().move(Point(x=side*OFFSET_RADIAL*1.4, z=OFFSET_Z+2))
+            #bead_loc = well.bottom().move(Point(x=side*OFFSET_RADIAL, z=OFFSET_Z))
             for _ in range(reps):
                 m300.aspirate(vol*0.7, well.bottom(OFFSET_Z)) #offset from bottom
                 m300.dispense(vol*0.7, bead_loc)
@@ -146,6 +153,7 @@ def run(protocol: protocol_api.ProtocolContext):
             m300.drop_tip()
         
         #engage magnet
+        m300.move_to(locPause)
         magnet_module.engage(height=MAGNET_HEIGHT)
         protocol.delay(minutes=INCUBATION_TIME, msg=f'Incubating on MagDeck for \
 f{INCUBATION_TIME} minutes.')
@@ -236,6 +244,7 @@ f{INCUBATION_TIME} minutes.')
   remove_supernatant(vol = 170, waste_position = reagents.wells_by_name()["A11"])
   
   #air dry beads
+  m300.move_to(locPause)
   protocol.delay(minutes=15, msg="air dry beads for 15 minutes")
   
   #transfer digest buffer

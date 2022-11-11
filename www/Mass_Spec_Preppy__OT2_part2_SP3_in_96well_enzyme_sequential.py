@@ -4,8 +4,8 @@
 ## py_install(packages = "opentrons",pip = T)
 ## dependencies
 import json
+from opentrons.types import Location, Point
 from opentrons import protocol_api
-from opentrons.types import Point
 import csv
 import os
 import math

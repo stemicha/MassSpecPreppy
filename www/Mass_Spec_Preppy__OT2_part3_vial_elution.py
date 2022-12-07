@@ -97,9 +97,11 @@ def run(protocol: protocol_api.ProtocolContext):
 f{INCUBATION_TIME} minutes.')
 
   for i in range(0,  math.ceil(sample_number/8)):
+    side = -1 if i % 2 == 0 else 1
+    loc = magplate.wells_by_name()[prep_plate_columns_position[i]].bottom().move(Point(x=side*OFFSET_RADIAL, z=OFFSET_Z_remove))
     m20.transfer(2.44, 
                  reagents.wells_by_name()["A1"].bottom(1), # 1mm from bottom
-                 magplate.wells_by_name()[prep_plate_columns_position[i]].bottom(1), 
+                 loc, 
                  new_tip ="always",
                  blow_out = True,
                  blowout_location = "destination well",

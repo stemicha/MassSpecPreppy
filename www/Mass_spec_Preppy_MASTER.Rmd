@@ -226,7 +226,7 @@ DT::datatable(step2,rownames= FALSE,options = list(pageLength = nrow(step2),
 
 ```
 
-# Protocol step 3 -  clean-up after digest
+# Protocol step 3 -  elution after digest
 
 <span style="color:red; font-weight: bold;">Always perform labware calibration before starting this protocol at the OT-2 app</span>
 
@@ -240,7 +240,7 @@ DT::datatable(step2,rownames= FALSE,options = list(pageLength = nrow(step2),
 knitr::include_graphics(params$deck_plot3)
 ```
 
-## Protocol step 3 -  clean-up after digest - steps
+## Protocol step 3 -  elution after digest - steps
 
 
 ```{r,echo=F}

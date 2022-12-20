@@ -5,31 +5,49 @@
 ## Notes:
 #____________________________________________________________________#
 
+library(tidyverse)
+library(patchwork)
+library(ggrepel)
+library(readxl)
+library(openxlsx)
 library(shiny)
 library(shinythemes)
-library(shinyalert)
 library(shinyWidgets)
+library(dplyr)
+library(readr)
+library(shinyalert)
+library(shinyBS)
+library(broom)
+library(DT)
+library(shinycssloaders)
+library(shinydashboard)
+library(knitr)
+library(htmltools)
+library(markdown)
+library(magrittr)
+library(shinymanager)
+library(ggimage)
 library(bslib)
 library(thematic)
-library(patchwork)
-library(readxl)
-library(shinymanager)
-library(tidyverse)
-library(ggimage)
-library(shinycssloaders)
-source("www/helper_functions.R")
+source("www/helper_functions_BCA.R")
+source("www/helper_functions_sample_digest.R")
 
-#shiny options
+
+# shiny options -----------------------------------------------------------
+
 shinyOptions(plot.autocolors = TRUE)
 
 
-#theming
+# theming -----------------------------------------------------------------
 shinyOptions(bslib = TRUE)
 bs_global_theme(bg = "#002B36", fg = "#FFFFFF",primary = "#509DD1")
 thematic_shiny()
 
 
-#custom css for login page
+
+
+
+# custom css for login page -----------------------------------------------
 css <- HTML(".btn-primary {
                   color: #ffffff;
                   background-color: #649CCC;
@@ -39,7 +57,10 @@ css <- HTML(".btn-primary {
                   border-color: #649CCC;
               }")
 
-#add app login
+tags$head(tags$link(rel="shortcut icon",
+                    href="www/Mass_Spec_Preppy_hexbin_favicon.png"))
+
+# add app login -----------------------------------------------------------
 secure_app(choose_language = FALSE,
            theme = shinythemes::shinytheme("cyborg"),
            tags_top = tags$div(
@@ -51,18 +72,42 @@ secure_app(choose_language = FALSE,
 fluidPage(
   theme = shinytheme("cyborg"),
       # Application title
-    titlePanel(img(src="Mass_Spec_Preppy_logo.png", height = 200, align = "center")),
+    titlePanel(title = img(src="Mass_Spec_Preppy_logo.png", height = 200, align = "center")),
     # Sidebar with a slider input for number of bins
     sidebarLayout(#
         sidebarPanel(width = 2,
+                     # BCA or digest
+                     radioGroupButtons(
+                       inputId = "BCA_sample_digest_selection",
+                       label = p("BCA assay or Sample digest?"), 
+                       choices = c("BCA assay", "Sample digest"),
+                       selected = "BCA assay",
+                       checkIcon = list(yes = icon("check")),
+                       width = "100%",
+                       justified = T
+                     ),
+                     #colorize radioGroupButtons
+                     tags$script("$(\"input:radio[name='BCA_sample_digest_selection'][value='BCA assay']\").parent().css('background-color', '#521253');"),
+                     tags$script("$(\"input:radio[name='BCA_sample_digest_selection'][value='Sample digest']\").parent().css('background-color', '#2A5D90');"),
+                     hr(),
+
+# sample digest UI --------------------------------------------------------
+
+        conditionalPanel(condition = "input.BCA_sample_digest_selection == 'Sample digest'",            
             #file upload
+            br(),
             fileInput(inputId = "input_sample_file",label = "input sample file",accept = ".xlsx"),
             tags$p("sample conc. should be approx. 0.5-2µg/µl", style = "color:#84B135; align:center; margin-left: 15px"),
             downloadButton(outputId = "input_template_OT2",
                            label = "OT-2 template download",
-                           style="color:#fff; background-color: #333333; border-color: #212121; margin-left: 5px;width:100%"),
+                           style="color:#fff; background-color: #333333; border-color: #2A5D90; margin-left: 5px;width:100%"),
+            bsPopover(id = "input_template_OT2", 
+                      title = NULL, 
+                      content ="download sample digest OT-2 template file", 
+                      trigger = "hover",
+                      options = NULL),
             br(),
-            tags$p("(96 samples - 4 slots - 24 samples per slot)", style = "color:grey; align:center; margin-left: 15px"),
+            tags$p("( max. 96 samples - 4 slots - 24 samples per slot)", style = "color:grey; align:center; margin-left: 15px"),
             hr(),
             sliderInput(inputId = "input_sample_amount",label = "sample amount to digest (µg)",value = 4,min = 1,max = 10,step = 1),
             #decide enzyme mix or sequential
@@ -113,11 +158,98 @@ fluidPage(
                          icon=icon("robot"),
                          style="color:#fff; background-color: #4B9449; border-color: #53A551; margin-left: 5px;width:100%"),
             uiOutput("download_OT2_template")
-        ),
+          ),
 
-        # Show a plot of the generated distribution
+# BCA assay ui ------------------------------------------------------------
+  conditionalPanel(condition = "input.BCA_sample_digest_selection == 'BCA assay'",     
+
+                   # BCA OT-2 selection
+                   fileInput(inputId = "BCA_OT2_template_upload_file", 
+                             label = p(
+                               span("upload OT-2 sample file"),
+                               span(icon("fa-light fa-circle-info"), id = "OT2_template_selection_icon", style = "color: white")
+                             ),
+                             accept = c("Excel", ".xlsx"),
+                             multiple = FALSE),
+                   bsPopover(id = "OT2_template_selection_icon", 
+                             title = NULL, 
+                             content ="please provide the filled out OT-2 template file (max. 40 samples!!!)", 
+                             trigger = "hover",
+                             options = NULL),
+                   
+                   downloadButton(outputId = "input_BCA_template_OT2",
+                                  label = "BCA OT-2 template download",
+                                  style="color:#fff; background-color: #333333; border-color: #212121; margin-left: 5px;width:100%"),
+                   br(),
+                   br(),
+                   actionButton(inputId = "inputButton_generate_BCA_OT2_template",
+                                label = "generate OT-2 protocol",
+                                width = "100%",
+                                icon=icon("table"),
+                                style="color:#fff; background-color: #4B9449; border-color: #53A551; margin-left: 5px;width:100%"),
+                   bsPopover(id = "inputButton_generate_BCA_OT2_template", 
+                             title = NULL, 
+                             content ="be sure you uploaded the modified OT-2 template before processing ...", 
+                             trigger = "hover",
+                             options = NULL),
+                   uiOutput("download_BCA_OT2_template"),
+                   hr(),
+                   
+                   
+            # measurement file upload -------------------------------------------------
+            h4("analysis of measured data:"),
+            
+            fileInput("BCA_xlsx_raw_96well",accept = c("Excel", ".xlsx"),
+                      label=p("upload measured BCA data (96well)"),
+                      multiple = FALSE),
+            
+            # meta file upload --------------------------------------------------------
+            fileInput(inputId = "BCA_xlsx_meta",
+                      label = p(
+                        span("upload BCA assay meta data file"),
+                        span(icon("fa-light fa-circle-info"), id = "xlsx_meta_icon", style = "color: white")
+                      ),
+                      accept = c("Excel", ".xlsx"),
+                      multiple = FALSE),
+            
+            bsPopover(id = "xlsx_meta_icon", 
+                      title = NULL, 
+                      content ="be sure you have used the meta file generated by the app before", 
+                      placement = "bottom", 
+                      trigger = "hover",
+                      options = NULL),
+            
+            # action button -----------------------------------------------------------
+            actionButton(inputId = "BCA_inputButton_data_processing",
+                         label = "RUN data processing...",
+                         width = "100%",
+                         icon=icon("youtube"),
+                         style="color:#fff; background-color: #521253; border-color: #591C5D; margin-left: 5px;width:100%"),
+            bsPopover(id = "BCA_inputButton_data_processing", 
+                      title = NULL, 
+                      content ="be sure you have uploaded mesurement and meta file !!!", 
+                      placement = "bottom", 
+                      trigger = "hover",
+                      options = NULL),
+                      br(),
+                     hr(),
+            #BCA analysis download        
+            uiOutput("BCA_download_analysis")
+            ),
+
+
+# version  ----------------------------------------------------------------
+p("MassSpecPreppy version 1.0.0")
+
+),# end sidebar panel
+# main panel --------------------------------------------------------------
+
         mainPanel(
+
+# sample digest output ----------------------------------------------------
+          conditionalPanel("input.BCA_sample_digest_selection == 'Sample digest'",
           tabsetPanel(type = "tabs",
+                      selected = "Step 1 deck layout",
                       tabPanel("Step 1 deck layout",
                                withSpinner(plotOutput("step1_plot",height = 1000,width = 950),color = "#649CCC",type = 5)),
                       tabPanel("Step 2 deck layout",
@@ -125,11 +257,41 @@ fluidPage(
                       tabPanel("Step 3 deck layout",
                                withSpinner(plotOutput("step3_plot",height = 1000,width = 950),color = "#649CCC",type = 5)),
                       tabPanel("how to ...",
-                               includeHTML("how_to.html"))
+                               includeHTML("how_to_Mass_Spec_Preppy.html"))
           )
 
+          ),
+
+# BCA assay output --------------------------------------------------------
+        conditionalPanel("input.BCA_sample_digest_selection == 'BCA assay'",
+          tabsetPanel(type = "tabs",
+                      selected = "CV plot over samples",
+            tabPanel("CV plot over samples",
+                     uiOutput("data_cv_plot_out_ui")),
+            tabPanel("Standard plot", 
+                     uiOutput("standard_plot_out_ui")),
+            tabPanel("Samples data table",
+                     #format data table control color and hover highlight
+                     tags$head(tags$style(HTML("table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
+                                  background-color: #0885C8 !important;
+                                  }
+                                  "))),
+                     tags$style(HTML(".dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing,.dataTables_wrapper .dataTables_paginate .paginate_button, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+                                        color: #FFFFFF !important;
+                      }")),
+                     verticalLayout(
+                       fluidRow(column(align = "center", width = 9, DT::DTOutput("data_samples_summary_out"))))),
+            tabPanel("Samples measurements", 
+                     uiOutput("measurements_plot_out_ui")),
+            tabPanel("comment counts",
+                     uiOutput("comment_count_barchart_out_ui")),
+            tabPanel("how to ...", 
+                     fluidRow(withMathJax(includeMarkdown("www/BCA_description.md")))
+            )
           )
-        )
+          )
+        )# end main panel
     )
+)
 
 )#end secure app / shinymanager

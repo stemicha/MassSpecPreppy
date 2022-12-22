@@ -989,7 +989,6 @@ output$BCA_download_analysis <- renderUI({
         style = "color:#FFFFFF; background-color: #060606; border-color: #84B135; margin-left: 5px;width:100%"
       ),
       helpText("zipped folder is ready for download", style = "margin-left: 10px"),
-      hr()
     )
   }
 })

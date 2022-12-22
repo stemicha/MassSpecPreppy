@@ -61,3 +61,16 @@ decklayout_plots <- eventReactive(input$inputButton_generate_OT2_template, {
     )
   }) # end progressbar
 }) # end decklayout_plots
+
+# render deck plot output ------------------------------------------------------
+
+# progressbar render deck plots
+withProgress(message = "render deck layout plots for the OT-2", style = "notification", value = 0, {
+  incProgress(0.3, detail = "deck layout step 1")
+  output$step1_plot <- renderPlot(decklayout_plots()$deck_plot1)
+  incProgress(0.6, detail = "deck layout step 2")
+  output$step2_plot <- renderPlot(decklayout_plots()$deck_plot2)
+  incProgress(0.9, detail = "deck layout step 3")
+  output$step3_plot <- renderPlot(decklayout_plots()$deck_plot3)
+  output$step4_plot <- renderPlot(decklayout_plots()$deck_plot4)
+}) # end progressbar render deck plots

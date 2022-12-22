@@ -280,7 +280,7 @@ DT::datatable(step3,rownames= FALSE,options = list(pageLength = nrow(step3),
 ```
 
 
-# Protocol step 4 -  post EvoTip loading elution of acidified peptide mixture
+# Protocol step 4 -  post EvoTip loading elution of acidified peptide mixture (storage plate)
 
 <span style="color:red; font-weight: bold;">Always perform labware calibration before starting this protocol at the OT-2 app</span>
 

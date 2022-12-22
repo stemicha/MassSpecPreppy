@@ -1,8 +1,8 @@
 ---
-title: "Mass Spec Preppy - How to"
-format: html
-editor: visual
+title: "Mass Spec Preppy - how to ..."
+output: md_document
 ---
+
 
 ### 1. Sample list template
 

@@ -276,14 +276,15 @@ secure_app(
             options = NULL
           ),
           br(),
-          hr(),
           # BCA analysis download
           uiOutput("BCA_download_analysis")
         ),
 
 
+        
         # version  ----------------------------------------------------------------
-        p("MassSpecPreppy version 1.0.0")
+        hr(),
+        p("MassSpecPreppy version 1.0.0",style = "text-align: right")
       ), # end sidebar panel
       # main panel --------------------------------------------------------------
 
@@ -309,7 +310,8 @@ secure_app(
             ),
             tabPanel(
               "how to ...",
-              includeHTML("how_to_Mass_Spec_Preppy.html")
+              fluidRow(withMathJax(includeMarkdown("www/how_to_Mass_Spec_Preppy.md")))
+              
             )
           )
         ),

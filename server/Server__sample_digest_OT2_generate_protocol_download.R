@@ -447,3 +447,21 @@ output$dlOT2 <- downloadHandler(
     })
   }
 )
+
+
+# render conditional output sample digest download ------------------------------------
+
+output$download_OT2_template <- renderUI({
+  if (!is.null(OT2_template_generation()$file_name) # & sum(OT2_template_generation()$error)==0
+  ) {
+    tagList(
+      hr(),
+      p("download OT-2 template:", style = "color:#84B135;margin-left: 5px"),
+      downloadButton(
+        outputId = "dlOT2",
+        label = "OT-2 protocol (.py)",
+        style = "color:#FFFFFF; background-color: #060606; border-color: #84B135; margin-left: 5px;width:100%"
+      )
+    )
+  }
+})

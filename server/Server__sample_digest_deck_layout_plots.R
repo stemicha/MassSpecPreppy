@@ -8,23 +8,21 @@ decklayout_plots <- eventReactive(input$inputButton_generate_OT2_template, {
     incProgress(0.3, detail = "load sample list")
 
     # load sample file
-    OT2_template <- read_excel(
+    OT2_template_raw <- read_excel(
       input$input_sample_file$datapath,
       skip = 0, sheet = 1
     )
     # OT2_template <- read_excel("www/DEMO_MSpreppy.xlsx")
-    # remove rows without sample name
-    OT2_template <- OT2_template %>%
+    OT2_template <- OT2_template_raw %>%
       filter(!is.na(sample))
 
     incProgress(0.6, detail = "generate plots")
 
     # step 1 red & alk == TRUE ------------------------------------------------
     if (input$logical_red_alk == TRUE) {
-      deck_plot1 <- plot_deck_layout_step1(red_alk = T, number_of_samples = dim(OT2_template %>% distinct(`OT-2 slot`, `OT-2 position`))[1], prep_plate_number_of_samples = dim(OT2_template)[1], text_color = "white")
+      deck_plot1 <- plot_deck_layout_step1(red_alk = T, meta_table = OT2_template_raw, text_color = "white")
     }
     if (input$logical_red_alk == FALSE) {
-      deck_plot1 <- plot_deck_layout_step1(red_alk = F, number_of_samples = dim(OT2_template %>% distinct(`OT-2 slot`, `OT-2 position`))[1], prep_plate_number_of_samples = dim(OT2_template)[1], text_color = "white")
     }
 
     deck_plot2 <- plot_deck_layout_step2_SP3(

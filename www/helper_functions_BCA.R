@@ -71,17 +71,29 @@ BCA_prep_plate_plot <- function(label = "preparation plate (96 NEST 100ul plate)
 # samples 1.5ml tube plot -----------------------------------------------------------
 
 BCA_sample_rack_plot <- function(label = "samples_1 (24 x 1.5ml tube rack)",
-                            OT_slot = "4",
-                            BSA_standard = T,
-                            number_of_samples = 12,
-                            text_color = "black"){
+                                 OT_slot = "4",
+                                 BSA_standard = T,
+                                 slot_meta_table = "samples1",
+                                 meta_table = meta_table,
+                                 text_color = "black"){
   
   
   slot_template_24 <- read_excel("www/slot_template_24well.xlsx")
   
-  slot_template_24$samples <- FALSE
-  if(number_of_samples!=0){slot_template_24$samples[1:number_of_samples] <- TRUE}
-
+  # clean meta table
+  meta_table_cleaned <- meta_table %>% 
+    filter(`OT-2 slot` == slot_meta_table) %>% 
+    mutate(samples = ifelse(!is.na(sample),yes = TRUE,no = FALSE))
+  
+  
+  slot_template_24 <- left_join(slot_template_24,
+                                meta_table_cleaned %>% 
+                                  filter(samples==TRUE) %>% 
+                                  distinct(`OT-2 position`,samples), by = c("position"="OT-2 position")) %>% 
+    rowwise() %>% 
+    mutate(samples = ifelse(is.na(samples),FALSE,TRUE)) %>% 
+    ungroup()
+  
   slot_template_24 <- slot_template_24 %>% mutate(samples=as.character(samples))
   
   
@@ -112,7 +124,6 @@ BCA_sample_rack_plot <- function(label = "samples_1 (24 x 1.5ml tube rack)",
   }
   plot_samples_tmp
 }
-
 
 
 
@@ -195,10 +206,13 @@ BCA_pipette_plot <- function(left = "20µl single channel",right = "20µl multi 
   
 }
 
-# decklayout step 1 -------------------------------------------------------
+# decklayout -------------------------------------------------------
 
-plot_deck_layout_BCA <- function(number_of_samples = 20, text_color = "black"){
+plot_deck_layout_BCA <- function(meta_table = meta_table, text_color = "black"){
   
+  
+  #number of samples
+  number_of_samples <- nrow(meta_table %>% filter(!is.na(sample)))
   
   plate_columns_used<- ceiling(number_of_samples/8)
   pipettes <- BCA_pipette_plot(left = "20µl single channel",right = "300µl multi channel")
@@ -230,8 +244,8 @@ plot_deck_layout_BCA <- function(number_of_samples = 20, text_color = "black"){
     Slot1<- BCA_prep_plate_plot(label = "BCA plate (half area plate)",point_size = 5,text_color = text_color,OT_slot = 1,number_of_samples = 0)
     
     #samples plot
-    Slot4 <- BCA_sample_rack_plot(label = "samples_1 (24x 1.5ml tube rack)",text_color = text_color,OT_slot = 4,BSA_standard = F,number_of_samples = ifelse(number_of_samples>24,24,number_of_samples))
-    Slot5 <- BCA_sample_rack_plot(label = "samples_2 (24x 1.5ml tube rack)",text_color = text_color,OT_slot = 5,BSA_standard = T,number_of_samples = ifelse((number_of_samples-24)>=24,24,ifelse((number_of_samples-24)<0,0,(number_of_samples-24))))
+    Slot4 <- BCA_sample_rack_plot(label = "samples_1 (24x 1.5ml tube rack)",text_color = text_color,OT_slot = 4,BSA_standard = F,meta_table = meta_table, slot_meta_table = "samples1")
+    Slot5 <- BCA_sample_rack_plot(label = "samples_2 (24x 1.5ml tube rack)",text_color = text_color,OT_slot = 5,BSA_standard = T,meta_table = meta_table, slot_meta_table = "samples2")
     
     
     BCA_deck_layout_plot_out<- (Slot10+Slot11+pipettes)/

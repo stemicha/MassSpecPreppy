@@ -76,15 +76,30 @@ prep_plate_plot <- function(label = "preparation plate (96 NEST 100ul plate)",
 
 sample_rack_plot <- function(label = "samples_1 (24 x 1.5ml tube rack)",
                             OT_slot = "4",
-                            number_of_samples = 24,
+                            slot_meta_table = "samples1",
+                            meta_table = meta_table,
                             text_color = "black"){
   
   
   slot_template_24 <- read_excel("www/slot_template_24well.xlsx")
   
-  slot_template_24$samples <- FALSE
-  if(number_of_samples!=0){slot_template_24$samples[1:number_of_samples] <- TRUE}
+  
+  # clean meta table
+  meta_table_cleaned <- meta_table %>% 
+    filter(`OT-2 slot` == slot_meta_table) %>% 
+    mutate(samples = ifelse(!is.na(sample),yes = TRUE,no = FALSE))
 
+  
+  slot_template_24 <- left_join(slot_template_24,
+                                meta_table_cleaned %>% 
+                                  filter(samples==TRUE) %>% 
+                                  distinct(`OT-2 position`,samples), by = c("position"="OT-2 position")) %>% 
+    rowwise() %>% 
+    mutate(samples = ifelse(is.na(samples),FALSE,TRUE)) %>% 
+    ungroup()
+  
+  slot_template_24 <- slot_template_24 %>% mutate(samples=as.character(samples))
+  
   ggplot(slot_template_24,aes(col_pos,row_pos))+
     geom_tile()+
     geom_point(size = 10, mapping = aes(color = samples))+
@@ -284,10 +299,11 @@ pipette_plot <- function(left = "20µl single channel",right = "20µl multi chan
 # decklayout step 1 -------------------------------------------------------
 
 plot_deck_layout_step1 <- function(red_alk = TRUE,
-                                   number_of_samples = 55,
-                                   prep_plate_number_of_samples= 55,
+                                   meta_table = meta_table,
                                    text_color = "black"){
   
+  #number of samples
+  number_of_samples <- nrow(meta_table %>% filter(!is.na(sample)))
   
   plate_columns_used<- ceiling(number_of_samples/8)
   pipettes <- pipette_plot(left = "20µl single channel",right = "20µl multi channel")
@@ -306,7 +322,7 @@ plot_deck_layout_step1 <- function(red_alk = TRUE,
     Slot3 <- nest_96well_reagent_plot(input_df = input_df_NEST_100ul,label = "reagent plate (96well NEST plate)",OT_slot = 3,text_color = text_color)
     
     #tips
-    sample_dil_tips <- prep_plate_number_of_samples*2
+    sample_dil_tips <- number_of_samples*2
     prep__tips <- 8*plate_columns_used*3
     
     
@@ -322,12 +338,28 @@ plot_deck_layout_step1 <- function(red_alk = TRUE,
                             OT_slot = 7,
                             outline = T,
                             outline_color = "orangered",
-                            number_of_samples = prep_plate_number_of_samples)
+                            number_of_samples = number_of_samples)
     #samples plot
-    Slot4 <- sample_rack_plot(label = "samples_1 (24x 1.5ml tube rack)",text_color = text_color,OT_slot = 4,number_of_samples = ifelse(number_of_samples>24,24,number_of_samples))
-    Slot1 <- sample_rack_plot(label = "samples_2 (24x 1.5ml tube rack)",text_color = text_color,OT_slot = 1,number_of_samples = ifelse((number_of_samples-24)>=24,24,ifelse((number_of_samples-24)<0,0,(number_of_samples-24))))
-    Slot5 <- sample_rack_plot(label = "samples_3 (24x 1.5ml tube rack)",text_color = text_color,OT_slot = 5,number_of_samples = ifelse((number_of_samples-48)>=24,24,ifelse((number_of_samples-48)<0,0,(number_of_samples-48))))
-    Slot2 <- sample_rack_plot(label = "samples_4 (24x 1.5ml tube rack)",text_color = text_color,OT_slot = 2,number_of_samples = ifelse((number_of_samples-72)>=24,24,ifelse((number_of_samples-72)<0,0,(number_of_samples-72))))
+    Slot4 <- sample_rack_plot(label = "samples_1 (24x 1.5ml tube rack)",
+                              text_color = text_color,
+                              OT_slot = 4,
+                              slot_meta_table = "samples1",
+                              meta_table = meta_table)
+    Slot1 <- sample_rack_plot(label = "samples_2 (24x 1.5ml tube rack)",
+                              text_color = text_color,
+                              OT_slot = 1,
+                              slot_meta_table = "samples2",
+                              meta_table = meta_table)
+    Slot5 <- sample_rack_plot(label = "samples_3 (24x 1.5ml tube rack)",
+                              text_color = text_color,
+                              OT_slot = 5,
+                              slot_meta_table = "samples3",
+                              meta_table = meta_table)
+    Slot2 <- sample_rack_plot(label = "samples_4 (24x 1.5ml tube rack)",
+                              text_color = text_color,
+                              OT_slot = 2,
+                              slot_meta_table = "samples4",
+                              meta_table = meta_table)
     
     deck_layout_plot_out<- (Slot10+Slot11+pipettes)/
       (Slot7+Slot8+Slot9)/
@@ -363,11 +395,26 @@ plot_deck_layout_step1 <- function(red_alk = TRUE,
     #preparation plate
     Slot6<- prep_plate_plot(label = "sample plate (96 NEST plate)",text_color = text_color,OT_slot = 6,number_of_samples = number_of_samples)
     #samples plot
-    Slot4 <- sample_rack_plot(label = "samples_1 (24x 1.5ml tube rack)",text_color = text_color,OT_slot = 4,number_of_samples = ifelse(number_of_samples>24,24,number_of_samples))
-    Slot1 <- sample_rack_plot(label = "samples_2 (24x 1.5ml tube rack)",text_color = text_color,OT_slot = 1,number_of_samples = ifelse((number_of_samples-24)>=24,24,ifelse((number_of_samples-24)<0,0,(number_of_samples-24))))
-    Slot5 <- sample_rack_plot(label = "samples_3 (24x 1.5ml tube rack)",text_color = text_color,OT_slot = 5,number_of_samples = ifelse((number_of_samples-48)>=24,24,ifelse((number_of_samples-48)<0,0,(number_of_samples-48))))
-    Slot2 <- sample_rack_plot(label = "samples_4 (24x 1.5ml tube rack)",text_color = text_color,OT_slot = 2,number_of_samples = ifelse((number_of_samples-72)>=24,24,ifelse((number_of_samples-72)<0,0,(number_of_samples-72))))
-    
+    Slot4 <- sample_rack_plot(label = "samples_1 (24x 1.5ml tube rack)",
+                              text_color = text_color,
+                              OT_slot = 4,
+                              slot_meta_table = "samples1",
+                              meta_table = meta_table)
+    Slot1 <- sample_rack_plot(label = "samples_2 (24x 1.5ml tube rack)",
+                              text_color = text_color,
+                              OT_slot = 1,
+                              slot_meta_table = "samples2",
+                              meta_table = meta_table)
+    Slot5 <- sample_rack_plot(label = "samples_3 (24x 1.5ml tube rack)",
+                              text_color = text_color,
+                              OT_slot = 5,
+                              slot_meta_table = "samples3",
+                              meta_table = meta_table)
+    Slot2 <- sample_rack_plot(label = "samples_4 (24x 1.5ml tube rack)",
+                              text_color = text_color,
+                              OT_slot = 2,
+                              slot_meta_table = "samples4",
+                              meta_table = meta_table)
     
     deck_layout_plot_out<- (Slot10+Slot11+pipettes)/
       (Slot7+Slot8+Slot9)/

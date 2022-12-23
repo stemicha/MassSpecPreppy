@@ -201,7 +201,7 @@ output$dlOT2_BCA <- downloadHandler(
       )
 
       ggsave(
-        plot = plot_deck_layout_BCA(number_of_samples = nrow(BCA_OT2_template_generation()$OT2_template), text_color = "black"), device = "png",
+        plot = plot_deck_layout_BCA(meta_table = BCA_OT2_template_generation()$OT2_template, text_color = "black"), device = "png",
         filename = paste(BCA_OT2_template_generation()$file_output_short, "__decklayout.png", sep = ""),
         width = 13,
         height = 11

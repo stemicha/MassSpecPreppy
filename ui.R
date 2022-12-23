@@ -76,7 +76,7 @@ secure_app(
   fluidPage(
     theme = shinytheme("cyborg"),
     # Application title
-    titlePanel(title = img(src = "Mass_Spec_Preppy_logo.png", height = 200, align = "center")),
+    titlePanel(title = img(src = "Mass_Spec_Preppy_logo.png", height = 100, align = "center")),
     # Sidebar with a slider input for number of bins
     sidebarLayout( #
       sidebarPanel(

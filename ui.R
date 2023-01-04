@@ -80,7 +80,7 @@ secure_app(
     # Sidebar with a slider input for number of bins
     sidebarLayout( #
       sidebarPanel(
-        width = 2,
+        width = 3,
         # BCA or digest
         radioGroupButtons(
           inputId = "BCA_sample_digest_selection",

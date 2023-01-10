@@ -697,7 +697,7 @@ calculations <- reactive({
       measurements_plot <- ggplot(data_samples_summary) +
         geom_vline(mapping = aes(xintercept = meanAbs, color = comment), alpha = 0.5) +
         scale_color_manual(values = comments_colors) +
-        geom_point(data = std_tidy_summary, mapping = aes(meanAbs, conc_mg_per_ml), size = 5, alpha = 0.8, color = "darkgrey") +
+        geom_point(data = std_tidy_summary, mapping = aes(meanAbs, conc_mg_per_ml), size = 5, alpha = 0.8, color = "black") +
         stat_smooth(
           data = standard_hard_coded, mapping = aes(y = conc_mg_per_ml, x = meanAbs),
           method = "loess",
@@ -717,8 +717,8 @@ calculations <- reactive({
           title = "standard curve (loess / linear fit)", y = "µg/µl",
           caption = "loess fit & 95% CI in black / linear fit in blue"
         ) +
-        geom_hline(yintercept = min(std_tidy_summary$conc_mg_per_ml)) +
-        geom_hline(yintercept = max(std_tidy_summary$conc_mg_per_ml)) +
+        geom_hline(yintercept = min(std_tidy_summary$conc_mg_per_ml), color = "black") +
+        geom_hline(yintercept = max(std_tidy_summary$conc_mg_per_ml), color = "black") +
         coord_flip() +
         facet_grid(`Plate Number` ~ dilution_factor, labeller = as_labeller(c(dilution_factors_names, plates_names))) +
         theme(
@@ -733,7 +733,7 @@ calculations <- reactive({
       measurements_plot_hist_dens <- ggplot(data_samples_summary) +
         geom_vline(mapping = aes(xintercept = meanAbs, color = comment)) +
         scale_color_manual(values = comments_colors) +
-        geom_density(mapping = aes(x = meanAbs)) +
+        geom_density(mapping = aes(x = meanAbs), color = "black") +
         coord_flip() +
         facet_grid(`Plate Number` ~ dilution_factor,
           scales = "free_x",
@@ -785,7 +785,7 @@ calculations <- reactive({
         ), method = "loess", color = "black", se = F) +
         coord_cartesian(xlim = c(0, max(max_scatter)), ylim = c(0, max(max_scatter))) +
         theme_minimal(base_size = 18) +
-        geom_abline(slope = 1, intercept = 0, linetype = "dashed") +
+        geom_abline(slope = 1, intercept = 0, linetype = "dashed",  color = "black") +
         labs(
           color = "% outside standard curve",
           x = "µg/µl (LOESS)", y = "µg/µl (LINEAR)",
@@ -830,7 +830,7 @@ calculations <- reactive({
               x = conc_µg_per_µl_wo_dil_factor * dilution_factor,
               y = conc_µg_per_µl_wo_dil_factor_LINEAR_fit * dilution_factor,
               label = Sample
-            ), min.segment.length = 0.001
+            ), min.segment.length = 0.001, color = "black"
           )
       } else {
         scatter_conc <- scatter_conc +
@@ -1016,7 +1016,7 @@ output$BCA_downloadProcessedData <- downloadHandler(
         incProgress(amount = 1 / 5, message = "saving plots")
         # save plots
         ggsave(filename = paste(file_name(), "__data_CV_plot.png", sep = ""), plot = calculations()$data_cv_plot, device = "png", width = 20, height = 5 * calculations()$dilutions, dpi = 150, limitsize = FALSE)
-        ggsave(filename = paste(file_name(), "__standard_plot.png", sep = ""), plot = calculations()$standard_plot, device = "png", width = 16, height = 20, dpi = 150, limitsize = FALSE)
+        ggsave(filename = paste(file_name(), "__standard_plot.png", sep = ""), plot = calculations()$standard_plot, device = "png", width = 8, height = 15, dpi = 150, limitsize = FALSE)
         ggsave(filename = paste(file_name(), "__measurements_plot.png", sep = ""), plot = calculations()$measurements_plot, device = "png", width = ifelse(calculations()$dilutions == 1, 10, 5 * calculations()$dilutions), height = (4 * calculations()$plates) * 3, dpi = 150, limitsize = FALSE)
 
 
@@ -1068,7 +1068,7 @@ output$BCA_downloadProcessedData <- downloadHandler(
           tableStyle = "TableStyleMedium1"
         )
 
-        insertImage(wb = excel_output, "standard_tidy_summary", paste(file_name(), "__standard_plot.png", sep = ""), startRow = 1, startCol = 6, width = 7 * calculations()$plates, height = 10 * calculations()$dilution)
+        insertImage(wb = excel_output, "standard_tidy_summary", paste(file_name(), "__standard_plot.png", sep = ""), startRow = 1, startCol = 6, width = 8, height = 15)
 
         writeDataTable(
           wb = excel_output,

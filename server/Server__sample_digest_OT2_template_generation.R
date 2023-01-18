@@ -57,9 +57,17 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
       rowwise() %>%
       mutate(volume_needed = input_amount / `protein concentration (µg/µl)`)
 
-    # errror: above 10µl for amount! --------------------------------------------------
-    OT2_template_tmp_low_conc <- OT2_template_tmp %>%
-      filter(volume_needed > 10)
+    # error: above 10µl for amount of red/alk or 15.625µl nor NON red/alk! --------------------------
+    
+    if (input$logical_red_alk == TRUE) {
+      OT2_template_tmp_low_conc <- OT2_template_tmp %>%
+        filter(volume_needed > 10)
+    }
+    if (input$logical_red_alk == FALSE) {
+      OT2_template_tmp_low_conc <- OT2_template_tmp %>%
+        filter(volume_needed > 15.625)
+    }
+ 
 
 
     if (dim(OT2_template_tmp_low_conc)[1] != 0) {

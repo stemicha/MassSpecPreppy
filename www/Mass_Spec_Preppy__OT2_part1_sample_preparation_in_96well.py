@@ -202,11 +202,11 @@ def run(protocol: protocol_api.ProtocolContext):
   hs_mod.set_and_wait_for_temperature(37)
   protocol.delay(minutes=30)
   hs_mod.deactivate_heater()
+  
   #pause step
-  #protocol.pause("take preparation plate out for incubation for 30 minutes at 37°C for reduction. Put it back afterwards!!! and resume")
+  protocol.pause("add freshly prepared IAA solution to the reagent plate")
   
   
-
   #transfer IAA to sample
   for i in range(0, math.ceil(sample_number/8)):
     m20.transfer(3.125,

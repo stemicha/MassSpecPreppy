@@ -12,9 +12,10 @@ part1<- tribble(~item, ~activity,~manual_OT_2,~start,~end,
         1,"sample dilution","OT-2",0,58,
         2,"reduction","OT-2",58,63,
         3,"reduction","H/S incubation_time",63,93,
-        6,"alkylation","OT-2",93,98,
-        8,"alkylation","H/S incubation_time",98,113,
-        9,"SP3 beads dispensing","OT-2",113,128
+        4,"alkylation","manual",93,95,
+        6,"alkylation","OT-2",95,100,
+        8,"alkylation","H/S incubation_time",100,115,
+        9,"SP3 beads dispensing","OT-2",115,130
         )
 
 
@@ -92,45 +93,43 @@ part3_MSvial_tidy <- part3_MSvial %>%
 
 part1_plot<- ggplot(part1_tidy, aes(minutes, activity, color = manual_OT_2, group=item)) +
   geom_line(size = 10) +
-  labs(x="time [min]", y=NULL, title="Mass Spec Preppy - Part 1 - time chart", subtitle = "sample dilution + reduction and alkylation of 96 samples")+
+  labs(x="time [min]",color="", y=NULL, title="Mass Spec Preppy - Part 1 - time chart", subtitle = "sample dilution + reduction and alkylation of 96 samples")+
   theme_light()+
   theme(panel.grid = element_blank())+
   scale_x_continuous(breaks = seq(0,140,10))+
   scale_color_manual(values = manual_colors)+
   geom_label_repel(mapping = aes(label = paste(minutes,"'",sep="")),size = 2,
                    nudge_y = rep(c(-0.5,0.5),nrow(part1_tidy)/2),show.legend = F,segment.color = "black",min.segment.length = 0.01)+
-  theme(legend.position = "bottom")+
-  coord_cartesian(xlim = c(0,140))+
-  guides(color = "none")
+  #theme(legend.position = "bottom")+
+  coord_cartesian(xlim = c(0,140))
 
 
 part2_plot<- ggplot(part2_tidy, aes(minutes, activity, color = manual_OT_2, group=item)) +
   geom_line(size = 10) +
-  labs(x="time [min]", y=NULL, title="Mass Spec Preppy - Part 2 - time chart", subtitle = "SP3 of 96 samples")+
+  labs(x="time [min]", y=NULL,color="", title="Mass Spec Preppy - Part 2 - time chart", subtitle = "SP3 of 96 samples")+
   theme_light()+
   theme(panel.grid = element_blank())+
   scale_x_continuous(breaks = seq(0,140,10))+
   scale_color_manual(values = manual_colors)+
   geom_label_repel(mapping = aes(label = paste(minutes,"'",sep="")),size = 2,
                    nudge_y = rep(c(-0.5,0.5),nrow(part2_tidy)/2),show.legend = F,segment.color = "black",min.segment.length = 0.01)+
-  theme(legend.position = "bottom")+
+  #theme(legend.position = "bottom")+
   coord_cartesian(xlim = c(0,140))+
   guides(color = "none")
 
 
 part3_EvoTip_plot<- ggplot(part3_EvoTip_tidy, aes(minutes, activity, color = manual_OT_2, group=item)) +
   geom_line(size = 10) +
-  labs(x="time [min]", y=NULL, title="Mass Spec Preppy - Part 3 - time chart", subtitle = "Evotip Pure loading of 96 samples")+
+  labs(x="time [min]", y=NULL,color="", title="Mass Spec Preppy - Part 3 - time chart", subtitle = "Evotip Pure loading of 96 samples")+
   theme_light()+
   theme(panel.grid = element_blank())+
   scale_x_continuous(breaks = seq(0,140,10))+
   scale_color_manual(values = manual_colors)+
   geom_label_repel(mapping = aes(label = paste(minutes,"'",sep="")),size = 2,
                    nudge_y = rep(c(-0.5,0.5),nrow(part3_EvoTip_tidy)/2),show.legend = F,segment.color = "black",min.segment.length = 0.01)+
-  theme(legend.position = "bottom")+
+  #theme(legend.position = "bottom")+
   coord_cartesian(xlim = c(0,140))+
   guides(color = "none")
-
 
 part4_EvoTip_plot<- ggplot(part4_EvoTip_tidy, aes(minutes, activity, color = manual_OT_2, group=item)) +
   geom_line(size = 10) +
@@ -141,8 +140,9 @@ part4_EvoTip_plot<- ggplot(part4_EvoTip_tidy, aes(minutes, activity, color = man
   scale_color_manual(values = manual_colors)+
   geom_label_repel(mapping = aes(label = paste(minutes,"'",sep="")),size = 2,
                    nudge_y = rep(c(-0.5,0.5),nrow(part4_EvoTip_tidy)/2),show.legend = F,segment.color = "black",min.segment.length = 0.01)+
-  theme(legend.position = "bottom")+
-  coord_cartesian(xlim = c(0,140))
+  #theme(legend.position = "bottom")+
+  coord_cartesian(xlim = c(0,140))+
+  guides(color = "none")
 
 part3_MSvial_plot<- ggplot(part3_MSvial_tidy, aes(minutes, activity, color = manual_OT_2, group=item)) +
   geom_line(size = 10) +
@@ -153,8 +153,9 @@ part3_MSvial_plot<- ggplot(part3_MSvial_tidy, aes(minutes, activity, color = man
   scale_color_manual(values = manual_colors)+
   geom_label_repel(mapping = aes(label = paste(minutes,"'",sep="")),size = 2,
                    nudge_y = rep(c(-0.5,0.5),nrow(part3_MSvial_tidy)/2),show.legend = F,segment.color = "black",min.segment.length = 0.01)+
-  theme(legend.position = "bottom")+
-  coord_cartesian(xlim = c(0,140))
+  #theme(legend.position = "bottom")+
+  coord_cartesian(xlim = c(0,140))+
+  guides(color = "none")
 
 
 
@@ -162,8 +163,16 @@ part3_MSvial_plot<- ggplot(part3_MSvial_tidy, aes(minutes, activity, color = man
 
 
 
-evotip_timechart_OT2<- part1_plot/part2_plot/part3_EvoTip_plot/part4_EvoTip_plot
+evotip_timechart_OT2<- (part1_plot/
+                          part2_plot/
+                          part3_EvoTip_plot/
+                          part4_EvoTip_plot)+
+                            plot_layout(guides = "collect") & theme(legend.position = 'bottom')
+                          
 ggsave(plot = evotip_timechart_OT2,filename = "www/OT2_Evotip_timechart.png",device = "png",width = 11,height = 9)
 
-MSvial_timechart_OT2<- part1_plot/part2_plot/part3_MSvial_plot
+MSvial_timechart_OT2<- part1_plot/
+                        part2_plot/
+                        part3_MSvial_plot+
+                        plot_layout(guides = "collect") & theme(legend.position = 'bottom')
 ggsave(plot = MSvial_timechart_OT2,filename = "www/OT2_MSvial_timechart.png",device = "png",width = 11,height = 7)

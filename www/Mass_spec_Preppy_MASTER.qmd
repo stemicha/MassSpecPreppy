@@ -2,18 +2,16 @@
 title: "Mass Spec Preppy"
 author: "Stephan Michalik"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
-title-block-banner: "#27445C"
+title-block-banner: "#151515"
 subtitle: "sample digest with OT-2 elution into MS vials"
 page-layout: full
 css: styles.css
 format:
   html:
     toc: true
-    toc-depth: 4 # default is 3
+    toc-depth: 3
     toc-title: Contents
     toc-location: left # default is right, option is 'body'
-    number-sections: true
-    number-depth: 3
     html-math-method: katex
     self-contained: true
     anchor-sections: true
@@ -104,7 +102,9 @@ Always perform labware calibration before starting a protocol at the OT-2 app !
 
 ## sample list
 
-<span style="color:red; font-weight: bold;">samples should be well resolubilized and all liquid should be at the bottom of the reaction vessel</span>
+::: {.callout-warning}
+## samples should be well resolubilized and all liquid should be at the bottom of the reaction vessel
+:::
 
 ```{r,echo=F}
 datatable(as_tibble(params$sample_list))
@@ -112,14 +112,21 @@ datatable(as_tibble(params$sample_list))
 
 # Protocol step 1 - sample preparation
 
-<span style="color:red; font-weight: bold;">Always perform labware calibration before starting this protocol at the OT-2 app</span>
+::: {.callout-important}
+## Always perform labware calibration before starting this protocol at the OT-2 app
+:::
 
-**please provide WITHOUT AIR BUBBLES:**
+
+::: {.callout-note appearance="simple" icon=false}
+
+## please provide WITHOUT AIR BUBBLES:
 
 - 1x sample buffer
 - 12.5mM DTT in water (freshly prepared) *[only when reduction and alkylation is being used]*
 - 50mM IAA in water (freshly prepared, MUST BE KEPT DARK) *[only when reduction and alkylation is being used]*
 - 50µg/µl SP3 beads (mix of hyrdophilic and hydrophobic beads)
+:::
+
 
 > during the alkylation using the OT-2 robot it should be protected from light as much as possible ! (iodoacetamide are extremely light-sensitive)
 
@@ -150,9 +157,13 @@ DT::datatable(step1,rownames= FALSE,options = list(pageLength = nrow(step1),
 
 # Protocol step 2 -  SP3 digest - steps
 
-<span style="color:red; font-weight: bold;">Always perform labware calibration before starting this protocol at the OT-2 app</span>
+::: {.callout-important}
+## Always perform labware calibration before starting this protocol at the OT-2 app
+:::
 
-**please provide WITHOUT AIR BUBBLES:**
+::: {.callout-note appearance="simple" icon=false}
+
+## please provide WITHOUT AIR BUBBLES:
 
 - 95% acetonitril (ACN) >> waste will be collected in A11 and A12 position of reagent plate (!!! proper disposal of  ACN !!!)
 - 80% ethanol (EtOH)
@@ -161,6 +172,7 @@ DT::datatable(step1,rownames= FALSE,options = list(pageLength = nrow(step1),
 - `r params$trypsin_stock_concentration` ng/µl trypsin stock solution in 50mM acetic acid (add in reagent plate after 3h LysC incubation)
 - `r params$LysC_Trypsin_Mix_concentration` ng/µl LysC/Trypsin Mix stock solution in 50mM acetic acid
 - incubation at 37°C should be performed with MixMate at 1500rpm
+:::
 
 ```{r,echo=F}
 knitr::include_graphics(params$deck_plot2)
@@ -232,13 +244,22 @@ DT::datatable(step2,rownames= FALSE,options = list(pageLength = nrow(step2),
 
 # Protocol step 3 -  elution after digest
 
-<span style="color:red; font-weight: bold;">Always perform labware calibration before starting this protocol at the OT-2 app</span>
+::: {.callout-important}
+## Always perform labware calibration before starting this protocol at the OT-2 app
+:::
 
-<span style="color:green; font-weight: bold;">place plate in MixMate for 5 minutes at 3000 rpm before putting plate into the robot</span>
+::: {.callout-tip}
+## place plate in MixMate for 5 minutes at 3000 rpm before putting plate into the robot
+:::
 
-**please provide WITHOUT AIR BUBBLES:**
+
+::: {.callout-note appearance="simple" icon=false}
+## please provide WITHOUT AIR BUBBLES:
 
 - 5% TFA (Trifluoroacetic acid)
+:::
+
+
 
 ```{r,echo=F}
 knitr::include_graphics(params$deck_plot3)

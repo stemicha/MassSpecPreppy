@@ -29,6 +29,7 @@ library(shinymanager)
 library(ggimage)
 library(bslib)
 library(thematic)
+library(quarto)
 source("www/helper_functions_BCA.R")
 source("www/helper_functions_sample_digest.R")
 

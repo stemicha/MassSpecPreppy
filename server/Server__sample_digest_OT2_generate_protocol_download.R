@@ -256,16 +256,21 @@ output$dlOT2 <- downloadHandler(
       # case we don't have write permissions to the current working dir (which
       # can happen when deployed).
       # file
-      # copy markdown
+      # copy quarto
+      file.copy("www/styles.css",
+                file.path(tempdir(), "styles.css"),
+                overwrite = TRUE
+      )
+      
       if (input$EvoTips_vials == "Vial") {
-        file.copy("www/Mass_spec_Preppy_MASTER.Rmd",
-          file.path(tempdir(), "Mass_spec_Preppy_MASTER.Rmd"),
+        file.copy("www/Mass_spec_Preppy_MASTER.qmd",
+          file.path(tempdir(), "Mass_spec_Preppy_MASTER.qmd"),
           overwrite = TRUE
         )
       }
       if (input$EvoTips_vials == "EvoTips") {
-        file.copy("www/Mass_spec_Preppy_EvoTip_MASTER.Rmd",
-          file.path(tempdir(), "Mass_spec_Preppy_MASTER.Rmd"),
+        file.copy("www/Mass_spec_Preppy_EvoTip_MASTER.qmd",
+          file.path(tempdir(), "Mass_spec_Preppy_MASTER.qmd"),
           overwrite = TRUE
         )
       }
@@ -286,6 +291,7 @@ output$dlOT2 <- downloadHandler(
         file.path(tempdir(), "OT2_Evotip_timechart.png"),
         overwrite = TRUE
       )
+      
       file.copy("www/OT2_MSvial_timechart.png",
         file.path(tempdir(), "OT2_MSvial_timechart.png"),
         overwrite = TRUE
@@ -391,11 +397,17 @@ output$dlOT2 <- downloadHandler(
       incProgress(0.9, detail = "render report")
 
       # render report HTML report ----------------------------------------------
-      rmarkdown::render(file.path(tempdir(), "Mass_spec_Preppy_MASTER.Rmd"),
-        output_file = file.path(tempdir(), paste(format(Sys.Date(), "%Y_%m_%d_"), "__", OT2_template_generation()$file_name, "__Mass_Spec_Preppy.html", sep = "")),
-        params = params,
-        envir = new.env(parent = globalenv())
-      )
+      # rmarkdown::render(file.path(tempdir(), "Mass_spec_Preppy_MASTER.Rmd"),
+      #   output_file = file.path(tempdir(), paste(format(Sys.Date(), "%Y_%m_%d_"), "__", OT2_template_generation()$file_name, "__Mass_Spec_Preppy.html", sep = "")),
+      #   params = params,
+      #   envir = new.env(parent = globalenv())
+      # )
+      #render quarto
+      quarto::quarto_render(input = file.path(tempdir(), "Mass_spec_Preppy_MASTER.qmd"),
+                        execute_params = params
+                        )
+      #rename file
+      file.rename(from = file.path(tempdir(), "Mass_spec_Preppy_MASTER.html"),to = file.path(tempdir(),paste(format(Sys.Date(), "%Y_%m_%d_"), "__", OT2_template_generation()$file_name, "__Mass_Spec_Preppy.html", sep = "")))
 
       # copy HTML report ----------------------------------------------
       file.copy(file.path(tempdir(), paste(format(Sys.Date(), "%Y_%m_%d_"), "__", OT2_template_generation()$file_name, "__Mass_Spec_Preppy.html", sep = "")),
@@ -413,7 +425,9 @@ output$dlOT2 <- downloadHandler(
 
       # remove files ----------------------------------------------
       file.remove(file.path(paste(format(Sys.Date(), "%Y_%m_%d_"), "__", OT2_template_generation()$file_name, "__Mass_Spec_Preppy.html", sep = "")))
-
+      
+      
+      
       # EvoTips / Vials
       if (input$EvoTips_vials == "EvoTips") {
         file.remove(file.path(paste(OT2_template_generation()$file_output_part3_EvoTip_out, "__decklayout.png", sep = "")))

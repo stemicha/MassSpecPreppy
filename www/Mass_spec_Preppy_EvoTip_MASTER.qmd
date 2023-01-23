@@ -164,7 +164,7 @@ DT::datatable(step1,rownames= FALSE,options = list(pageLength = nrow(step1),
 
 
 ::: {.callout-note appearance="simple" icon=false}
-##please provide WITHOUT AIR BUBBLES:
+## please provide WITHOUT AIR BUBBLES:
 
 - 95% acetonitril (ACN) >> waste will be collected in A11 and A12 position of reagent plate (!!! proper disposal of ACN !!!)
 - 80% ethanol (EtOH)

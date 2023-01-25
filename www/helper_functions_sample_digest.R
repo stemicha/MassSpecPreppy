@@ -322,16 +322,17 @@ plot_deck_layout_step1 <- function(red_alk = TRUE,
     Slot3 <- nest_96well_reagent_plot(input_df = input_df_NEST_100ul,label = "reagent plate (96well NEST plate)",OT_slot = 3,text_color = text_color)
     
     #tips
-    sample_dil_tips <- number_of_samples*2
+    sample_dil_tips <- number_of_samples+1
     prep__tips <- 8*plate_columns_used*3
     
     
     Slot10 <- tip_rack_plot(label = "20ul_tips_1",text_color = text_color, OT_slot = 10,number_of_used_tips = ifelse(sample_dil_tips>96,96,sample_dil_tips))
-    Slot11 <- tip_rack_plot(label = "20ul_tips_2",text_color = text_color,OT_slot = 11,number_of_used_tips = ifelse((prep__tips-96)>=96,96,ifelse((prep__tips-96)<0,0,(prep__tips-96))))
-    Slot8 <- tip_rack_plot(label = "20ul_tips_3",text_color = text_color,OT_slot = 8,number_of_used_tips = ifelse(prep__tips>96,96,prep__tips))
-    Slot9 <- tip_rack_plot(label = "20ul_tips_4",text_color = text_color,OT_slot = 9,number_of_used_tips = ifelse((prep__tips-192)>=192,192,ifelse((prep__tips-192)<0,0,(prep__tips-192))))
-    Slot6 <- tip_rack_plot(label = "20ul_tips_5",text_color = text_color,OT_slot = 6,number_of_used_tips = ifelse((sample_dil_tips-96)>=96,96,ifelse((sample_dil_tips-96)<0,0,(sample_dil_tips-96))))
+    Slot8 <- tip_rack_plot(label = "20ul_tips_2",text_color = text_color,OT_slot = 8,number_of_used_tips = ifelse((sample_dil_tips-96)>=96,96,ifelse((sample_dil_tips-96)<0,0,(sample_dil_tips-96))))
     
+    Slot11 <- tip_rack_plot(label = "20ul_tips_3",text_color = text_color,OT_slot = 11,number_of_used_tips = ifelse(prep__tips>96,96,prep__tips))
+    Slot9 <- tip_rack_plot(label = "20ul_tips_4",text_color = text_color,OT_slot = 9,number_of_used_tips = ifelse((prep__tips-96)>=96,96,ifelse((prep__tips-96)<0,0,(prep__tips-96))))
+    Slot6 <- tip_rack_plot(label = "20ul_tips_5",text_color = text_color,OT_slot = 6,number_of_used_tips = ifelse((prep__tips-192)>=192,192,ifelse((prep__tips-192)<0,0,(prep__tips-192))))
+
     #preparation plate
     Slot7<- prep_plate_plot(label = "HEAT/SHAKER MODULE +\nsample plate (96well NEST plate)",
                             text_color = text_color,
@@ -388,6 +389,7 @@ plot_deck_layout_step1 <- function(red_alk = TRUE,
     
     Slot10 <- tip_rack_plot(label = "20ul_tips_1",text_color = text_color,OT_slot = 10,number_of_used_tips = ifelse(sample_dil_tips>96,96,sample_dil_tips))
     Slot7 <- tip_rack_plot(label = "20ul_tips_2",text_color = text_color,OT_slot = 7,number_of_used_tips = ifelse((sample_dil_tips-96)>=96,96,ifelse((sample_dil_tips-96)<0,0,(sample_dil_tips-96))))
+    
     Slot11 <- tip_rack_plot(label = "20ul_tips_3",text_color = text_color,OT_slot = 11,number_of_used_tips = ifelse(prep__tips>96,96,prep__tips))
     Slot8 <- tip_rack_plot(label = "20ul_tips_4",text_color = text_color,OT_slot = 8,number_of_used_tips = ifelse((prep__tips-96)>=96,96,ifelse((prep__tips-96)<0,0,(prep__tips-96))))
     Slot9 <- tip_rack_plot(label = "20ul_tips_5",text_color = text_color,OT_slot = 9,number_of_used_tips = ifelse((prep__tips-192)>=192,192,ifelse((prep__tips-192)<0,0,(prep__tips-192))))

@@ -582,7 +582,7 @@ plot_deck_layout_step3_EvoTips <- function(number_of_samples = 96,
                                solution = c("5% TFA","solvent B","solvent A","solvent A"),
                                volume_ml= c(plate_columns_used*8*0.00244+3,#A1 1% TFA
                                             plate_columns_used*8*0.02+2,#A2 solvent B
-                                            plate_columns_used*8*0.02*3+2,#A3 solvent A
+                                            (plate_columns_used*8*0.02*2)+(plate_columns_used*8*0.03)+2,#A3 solvent A
                                             plate_columns_used*8*0.1+2#A4 solvent A
                                             
                                )

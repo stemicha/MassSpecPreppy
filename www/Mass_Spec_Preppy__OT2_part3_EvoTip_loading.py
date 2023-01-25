@@ -49,9 +49,13 @@ def run(protocol: protocol_api.ProtocolContext):
 
   EvoTips_amount_ng = float(EvoTips_amount_ng)
 
-  #calculate sample loading dilution for EvoTip / setup 23µl take out 20 µl / 15% more
-  EvoTips_amount_ng_volume = ((EvoTips_amount_ng/20)/((sample_amount*1000)/24.44))*23
-  EvoTips_amount_ng_volume_buffer = 23-EvoTips_amount_ng_volume
+  #calculate sample loading dilution for EvoTip / setup 23µl take out 20 µl / 15% more BUT use at least 1 µl
+  if 1/((EvoTips_amount_ng/20)/((sample_amount*1000)/24.44)) > 23:
+    EvoTips_amount_ng_volume = 1
+    EvoTips_amount_ng_volume_buffer = 1/((EvoTips_amount_ng/20)/((sample_amount*1000)/24.44))-EvoTips_amount_ng_volume
+  else:
+    EvoTips_amount_ng_volume = ((EvoTips_amount_ng/20)/((sample_amount*1000)/24.44))*23
+    EvoTips_amount_ng_volume_buffer = 23-EvoTips_amount_ng_volume
   
   # csv_sample --> nested list
   SampleTransfer = [[val.strip() for val in line.split(",")]
@@ -152,7 +156,7 @@ f{INCUBATION_TIME} minutes.')
                  loc,
                  dilution_plate.wells_by_name()[prep_plate_columns_position[i]].bottom(1),
                  new_tip="always", 
-                 mix_after = (1,10))
+                 mix_after = (2,10))
   m20.flow_rate.aspirate *= 10  # modulate flow rate for removal
 
   

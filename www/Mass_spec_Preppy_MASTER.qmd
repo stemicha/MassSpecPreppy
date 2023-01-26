@@ -171,7 +171,13 @@ DT::datatable(step1,rownames= FALSE,options = list(pageLength = nrow(step1),
 - `r params$LysC_stock_concentration` ng/µl LysC stock solution in H~2~O (add in reagent plate before starting the protocol)
 - `r params$trypsin_stock_concentration` ng/µl trypsin stock solution in 50mM acetic acid (add in reagent plate after 3h LysC incubation)
 - `r params$LysC_Trypsin_Mix_concentration` ng/µl LysC/Trypsin Mix stock solution in 50mM acetic acid
-- incubation at 37°C should be performed with MixMate at 1500rpm
+- incubation at 37°C (e.g. inside an incubator) should be performed with MixMate at 1500rpm
+:::
+
+::: {.callout-important}
+## ACN waste disposal
+
+The ACN waste is collected in the reagent NEST 12-Well reservoirs at position 11,12. Please ensure the correct disposal of ACN waste after the OT-2 run is completed! 
 :::
 
 ```{r,echo=F}
@@ -203,7 +209,7 @@ if(is.na(params$LysC_ratio)){
   "17","","","","delay: pause for 15 minutes to air dry beads and automatically resume",
   "18",	"8-channel P20",	"variable",	"variable",	"transfer the calculated volume of digestion buffer buffer to preparation plate (for a final volume of 22µl)",
     "19",	"8-channel P20",	"variable",	"2",	"transfer the calculated volume of LysC/Trypsin Mix stock to preparation plate (to a final volume of 22µl)",
-  "20","","","","place plate in MixMate for 5 minutes at 3000 rpm; incubate over night at 37°C")
+  "20","","","","place plate in MixMate for 5 minutes at 3000 rpm; incubate over night at 37°C at 1500 rpm")
 }else{
   step2 <- tibble::tribble(
   ~"step",	~"pipette",	~"transfer volume [µl]",	~"sample volume [µl] after step",	~"descritpion",
@@ -230,7 +236,7 @@ if(is.na(params$LysC_ratio)){
   "21","","","","magnet module: raise magnet 12mm and incubate for 3 minutes",
   "22",	"8-channel P20",	"variable",	"variable",	"transfer the calculated volume of trypsin stock to preparation plate (to a final volume of 22µl)",
     "23","","","","magnet module: lower magnet 12mm",
-    "24","","","","place plate in MixMate for 5 minutes at 3000 rpm, incubate over night at 37°C at 1000 rpm")
+    "24","","","","place plate in MixMate for 5 minutes at 3000 rpm, incubate over night at 37°C at 1500 rpm")
 }
 
 

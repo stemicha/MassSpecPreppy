@@ -176,8 +176,9 @@ nest_12well_reagent_plot <- function(input_df=input_df,
   
   #merge data
   nest_12_plate_data <- left_join(nest_12_plate_layout,input_df,by = "postion")
-  nest_12_plate_data <- nest_12_plate_data |> 
-    mutate(label = paste(solution," (",volume_ml," ml)",sep = "")) |> 
+  nest_12_plate_data <- nest_12_plate_data %>% 
+    mutate(label = paste(solution," (",volume_ml," ml)",sep = "")) %>% 
+    mutate(label = if_else(is.na(volume_ml),true =  paste(solution),false = label)) %>% 
     mutate(label = if_else(condition = is.na(solution),true = "",false = label))
   
   ggplot(nest_12_plate_data)+
@@ -451,8 +452,8 @@ plot_deck_layout_step2_SP3 <- function(number_of_samples = 96,
   
   plate_columns_used*8*150
     #NEST 12ml reagent plate step1
-    input_df_NEST_12ml <- tibble(postion = c("A1","A2","A3","A4","A5","A6","A7","A8","A9"),
-                                  solution = c("95% ACN","95% ACN","95% ACN","95% ACN","80% EtOH","80% EtOH","80% EtOH","80% EtOH","digest buffer"),
+    input_df_NEST_12ml <- tibble(postion = c("A1","A2","A3","A4","A5","A6","A7","A8","A9","A11","A12"),
+                                  solution = c("95% ACN","95% ACN","95% ACN","95% ACN","80% EtOH","80% EtOH","80% EtOH","80% EtOH","digest buffer","leave empty: ACN WASTE","leave empty: ACN WASTE"),
                                   volume_ml= c(ifelse(plate_columns_used>=6,8,plate_columns_used*8*0.15+1),#A1 ACN
                                                ifelse((plate_columns_used-6)>=6,8,ifelse((plate_columns_used-6)<=0,0,(plate_columns_used-6)*8*0.15+1)),#A2 ACN
                                                ifelse(plate_columns_used>=6,8,plate_columns_used*8*0.15+1),#A3 ACN
@@ -461,7 +462,9 @@ plot_deck_layout_step2_SP3 <- function(number_of_samples = 96,
                                                ifelse((plate_columns_used-6)>=6,8,ifelse((plate_columns_used-6)<=0,0,(plate_columns_used-6)*8*0.15+1)),#A6 EtOH
                                                ifelse(plate_columns_used>=6,8,plate_columns_used*8*0.15+1),#A7 EtOH
                                                ifelse((plate_columns_used-6)>=6,8,ifelse((plate_columns_used-6)<=0,0,(plate_columns_used-6)*8*0.15+1)),#A8 EtOH
-                                               ifelse(plate_columns_used==12,4,plate_columns_used*8*0.02+2)#A9 digest buffer
+                                               ifelse(plate_columns_used==12,4,plate_columns_used*8*0.02+2),#A9 digest buffer,
+                                               NA,
+                                               NA
                                                 )
     )
     

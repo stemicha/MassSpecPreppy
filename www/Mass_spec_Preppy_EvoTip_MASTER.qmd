@@ -256,7 +256,7 @@ DT::datatable(step2,rownames= FALSE,options = list(pageLength = nrow(step2),
 :::
 
 ::: {.callout-tip}
-## place plate in MixMate for 5 minutes at 3000 rpm before putting plate into the robot
+## place plate in table plate centrifuge and centrifuge shortly before putting plate into the robot
 :::
 
 ::: {.callout-note appearance="simple" icon=false}

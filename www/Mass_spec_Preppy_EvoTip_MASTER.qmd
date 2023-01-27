@@ -211,7 +211,7 @@ if(is.na(params$LysC_ratio)){
   "17","","","","delay: pause for 15 minutes to air dry beads and automatically resume",
   "18",	"8-channel P20",	"variable",	"variable",	"transfer the calculated volume of digestion buffer buffer to preparation plate (for a final volume of 22µl)",
     "19",	"8-channel P20",	"variable",	"2",	"transfer the calculated volume of LysC/Trypsin Mix stock to preparation plate (to a final volume of 22µl)",
-  "20","","","","place plate in MixMate for 5 minutes at 3000 rpm; incubate over night at 37°C")
+  "20","","","","place plate in MixMate for 5 minutes at 3000 rpm, short centrifugation with table plate centrifuge, incubate over night at 37°C")
 }else{
   step2 <- tibble::tribble(
   ~"step",	~"pipette",	~"transfer volume [µl]",	~"sample volume [µl] after step",	~"descritpion",
@@ -238,7 +238,7 @@ if(is.na(params$LysC_ratio)){
   "21","","","","magnet module: raise magnet 12mm and incubate for 3 minutes",
   "22",	"8-channel P20",	"variable",	"variable",	"transfer the calculated volume of trypsin stock to preparation plate (to a final volume of 22µl)",
     "23","","","","magnet module: lower magnet 12mm",
-    "24","","","","place plate in MixMate for 5 minutes at 3000 rpm, incubate over night at 37°C at 1000 rpm")
+    "24","","","","place plate in MixMate for 5 minutes at 3000 rpm,short centrifugation with table plate centrifuge, incubate over night at 37°C at 1500 rpm")
 }
 
 

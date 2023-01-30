@@ -166,7 +166,7 @@ f{INCUBATION_TIME} minutes.')
   m300.pick_up_tip()
   m300.distribute(20, 
                  reagents.wells_by_name()["A2"].bottom(1), # 1mm from bottom
-                 [EvoTips.wells_by_name()[well_name].bottom().move(Point(x=-1, z=35)) for well_name in prep_plate_columns_position[0:num_cols]],#35 mm above
+                 [EvoTips.wells_by_name()[well_name].bottom().move(Point(x=-1.5, z=35)) for well_name in prep_plate_columns_position[0:num_cols]],#35 mm above
                  new_tip = "never",
                  mix_before = (1,200),
                  air_gap = 20,
@@ -183,7 +183,7 @@ f{INCUBATION_TIME} minutes.')
   m300.pick_up_tip()
   m300.distribute(20, 
                  reagents.wells_by_name()["A3"].bottom(1), # 1mm from bottom
-                 [EvoTips.wells_by_name()[well_name].bottom().move(Point(x=-1, z=35)) for well_name in prep_plate_columns_position[0:num_cols]],#35 mm above
+                 [EvoTips.wells_by_name()[well_name].bottom().move(Point(x=-1.5, z=35)) for well_name in prep_plate_columns_position[0:num_cols]],#35 mm above
                  new_tip ="never",
                  touch_tip = False)
   
@@ -214,7 +214,7 @@ f{INCUBATION_TIME} minutes.')
   m300.pick_up_tip()
   m300.distribute(20, 
                  reagents.wells_by_name()["A3"].bottom(1), # 1mm from bottom
-                 [EvoTips.wells_by_name()[well_name].bottom().move(Point(x=-1, z=35)) for well_name in prep_plate_columns_position[0:num_cols]],#35 mm above
+                 [EvoTips.wells_by_name()[well_name].bottom().move(Point(x=-1.5, z=35)) for well_name in prep_plate_columns_position[0:num_cols]],#35 mm above
                  new_tip ="never",
                  touch_tip = False)
   m300.drop_tip()
@@ -227,7 +227,7 @@ f{INCUBATION_TIME} minutes.')
   ##################################################
   m300.distribute(100, 
                  reagents.wells_by_name()["A4"].bottom(1), # 1mm from bottom
-                 [EvoTips.wells_by_name()[well_name].bottom().move(Point(x=-1, z=35)) for well_name in prep_plate_columns_position[0:num_cols]],#35 mm above
+                 [EvoTips.wells_by_name()[well_name].bottom().move(Point(x=-1.5, z=35)) for well_name in prep_plate_columns_position[0:num_cols]],#35 mm above
                  new_tip ="always",
                  blow_out = True,
                  blowout_location = "source well",

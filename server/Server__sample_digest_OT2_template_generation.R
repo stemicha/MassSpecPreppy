@@ -53,9 +53,65 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
 
     input_amount <- input$input_sample_amount
 
+
+    # sample volume needed calculation for digest -----------------------------
+
     OT2_template_tmp <- OT2_template %>%
       rowwise() %>%
-      mutate(volume_needed = input_amount / `protein concentration (µg/µl)`)
+      mutate(volume_needed = input_amount / `protein concentration (µg/µl)`) 
+    
+    
+    # add position data ------------------------------------------
+    
+    OT2_template_tmp <- OT2_template_tmp %>% 
+      mutate(row_pos = factor(substr(`preparation plate position`,
+                                     start = 1,
+                                     stop = 1),
+                              levels = rev(LETTERS[1:8])),
+             col_pos = as.integer(substr(`preparation plate position`,
+                                         start = 2,
+                                         stop = nchar(`preparation plate position`))))
+    
+    
+    # add coloring legend -----------------------------------------------------
+    
+    max_volume <-  10
+    min_volume <-  2
+    
+    OT2_template_tmp <- OT2_template_tmp %>% 
+      rowwise() %>% 
+      mutate(pipetting_quality = ifelse(volume_needed>max_volume,
+                                        yes = paste0("above max. volume"),
+                                        no = ifelse(volume_needed<min_volume,
+                                                    yes = ifelse(volume_needed>=1,
+                                                                 yes = "≥ 1µl & < 2µl",
+                                                                 no = "<1µl"),
+                                                    no = paste0("≥ 2µl & ≤ max vol."))
+      )
+      )
+    #EVOTIPs table calculations
+    if(input$EvoTips_vials=="EvoTips"){
+      OT2_template_tmp <- OT2_template_tmp %>%
+          rowwise() %>% 
+          mutate(EVOTIP_volume_needed = input$EvoTips_amount/(input_amount*1000/24.44)) %>% 
+          mutate(EVOTIP_volume_needed = ifelse(EVOTIP_volume_needed<1,1,EVOTIP_volume_needed))
+        # dilution is adapted minimal volume for pipetting = 1µl
+      
+      OT2_template_tmp <- OT2_template_tmp %>% 
+        rowwise() %>% 
+        mutate(EVOTIP_pipetting_quality = ifelse(EVOTIP_volume_needed>max_volume,
+                                                 yes = paste0("above max. volume"),
+                                                 no = ifelse(EVOTIP_volume_needed<min_volume,
+                                                             yes = ifelse(EVOTIP_volume_needed>=1,
+                                                                          yes = "≥ 1µl & < 2µl",
+                                                                          no = "<1µl"),
+                                                             no = paste0("≥ 2µl & ≤ max vol."))
+        )
+        )
+    }   
+    
+    
+   
 
     # error: above 10µl for amount of red/alk or 15.625µl nor NON red/alk! --------------------------
     
@@ -310,11 +366,62 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
     # Progress: generate output
     incProgress(1, detail = "generate output")
 
-    # list output
+    
+    
+    # plot volume needed plot -------------------------------------------------
+    
+    volume_needed_plot<- ggplot(OT2_template_tmp,aes(col_pos,row_pos,fill=pipetting_quality, color = (volume-volume_needed)<10))+
+      geom_tile(size = 1)+
+      scale_fill_manual(values = c("above max. volume" = "#D84738",
+                                   "≥ 1µl & < 2µl" = "#EB9711",
+                                   "<1µl" = "#D84738",
+                                   "≥ 2µl & ≤ max vol." = "seagreen"))+
+      scale_color_manual(values = c("TRUE" = "orangered2","FALSE"="white"))+
+      geom_text(mapping = aes(label = round(volume_needed,digits = 2)),color= "white",show.legend = F, fontface = "bold")+
+      #geom_hline(yintercept = seq(1.5,7.5,by = 1), color = "white")+
+      #geom_vline(xintercept = seq(1.5,11.5,by = 1), color = "white")+
+      theme_void(base_size = 18)+
+      scale_x_continuous(breaks = c(1:12),position = "top")+
+      theme(axis.text = element_text(),legend.position = "bottom",legend.key.width = unit(1.5,"cm"), title = element_text(face = "bold"))+
+      geom_rect(mapping = aes(xmin=0.5,xmax=12.5,ymin=0.5,ymax = 8.5),fill=NA,color="white")+
+      labs(title = "Pipetted sample volume with settings", subtitle = "preparation plate",fill = "",caption = "red line around well means volume left is below 10µl = critical" )+
+      theme(text = element_text(color = "white"),
+            plot.title = element_text(face = "bold"))+
+      coord_cartesian(xlim = c(1,12),ylim = c(1,8))+
+      guides(color = "none")
+    
+    if(input$EvoTips_vials=="EvoTips"){
+    EVOTIP_volume_needed_plot<- ggplot(OT2_template_tmp,aes(col_pos,row_pos,color=EVOTIP_pipetting_quality))+
+      geom_point(size = 20)+
+      scale_color_manual(values = c("above max. volume" = "#D84738",
+                                   "≥ 1µl & < 2µl" = "#EB9711",
+                                   "<1µl" = "#D84738",
+                                   "≥ 2µl & ≤ max vol." = "seagreen"))+
+      geom_text(mapping = aes(label = round(EVOTIP_volume_needed,digits = 2)),color= "white",show.legend = F, fontface = "bold")+
+      theme_void(base_size = 18)+
+      scale_x_continuous(breaks = c(1:12),position = "top")+
+      theme(axis.text = element_text(),legend.position = "bottom",legend.key.width = unit(1.5,"cm"), title = element_text(face = "bold"))+
+      geom_rect(mapping = aes(xmin=0.5,xmax=12.5,ymin=0.5,ymax = 8.5),fill=NA,color="white")+
+      labs(title = "Pipetted digest volume for EVOTIP loading with settings", subtitle = "EVOTIP dilution plate",fill = "" )+
+      theme(text = element_text(color = "white"),
+            plot.title = element_text(face = "bold"))+
+      coord_cartesian(xlim = c(1,12),ylim = c(1,8))
+    
+    #merge plot with patchwork
+    volume_needed_plot <- volume_needed_plot/EVOTIP_volume_needed_plot
+
+    }
+    
+    
+    
+      # list output
     list(
       number_of_samples = dim(OT2_template)[1],
       input_sample_list = OT2_template,
+      OT2_template_tmp = OT2_template_tmp,
       error = error,
+      volume_needed_plot = volume_needed_plot,
+      volume_needed_plot_N = ifelse(input$EvoTips_vials=="EvoTips",2,1),
       OT2_protocol_part1_out = OT2_protocol_part1_out,
       OT2_protocol_part2_sequential_out = OT2_protocol_part2_sequential_out,
       OT2_protocol_part2_mix_out = OT2_protocol_part2_mix_out,
@@ -334,3 +441,57 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
     )
   }) # end progressbar
 }) # end OT2_template_generation
+
+
+
+# render volume needed plot -----------------------------------------------
+
+output$volume_needed_plot <- renderUI(
+  renderPlot(OT2_template_generation()$volume_needed_plot,width = 950,height = 500*OT2_template_generation()$volume_needed_plot_N)
+)
+
+# render volume needed table -----------------------------------------------
+
+output$volume_needed_table <- DT::renderDataTable({
+  rendered_table <- DT::datatable(
+    OT2_template_generation()$OT2_template_tmp %>% 
+      select(-row_pos,-col_pos),
+    filter = "top",
+    options = list(
+      pageLength = 100,
+      autoWidth = TRUE,
+      scrollX = TRUE,
+      searchHighlight = TRUE
+    )
+  ) %>%
+    DT::formatStyle("pipetting_quality",
+                    backgroundColor = styleEqual(
+                      c("above max. volume",
+                        "≥ 1µl & < 2µl" ,
+                        "<1µl" ,
+                        "≥ 2µl & ≤ max vol." ),
+                      c("above max. volume" = "#D84738",
+                        "≥ 1µl & < 2µl" = "#EB9711",
+                        "<1µl" = "#D84738",
+                        "≥ 2µl & ≤ max vol." = "seagreen")
+                    )
+    )
+  if(input$EvoTips_vials=="EvoTips"){
+  rendered_table <- rendered_table%>%
+    DT::formatStyle("EVOTIP_pipetting_quality",
+                    backgroundColor = styleEqual(
+                      c("above max. volume",
+                        "≥ 1µl & < 2µl" ,
+                        "<1µl" ,
+                        "≥ 2µl & ≤ max vol." ),
+                      c("above max. volume" = "#D84738",
+                        "≥ 1µl & < 2µl" = "#EB9711",
+                        "<1µl" = "#D84738",
+                        "≥ 2µl & ≤ max vol." = "seagreen")
+                    )
+    )
+  }
+  # output render table volume pipetting quality
+  rendered_table
+})
+

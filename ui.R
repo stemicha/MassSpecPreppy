@@ -296,7 +296,25 @@ secure_app(
           "input.BCA_sample_digest_selection == 'Sample digest'",
           tabsetPanel(
             type = "tabs",
-            selected = "Step 1 deck layout",
+            selected = "Pipetted sample volume with settings",
+            tabPanel(
+              "Pipetted sample volume with settings",
+              withSpinner(uiOutput("volume_needed_plot"), color = "#649CCC", type = 5)
+            ),
+            tabPanel(
+              "Samples data table",
+              # format data table control color and hover highlight
+              tags$head(tags$style(HTML("table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
+                                  background-color: #0885C8 !important;
+                                  }
+                                  "))),
+              tags$style(HTML(".dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing,.dataTables_wrapper .dataTables_paginate .paginate_button, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+                                        color: #FFFFFF !important;
+                                  }")),
+              verticalLayout(
+                fluidRow(column(align = "center", width = 11, DT::DTOutput("volume_needed_table")))
+              )
+            ),
             tabPanel(
               "Step 1 deck layout",
               withSpinner(plotOutput("step1_plot", height = 1000, width = 950), color = "#649CCC", type = 5)

@@ -194,7 +194,7 @@ def run(protocol: protocol_api.ProtocolContext):
                  reagents.wells_by_name()["A3"].bottom(1),
                  prep_plate.wells_by_name()[prep_plate_columns_position[i]],
                  new_tip ="always",
-                 mix_after=(2, 5),
+                 mix_after=(2, 7.5),
                  touch_tip = False)
   
   #HS step
@@ -213,7 +213,7 @@ def run(protocol: protocol_api.ProtocolContext):
                  reagents.wells_by_name()["A4"].bottom(1),
                  prep_plate.wells_by_name()[prep_plate_columns_position[i]],
                  new_tip ="always",
-                 mix_after=(2, 5),
+                 mix_after=(2, 10.625),
                  touch_tip = False)
   
   #HS step

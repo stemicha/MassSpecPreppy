@@ -104,7 +104,7 @@ secure_app(
           # file upload
           br(),
           fileInput(inputId = "input_sample_file", label = "input sample file", accept = ".xlsx"),
-          tags$p("sample conc. should be approx. 0.5-2µg/µl", style = "color:#84B135; align:center; margin-left: 15px"),
+          tags$h5("sample conc. must be between 0.5 - 2µg/µl", style = "color:#C95C54; font-weight: bold; align:center; margin-left: 15px"),
           downloadButton(
             outputId = "input_template_OT2",
             label = "OT-2 template download",

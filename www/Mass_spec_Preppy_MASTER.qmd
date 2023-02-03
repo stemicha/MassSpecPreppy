@@ -20,6 +20,8 @@ params:
   number_of_samples: NA
   file_name: NA
   reduction_and_alkylation: NA
+  volume_needed_table: NA
+  volume_needed_plot: NA
   sample_amount: NA
   LysC_Trypsin_Mix_ratio: NA
   LysC_Trypsin_Mix_concentration: NA
@@ -107,7 +109,35 @@ Always perform labware calibration before starting a protocol at the OT-2 app !
 :::
 
 ```{r,echo=F}
+#| column: page-inset-right
 datatable(as_tibble(params$sample_list))
+```
+
+
+# Pipetted sample volume with settings used
+
+```{r,echo=F}
+knitr::include_graphics(params$volume_needed_plot)
+```
+
+```{r,echo=F}
+#| column: screen-inset-right
+DT::datatable(as_tibble(params$volume_needed_table)
+              )%>%
+    DT::formatStyle(columns = "pipetting_quality",
+                     target = "row",
+                    backgroundColor = styleEqual(
+                      c("above max. volume",
+                        "≥ 1µl & < 2µl" ,
+                        "<1µl" ,
+                        "≥ 2µl & ≤ max vol." ),
+                      c("above max. volume" = "#D84738",
+                        "≥ 1µl & < 2µl" = "#EB9711",
+                        "<1µl" = "#D84738",
+                        "≥ 2µl & ≤ max vol." = "seagreen")
+                    )
+    )
+
 ```
 
 # Protocol step 1 - sample preparation

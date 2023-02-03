@@ -45,9 +45,6 @@ bs_global_theme(bg = "#002B36", fg = "#FFFFFF", primary = "#509DD1")
 thematic_shiny()
 
 
-
-
-
 # custom css for login page -----------------------------------------------
 css <- HTML(".btn-primary {
                   color: #ffffff;

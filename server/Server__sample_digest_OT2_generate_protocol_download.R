@@ -18,7 +18,21 @@ output$dlOT2 <- downloadHandler(
     withProgress(message = "generate download", style = "notification", value = 0, {
       incProgress(0.2, detail = "saving deck layout plots and protocols")
       # write protocol / decklayout files ----------------------------------------------
-      if (input$logical_red_alk == F & input$EvoTips_vials == "Vial") {
+      
+      # save volume needed plot
+      ggsave(
+        plot = OT2_template_generation()$volume_needed_plot &
+          theme(text = element_text(color = "black"),
+                panel.background = element_rect(fill = "white")) & 
+          plot_annotation(theme = theme(plot.background = element_rect(fill  = "white", color = NA))),
+        device = "png",
+        filename = "sample_volume_plot.png",
+        width = 15,
+        height = 7*OT2_template_generation()$volume_needed_plot_N
+      )
+      
+      
+    if (input$logical_red_alk == F & input$EvoTips_vials == "Vial") {
         writeLines(
           text = OT2_template_generation()$OT2_protocol_part1_wo_alk_red_out,
           con = OT2_template_generation()$file_output_part1_wo_alk_red
@@ -71,9 +85,9 @@ output$dlOT2 <- downloadHandler(
           ), "__decklayout.png", sep = ""),
           paste(OT2_template_generation()$file_output_part3_vial_out, "__decklayout.png", sep = "")
         )
-      }
+      } #end vial w/o red. alk.
 
-      if (input$logical_red_alk == T & input$EvoTips_vials == "Vial") {
+    if (input$logical_red_alk == T & input$EvoTips_vials == "Vial") {
         writeLines(text = OT2_template_generation()$OT2_protocol_part1_out, con = OT2_template_generation()$file_output_part1)
         # SP3 part2 mix or sequential
         if (input$enzyme_or_mix == "Trypsin/LysC Mix") {
@@ -120,7 +134,7 @@ output$dlOT2 <- downloadHandler(
           ), "__decklayout.png", sep = ""),
           paste(OT2_template_generation()$file_output_part3_vial_out, "__decklayout.png", sep = "")
         )
-      }
+      } #end vial with red. alk.
 
       # write protocol / decklayout files ----------------------------------------------
       if (input$logical_red_alk == F & input$EvoTips_vials == "EvoTips") {
@@ -179,9 +193,10 @@ output$dlOT2 <- downloadHandler(
           paste(OT2_template_generation()$file_output_part3_EvoTip_out, "__decklayout.png", sep = ""),
           paste(OT2_template_generation()$file_output_part4_post_EvoTip_out, "__decklayout.png", sep = "")
         )
-      }
+      } #end EVOTIP w/o red. alk.
+      
       # EvoTip == T & red&alk == F
-      if (input$logical_red_alk == T & input$EvoTips_vials == "EvoTips") {
+    if (input$logical_red_alk == T & input$EvoTips_vials == "EvoTips") {
         writeLines(
           text = OT2_template_generation()$OT2_protocol_part1_out,
           con = OT2_template_generation()$file_output_part1
@@ -229,6 +244,8 @@ output$dlOT2 <- downloadHandler(
           width = 13,
           height = 11
         )
+
+        
         # merge files for zipping
         fs <- c(
           OT2_template_generation()$file_output_part1,
@@ -246,7 +263,7 @@ output$dlOT2 <- downloadHandler(
           paste(OT2_template_generation()$file_output_part3_EvoTip_out, "__decklayout.png", sep = ""),
           paste(OT2_template_generation()$file_output_part4_post_EvoTip_out, "__decklayout.png", sep = "")
         )
-      }
+      } #end EVOTIP with red. alk.
 
       incProgress(0.5, detail = "copy files")
 
@@ -297,6 +314,7 @@ output$dlOT2 <- downloadHandler(
         overwrite = TRUE
       )
 
+      
       # red/alk == F
       if (as.logical(input$logical_red_alk) == FALSE) {
         file.copy(paste(OT2_template_generation()$file_output_part1_wo_alk_red, "__decklayout.png", sep = ""),
@@ -349,7 +367,13 @@ output$dlOT2 <- downloadHandler(
           overwrite = TRUE
         )
       }
-
+      
+      #copy volume needed plot
+      file.copy("sample_volume_plot.png",
+                file.path(tempdir(), paste("sample_volume_plot.png", sep = "")),
+                overwrite = TRUE
+      )
+      
       incProgress(0.7, detail = "generate report parameters")
 
       # Set up parameters to pass to Rmd document ----------------------------------------------
@@ -357,6 +381,8 @@ output$dlOT2 <- downloadHandler(
         params <- list(
           number_of_samples = OT2_template_generation()$number_of_samples,
           reduction_and_alkylation = input$logical_red_alk,
+          volume_needed_table = OT2_template_generation()$OT2_template_tmp %>% select(-row_pos,-col_pos),
+          volume_needed_plot = file.path("sample_volume_plot.png"),
           sample_amount = input$input_sample_amount,
           file_name = OT2_template_generation()$file_out_short,
           LysC_Trypsin_Mix_ratio = ifelse(test = input$enzyme_or_mix == "Trypsin/LysC Mix", yes = input$Trypsin_LysC_Mix_ratio, no = NA),
@@ -378,6 +404,8 @@ output$dlOT2 <- downloadHandler(
         params <- list(
           number_of_samples = OT2_template_generation()$number_of_samples,
           reduction_and_alkylation = input$logical_red_alk,
+          volume_needed_table = OT2_template_generation()$OT2_template_tmp %>% select(-row_pos,-col_pos),
+          volume_needed_plot = file.path(paste("sample_volume_plot.png", sep = "")),
           sample_amount = input$input_sample_amount,
           file_name = OT2_template_generation()$file_out_short,
           LysC_Trypsin_Mix_ratio = ifelse(test = input$enzyme_or_mix == "Trypsin/LysC Mix", yes = input$Trypsin_LysC_Mix_ratio, no = NA),
@@ -425,7 +453,7 @@ output$dlOT2 <- downloadHandler(
 
       # remove files ----------------------------------------------
       file.remove(file.path(paste(format(Sys.Date(), "%Y_%m_%d_"), "__", OT2_template_generation()$file_name, "__Mass_Spec_Preppy.html", sep = "")))
-      
+      file.remove(file.path("sample_volume_plot.png"))
       
       
       # EvoTips / Vials

@@ -383,7 +383,7 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
       theme_void(base_size = 18)+
       scale_x_continuous(breaks = c(1:12),position = "top")+
       theme(axis.text = element_text(),legend.position = "bottom",legend.key.width = unit(1.5,"cm"), title = element_text(face = "bold"))+
-      geom_rect(mapping = aes(xmin=0.5,xmax=12.5,ymin=0.5,ymax = 8.5),fill=NA,color="white")+
+      geom_rect(mapping = aes(xmin=0.5,xmax=12.5,ymin=0.5,ymax = 8.5),fill=NA,color="grey")+
       labs(title = "Pipetted sample volume with settings", subtitle = "preparation plate",fill = "",caption = "red line around well means volume left is below 10µl = critical" )+
       theme(text = element_text(color = "white"),
             plot.title = element_text(face = "bold"))+
@@ -392,7 +392,7 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
     
     if(input$EvoTips_vials=="EvoTips"){
     EVOTIP_volume_needed_plot<- ggplot(OT2_template_tmp,aes(col_pos,row_pos,color=EVOTIP_pipetting_quality))+
-      geom_point(size = 20)+
+      geom_point(size = 16)+
       scale_color_manual(values = c("above max. volume" = "#D84738",
                                    "≥ 1µl & < 2µl" = "#EB9711",
                                    "<1µl" = "#D84738",
@@ -401,7 +401,7 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
       theme_void(base_size = 18)+
       scale_x_continuous(breaks = c(1:12),position = "top")+
       theme(axis.text = element_text(),legend.position = "bottom",legend.key.width = unit(1.5,"cm"), title = element_text(face = "bold"))+
-      geom_rect(mapping = aes(xmin=0.5,xmax=12.5,ymin=0.5,ymax = 8.5),fill=NA,color="white")+
+      geom_rect(mapping = aes(xmin=0.5,xmax=12.5,ymin=0.5,ymax = 8.5),fill=NA,color="grey")+
       labs(title = "Pipetted digest volume for EVOTIP loading with settings", subtitle = "EVOTIP dilution plate",fill = "" )+
       theme(text = element_text(color = "white"),
             plot.title = element_text(face = "bold"))+
@@ -421,7 +421,7 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
       OT2_template_tmp = OT2_template_tmp,
       error = error,
       volume_needed_plot = volume_needed_plot,
-      volume_needed_plot_N = ifelse(input$EvoTips_vials=="EvoTips",2,1),
+      volume_needed_plot_N = ifelse(test = input$EvoTips_vials=="EvoTips", yes = 2, no = 1),
       OT2_protocol_part1_out = OT2_protocol_part1_out,
       OT2_protocol_part2_sequential_out = OT2_protocol_part2_sequential_out,
       OT2_protocol_part2_mix_out = OT2_protocol_part2_mix_out,
@@ -447,7 +447,9 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
 # render volume needed plot -----------------------------------------------
 
 output$volume_needed_plot <- renderUI(
-  renderPlot(OT2_template_generation()$volume_needed_plot,width = 950,height = 500*OT2_template_generation()$volume_needed_plot_N)
+  renderPlot(OT2_template_generation()$volume_needed_plot,
+             width = 950,
+             height = 500*OT2_template_generation()$volume_needed_plot_N)
 )
 
 # render volume needed table -----------------------------------------------

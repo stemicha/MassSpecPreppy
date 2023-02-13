@@ -5,7 +5,7 @@
 # EvoTip UI reactive amount ---------------------------------------------
 output$evosep_amount_ui <- renderUI({
   if (input$EvoTips_vials == "EvoTips") {
-    sliderInput(inputId = "EvoTips_amount", label = "EvoTip amount (ng)", min = 50, max = 1000, step = 50, value = 400)
+    sliderInput(inputId = "EvoTips_amount", label = "EvoTip amount (ng)", min = 200, max = 1000, step = 50, value = 300)
   }
 })
 

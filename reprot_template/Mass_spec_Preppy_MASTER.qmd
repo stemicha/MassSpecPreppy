@@ -120,12 +120,11 @@ datatable(as_tibble(params$sample_list))
 knitr::include_graphics(params$volume_needed_plot)
 ```
 
+
 ```{r,echo=F}
 #| column: screen-inset-right
-DT::datatable(as_tibble(params$volume_needed_table)
-              )%>%
-    DT::formatStyle(columns = "pipetting_quality",
-                     target = "row",
+DT::datatable(as_tibble(params$volume_needed_table) %>% unnest())%>%
+     DT::formatStyle("pipetting_quality",
                     backgroundColor = styleEqual(
                       c("above max. volume",
                         "≥ 1µl & < 2µl" ,

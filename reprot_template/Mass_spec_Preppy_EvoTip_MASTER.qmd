@@ -123,9 +123,8 @@ knitr::include_graphics(params$volume_needed_plot)
 
 ```{r,echo=F}
 #| column: screen-inset-right
-DT::datatable(as_tibble(params$volume_needed_table)
-              )%>%
-    DT::formatStyle("pipetting_quality",
+DT::datatable(as_tibble(params$volume_needed_table)%>% unnest())%>%
+     DT::formatStyle("pipetting_quality",
                     backgroundColor = styleEqual(
                       c("above max. volume",
                         "≥ 1µl & < 2µl" ,

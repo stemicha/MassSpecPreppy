@@ -479,7 +479,7 @@ output$volume_needed_table <- DT::renderDataTable({
                     )
     )
   if(input$EvoTips_vials=="EvoTips"){
-  rendered_table <- rendered_table%>%
+  rendered_table <- rendered_table %>%
     DT::formatStyle("EVOTIP_pipetting_quality",
                     backgroundColor = styleEqual(
                       c("above max. volume",

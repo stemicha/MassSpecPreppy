@@ -230,13 +230,13 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
     # Progress: loading protocol templates
     incProgress(0.6, detail = "loading protocol templates")
 
-    OT2_protocol_part1 <- read_lines(file = "www/Mass_Spec_Preppy__OT2_part1_sample_preparation_in_96well.py")
-    OT2_protocol_part1_wo_alk_red <- read_lines(file = "www/Mass_Spec_Preppy__OT2_part1_sample_preparation_in_96well_without_red_alk.py")
-    OT2_protocol_part2_sequential <- read_lines(file = "www/Mass_Spec_Preppy__OT2_part2_SP3_in_96well_enzyme_sequential.py")
-    OT2_protocol_part2_mix <- read_lines(file = "www/Mass_Spec_Preppy__OT2_part2_SP3_in_96well_enzyme_mix.py")
-    OT2_protocol_part3_vial <- read_lines(file = "www/Mass_Spec_Preppy__OT2_part3_vial_elution.py")
-    OT2_protocol_part3_EvoTip <- read_lines(file = "www/Mass_Spec_Preppy__OT2_part3_EvoTip_loading.py")
-    OT2_protocol_part4_post_EvoTip <- read_lines(file = "www/Mass_Spec_Preppy__OT2_part4_post_EvoTip_loading.py")
+    OT2_protocol_part1 <- read_lines(file = "OT2_protocols_template/Mass_Spec_Preppy__OT2_part1_sample_preparation_in_96well.py")
+    OT2_protocol_part1_wo_alk_red <- read_lines(file = "OT2_protocols_template/Mass_Spec_Preppy__OT2_part1_sample_preparation_in_96well_without_red_alk.py")
+    OT2_protocol_part2_sequential <- read_lines(file = "OT2_protocols_template/Mass_Spec_Preppy__OT2_part2_SP3_in_96well_enzyme_sequential.py")
+    OT2_protocol_part2_mix <- read_lines(file = "OT2_protocols_template/Mass_Spec_Preppy__OT2_part2_SP3_in_96well_enzyme_mix.py")
+    OT2_protocol_part3_vial <- read_lines(file = "OT2_protocols_template/Mass_Spec_Preppy__OT2_part3_vial_elution.py")
+    OT2_protocol_part3_EvoTip <- read_lines(file = "OT2_protocols_template/Mass_Spec_Preppy__OT2_part3_EvoTip_loading.py")
+    OT2_protocol_part4_post_EvoTip <- read_lines(file = "OT2_protocols_template/Mass_Spec_Preppy__OT2_part4_post_EvoTip_loading.py")
 
     # JSON implementation of files
     # genrate python JSON input edited file -----------------------------------

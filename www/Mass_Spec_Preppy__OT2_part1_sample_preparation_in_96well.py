@@ -219,7 +219,7 @@ def run(protocol: protocol_api.ProtocolContext):
   #HS step
   p20.move_to(locPause)
   hs_mod.set_and_wait_for_temperature(37)
-  protocol.delay(minutes=15)
+  protocol.delay(minutes=30)
   hs_mod.deactivate_heater()
   #pause step 
   #protocol.pause("take preparation plate out for incubation for 15 minutes at 37°C for alkylation. Put it back afterwards!!! and resume")

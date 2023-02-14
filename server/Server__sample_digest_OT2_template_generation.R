@@ -406,7 +406,8 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
       labs(title = "Pipetted digest volume for EVOTIP loading with settings", subtitle = "EVOTIP dilution plate",fill = "" )+
       theme(text = element_text(color = "white"),
             plot.title = element_text(face = "bold"))+
-      coord_cartesian(xlim = c(1,12),ylim = c(1,8))
+      coord_cartesian(xlim = c(1,12),ylim = c(1,8))+
+      guides(color = "none")
     
     #merge plot with patchwork
     volume_needed_plot <- volume_needed_plot/EVOTIP_volume_needed_plot

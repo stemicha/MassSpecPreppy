@@ -76,6 +76,7 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
     # add coloring legend -----------------------------------------------------
     
     max_volume <-  10
+    max_volume_EVOTIP <- 20
     min_volume <-  2
     
     OT2_template_tmp <- OT2_template_tmp %>% 
@@ -99,7 +100,7 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
       
       OT2_template_tmp <- OT2_template_tmp %>% 
         rowwise() %>% 
-        mutate(EVOTIP_pipetting_quality = ifelse(EVOTIP_volume_needed>max_volume,
+        mutate(EVOTIP_pipetting_quality = ifelse(EVOTIP_volume_needed>max_volume_EVOTIP,
                                                  yes = paste0("above max. volume"),
                                                  no = ifelse(EVOTIP_volume_needed<min_volume,
                                                              yes = ifelse(EVOTIP_volume_needed>=1,

@@ -203,9 +203,6 @@ def run(protocol: protocol_api.ProtocolContext):
   protocol.delay(minutes=30)
   hs_mod.deactivate_heater()
   
-  #pause step
-  protocol.pause("add freshly prepared IAA solution to the reagent plate")
-  
   
   #transfer IAA to sample
   for i in range(0, math.ceil(sample_number/8)):

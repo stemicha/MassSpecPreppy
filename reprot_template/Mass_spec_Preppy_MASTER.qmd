@@ -215,8 +215,10 @@ knitr::include_graphics(params$deck_plot2)
 
 ## Protocol step 2 -  SP3 digest
 
+
+
 ```{r,echo=F}
-if(is.na(params$LysC_ratio)){
+if(params$LysC_ratio==".na"){
   step2 <- tibble::tribble(
   ~"step",	~"pipette",	~"transfer volume [µl]",	~"sample volume [µl] after step",	~"descritpion",
   "1",	"8-channel P300",	"110",	"130.625",	"transfer 95% ACN on sample for binding (final 80% ACN) and mixing 15x 100µl",

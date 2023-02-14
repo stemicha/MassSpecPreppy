@@ -403,11 +403,10 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
       scale_x_continuous(breaks = c(1:12),position = "top")+
       theme(axis.text = element_text(),legend.position = "bottom",legend.key.width = unit(1.5,"cm"), title = element_text(face = "bold"))+
       geom_rect(mapping = aes(xmin=0.5,xmax=12.5,ymin=0.5,ymax = 8.5),fill=NA,color="grey")+
-      labs(title = "Pipetted digest volume for EVOTIP loading with settings", subtitle = "EVOTIP dilution plate",fill = "" )+
+      labs(title = "Pipetted digest volume for EVOTIP loading with settings",color = "", subtitle = "EVOTIP dilution plate",fill = "" )+
       theme(text = element_text(color = "white"),
             plot.title = element_text(face = "bold"))+
-      coord_cartesian(xlim = c(1,12),ylim = c(1,8))+
-      guides(color = "none")
+      coord_cartesian(xlim = c(1,12),ylim = c(1,8))
     
     #merge plot with patchwork
     volume_needed_plot <- volume_needed_plot/EVOTIP_volume_needed_plot

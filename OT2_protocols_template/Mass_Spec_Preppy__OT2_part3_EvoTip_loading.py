@@ -201,7 +201,7 @@ f{INCUBATION_TIME} minutes.')
                  dilution_plate.wells_by_name()[prep_plate_columns_position[i]].bottom(0.5), # 0.5mm from bottom
                  EvoTips.wells_by_name()[prep_plate_columns_position[i]].bottom(15),#15 mm above
                  new_tip ="always",
-                 touch_tip = False)
+                 touch_tip = True)
  
   #pause step
   m300.move_to(locPause)

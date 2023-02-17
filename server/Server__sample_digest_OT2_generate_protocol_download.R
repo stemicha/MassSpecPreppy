@@ -280,13 +280,13 @@ output$dlOT2 <- downloadHandler(
       )
       
       if (input$EvoTips_vials == "Vial") {
-        file.copy("reprot_template/Mass_spec_Preppy_MASTER.qmd",
+        file.copy("report_template/Mass_spec_Preppy_MASTER.qmd",
           file.path(tempdir(), "Mass_spec_Preppy_MASTER.qmd"),
           overwrite = TRUE
         )
       }
       if (input$EvoTips_vials == "EvoTips") {
-        file.copy("reprot_template/Mass_spec_Preppy_EvoTip_MASTER.qmd",
+        file.copy("report_template/Mass_spec_Preppy_EvoTip_MASTER.qmd",
           file.path(tempdir(), "Mass_spec_Preppy_MASTER.qmd"),
           overwrite = TRUE
         )

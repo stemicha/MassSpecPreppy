@@ -202,7 +202,7 @@ DT::datatable(step1,rownames= FALSE,options = list(pageLength = nrow(step1),
 - `r params$LysC_stock_concentration` ng/µl LysC stock solution in H~2~O (add in reagent plate before starting the protocol)
 - `r params$trypsin_stock_concentration` ng/µl trypsin stock solution in 50mM acetic acid (add in reagent plate after 3h LysC incubation)
 - `r params$LysC_Trypsin_Mix_concentration` ng/µl LysC/Trypsin Mix stock solution in 50mM acetic acid
-- incubation at 37°C (e.g. inside an incubator) should be performed with MixMate at 1500rpm
+- incubation at 37°C (e.g. inside an incubator) should be performed with MixMate at 1500rpm (or optional no shaking)
 :::
 
 ::: {.callout-important}

@@ -493,7 +493,7 @@ plot_deck_layout_step2_SP3 <- function(number_of_samples = 96,
     Slot3 <- nest_96well_reagent_plot(input_df = input_df_NEST_100ul,label = "reagent plate (96well NEST plate)",OT_slot = 3,text_color = text_color)
     
     #tips
-    digest_tips <- ifelse(test = trypsin_LysC_mix_used == T,plate_columns_used*8*1,plate_columns_used*8*2)
+    digest_tips <- ifelse(test = trypsin_LysC_mix_used == T,plate_columns_used*8*2,plate_columns_used*8*3)
     prep__tips <- 8*plate_columns_used*8
     
     

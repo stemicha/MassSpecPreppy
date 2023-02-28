@@ -80,15 +80,13 @@ def run(protocol: protocol_api.ProtocolContext):
   tiprack20_1 = protocol.load_labware("opentrons_96_tiprack_20ul", "10",label = "OT_96_tiprack_20ul_1")
   tiprack20_2 = protocol.load_labware("opentrons_96_tiprack_20ul", "7",label = "OT_96_tiprack_20ul_2")
   tiprack20_3 = protocol.load_labware("opentrons_96_tiprack_20ul", "11",label = "OT_96_tiprack_20ul_3")
-  tiprack20_4 = protocol.load_labware("opentrons_96_tiprack_20ul", "8",label = "OT_96_tiprack_20ul_4")
-  tiprack20_5 = protocol.load_labware("opentrons_96_tiprack_20ul", "9",label = "OT_96_tiprack_20ul_5")
-
+  
   #preparation plate
   prep_plate = protocol.load_labware("nest_96_wellplate_100ul_pcr_full_skirt", "6", label = "preparation_plate")
   
   #pipettes
   p20 = protocol.load_instrument("p20_single_gen2", mount = "left", tip_racks = [tiprack20_1,tiprack20_2])
-  m20 = protocol.load_instrument("p20_multi_gen2", mount = "right", tip_racks = [tiprack20_3,tiprack20_4,tiprack20_5])
+  m20 = protocol.load_instrument("p20_multi_gen2", mount = "right", tip_racks = [tiprack20_3])
 
   #reagent plate
   #column 1 = 150µl buffer in each well

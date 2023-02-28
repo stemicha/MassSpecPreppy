@@ -307,7 +307,7 @@ plot_deck_layout_step1 <- function(red_alk = TRUE,
   number_of_samples <- nrow(meta_table %>% filter(!is.na(sample)))
   
   plate_columns_used<- ceiling(number_of_samples/8)
-  pipettes <- pipette_plot(left = "20µl single channel",right = "20µl multi channel")
+  pipettes <- pipette_plot(left = "20µl single channel",right = "20µl multi channel", text_color = text_color)
   
   #red alk = TRUE
   if(red_alk == TRUE){
@@ -448,7 +448,7 @@ plot_deck_layout_step2_SP3 <- function(number_of_samples = 96,
   
   
   plate_columns_used<- ceiling(number_of_samples/8)
-  pipettes <- pipette_plot(left = "300µl multi channel",right = "20µl multi channel")
+  pipettes <- pipette_plot(left = "300µl multi channel",right = "20µl multi channel",text_color = text_color)
   
   plate_columns_used*8*150
     #NEST 12ml reagent plate step1
@@ -531,7 +531,7 @@ plot_deck_layout_step3_MSvial <- function(number_of_samples = 96,
   
   
   plate_columns_used<- ceiling(number_of_samples/8)
-  pipettes <- pipette_plot(left = "20µl single channel",right = "20µl multi channel")
+  pipettes <- pipette_plot(left = "20µl single channel",right = "20µl multi channel", text_color = text_color)
   
   plate_columns_used*8*150
   #NEST 12ml reagent plate step1
@@ -580,7 +580,7 @@ plot_deck_layout_step3_EvoTips <- function(number_of_samples = 96,
   
   
   plate_columns_used<- ceiling(number_of_samples/8)
-  pipettes <- pipette_plot(left = "300µl multi channel",right = "20µl multi channel")
+  pipettes <- pipette_plot(left = "300µl multi channel",right = "20µl multi channel", text_color = text_color)
   
   #NEST 12ml reagent plate step1
   input_df_NEST_12ml <- tibble(postion = c("A1","A2","A3","A4"),
@@ -639,7 +639,7 @@ plot_deck_layout_step4_EvoTips <- function(number_of_samples = 96,
   
   
   plate_columns_used<- ceiling(number_of_samples/8)
-  pipettes <- pipette_plot(left = "300µl multi channel",right = "20µl multi channel")
+  pipettes <- pipette_plot(left = "300µl multi channel",right = "20µl multi channel", text_color = text_color)
   
   
   

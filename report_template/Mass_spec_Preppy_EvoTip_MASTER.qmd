@@ -324,21 +324,19 @@ knitr::include_graphics(params$deck_plot3)
 ```{r,echo=F}
 step3 <- tibble::tribble(
   ~"step",	~"pipette",	~"transfer volume [µl]",	~"sample volume [µl] after step",	~"descritpion",
-  "1",	"8-channel P20",	"2.44",	"24.44",	"transfer of 5% TFA to stop the digest (0.5% TFA final conc.)",
-  "2",	"8-channel P20",	"variable",	"variable",	"transfer calc. Volume of solvent A to dilution plate",
-  "3","","","","magnet module: raise magnet 12mm and incubate for 5 minutes",
-  "4","	8-channel P20","variable",	"23",	"transfer calc. volume  of sample (desired ng) to dilution plate (20µl will be transfered to EvoTip; here 23µl are the final volume to have excess volume)",
-  "5",	"8-channel P300",	"20",	"20",	"transfer 20µl of solvent B to EvoTips",
-  "6","","","","pause step: centrifuge for 60 seconds at 800xg (M-20 rotor)",
-  "7","","","","soak tips in propanol",
-  "8",	"8-channel P300",	"20",	"20",	"transfer 20µl of solvent A to EvoTips",
+   "1","","","","magnet module: raise magnet 12mm and delay for 3 minutes",
+   "2",	"8-channel P20",	"2.44",	"24.44",	"transfer of 5% TFA to stop the digest (0.5% TFA final conc.)",
+  "3",	"8-channel P300",	"20",	"20",	"transfer 20µl of solvent B to EvoTips",
+  "4","","","","pause step: centrifuge for 60 seconds at 800xg (M-20 rotor)",
+  "5","","","","soak tips in propanol",
+  "6",	"8-channel P300",	"20",	"20",	"transfer 20µl of solvent A to EvoTips",
+  "7","","","","pause step: centrifuge for 60 seconds at 800xg (M-20 rotor)",
+  "8",	"8-channel P20",	"20",	"20",	"transfer variable µl solvent A and add to 20µl with calculated volume of sample digest to reach desired amount (ng) of digest for loading and load on EvoTips (sample loading)",
   "9","","","","pause step: centrifuge for 60 seconds at 800xg (M-20 rotor)",
-  "10",	"8-channel P20",	"20",	"20",	"transfer 20µl of diluted sample to EvoTips (sample loading)",
+  "10","	8-channel P300",	"20",	"20",	"transfer 20µl of solvent A to EvoTips",
   "11","","","","pause step: centrifuge for 60 seconds at 800xg (M-20 rotor)",
-  "12","	8-channel P300",	"20",	"20",	"transfer 20µl of solvent A to EvoTips",
-  "13","","","","pause step: centrifuge for 60 seconds at 800xg (M-20 rotor)",
-  "14",	"8-channel P300",	"20",	"20",	"transfer 100µl of solvent A to EvoTips",
-  "15","","","","pause step: centrifuge for 10 seconds at 800xg (M-20 rotor)")
+  "12",	"8-channel P300",	"20",	"20",	"transfer 100µl of solvent A to EvoTips",
+  "13","","","","pause step: centrifuge for 10 seconds at 800xg (M-20 rotor)")
 
 DT::datatable(step3,rownames= FALSE,options = list(pageLength = nrow(step3),
                                    initComplete = htmlwidgets::JS("function(settings, json) {",

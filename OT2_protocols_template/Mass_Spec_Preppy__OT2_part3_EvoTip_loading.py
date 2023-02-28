@@ -49,13 +49,9 @@ def run(protocol: protocol_api.ProtocolContext):
 
   EvoTips_amount_ng = float(EvoTips_amount_ng)
 
-  #calculate sample loading dilution for EvoTip / setup 23µl take out 20 µl / 15% more BUT use at least 1 µl
-  if 1/((EvoTips_amount_ng/20)/((sample_amount*1000)/24.44)) > 23:
-    EvoTips_amount_ng_volume = 1
-    EvoTips_amount_ng_volume_buffer = 1/((EvoTips_amount_ng/20)/((sample_amount*1000)/24.44))-EvoTips_amount_ng_volume
-  else:
-    EvoTips_amount_ng_volume = ((EvoTips_amount_ng/20)/((sample_amount*1000)/24.44))*23
-    EvoTips_amount_ng_volume_buffer = 23-EvoTips_amount_ng_volume
+  #Evotip loading sample volumes
+  EvoTips_amount_ng_volume = ((EvoTips_amount_ng/20)/((sample_amount*1000)/24.44))*20
+  EvoTips_amount_ng_volume_buffer = 20-EvoTips_amount_ng_volume
   
   # csv_sample --> nested list
   SampleTransfer = [[val.strip() for val in line.split(",")]
@@ -100,14 +96,12 @@ def run(protocol: protocol_api.ProtocolContext):
   #tips
   tiprack300_1 = protocol.load_labware("opentrons_96_tiprack_300ul", "9",label = "OT_96_tiprack_300ul_1")
  
-  tiprack20_1 = protocol.load_labware("opentrons_96_tiprack_20ul", "10",label = "OT_96_tiprack_20ul_1")
-  tiprack20_2 = protocol.load_labware("opentrons_96_tiprack_20ul", "7",label = "OT_96_tiprack_20ul_2")
-  tiprack20_3 = protocol.load_labware("opentrons_96_tiprack_20ul", "11",label = "OT_96_tiprack_20ul_3")
-  tiprack20_4 = protocol.load_labware("opentrons_96_tiprack_20ul", "8",label = "OT_96_tiprack_20ul_4")
+  tiprack20_1 = protocol.load_labware("opentrons_96_tiprack_20ul", "7",label = "OT_96_tiprack_20ul_2")
+  tiprack20_2 = protocol.load_labware("opentrons_96_tiprack_20ul", "8",label = "OT_96_tiprack_20ul_3")
 
 
   #pipettes
-  m20 = protocol.load_instrument("p20_multi_gen2", mount = "right", tip_racks = [tiprack20_1,tiprack20_2,tiprack20_3,tiprack20_4])
+  m20 = protocol.load_instrument("p20_multi_gen2", mount = "right", tip_racks = [tiprack20_1,tiprack20_2])
   m300 = protocol.load_instrument("p300_multi_gen2", mount = "left", tip_racks = [tiprack300_1])
  
   #volume from previous step = 22µl
@@ -130,34 +124,6 @@ f{INCUBATION_TIME} minutes.')
                  mix_after = (2,10),
                  touch_tip = False)
   # vol = 24.44 ul
-  
-  ##################################################
-  # transfer dilution buffer for 20µl sample dilution
-  ##################################################
-  m20.pick_up_tip()
-  for i in range(0,  math.ceil(sample_number/8)):
-    m20.transfer(EvoTips_amount_ng_volume_buffer, 
-                 reagents.wells_by_name()["A3"].bottom(1), # 1mm from bottom
-                 dilution_plate.wells_by_name()[prep_plate_columns_position[i]].bottom(1), 
-                 new_tip ="never",
-                 touch_tip = False)
-  m20.drop_tip()
-
-
-  ##################################################
-  # transfer sample to dilution plate
-  ##################################################
-
-  m20.flow_rate.aspirate /= 10  # modulate flow rate for removal / On API Version 2.6 and subsequent: 7.56 µL/s
-  for i in range(0,  math.ceil(sample_number/8)):
-    side = -1 if i % 2 == 0 else 1
-    loc = magplate.wells_by_name()[prep_plate_columns_position[i]].bottom().move(Point(x=side*OFFSET_RADIAL, z=OFFSET_Z_remove))
-    m20.transfer(EvoTips_amount_ng_volume,
-                 loc,
-                 dilution_plate.wells_by_name()[prep_plate_columns_position[i]].bottom(1),
-                 new_tip="always", 
-                 mix_after = (2,10))
-  m20.flow_rate.aspirate *= 10  # modulate flow rate for removal
 
   
   ######################################################
@@ -196,13 +162,29 @@ f{INCUBATION_TIME} minutes.')
   ##################################################
   # transfer samples to Evotip /sample loading
   ##################################################
+  
   for i in range(0, math.ceil(sample_number/8)):
-      m20.transfer(20, 
-                 dilution_plate.wells_by_name()[prep_plate_columns_position[i]].bottom(0.5), # 0.5mm from bottom
-                 EvoTips.wells_by_name()[prep_plate_columns_position[i]].bottom(15),#15 mm above
-                 new_tip ="always",
-                 touch_tip = True)
- 
+    side = -1 if i % 2 == 0 else 1
+    loc = magplate.wells_by_name()[prep_plate_columns_position[i]].bottom().move(Point(x=side*OFFSET_RADIAL, z=OFFSET_Z_remove))
+    #aspirate solvent a for consolidation
+    m20.pick_up_tip()
+    m20.aspirate(EvoTips_amount_ng_volume_buffer, reagents.wells_by_name()["A3"].bottom(1))
+    m20.move_to(reagents.wells_by_name()["A3"].top(),speed = 5) #slower retraction
+    #aspirate sample from digest plate
+    m20.flow_rate.aspirate /= 10  # modulate flow rate for removal / On API Version 2.6 and subsequent: 7.56 µL/s
+    m20.aspirate(EvoTips_amount_ng_volume, loc)
+    m20.flow_rate.aspirate *= 10  # modulate flow rate for removal
+    #dispense sample inside evotip
+    m20.dispense(20,EvoTips.wells_by_name()[prep_plate_columns_position[i]].bottom(15)) #15 mm above
+    def_pipette = m20.flow_rate.blow_out
+    m20.flow_rate.blow_out = 0.5
+    m20.blow_out()
+    m20.flow_rate.blow_out = def_pipette #set to default blow out rate
+    # touch tip to avoid evotip removal
+    m20.touch_tip()
+    #drop tip in thrash
+    m20.drop_tip()
+    
   #pause step
   m300.move_to(locPause)
   protocol.pause("take EvoTips out >> centrifuge!!! and resume")

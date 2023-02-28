@@ -94,9 +94,7 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
     if(input$EvoTips_vials=="EvoTips"){
       OT2_template_tmp <- OT2_template_tmp %>%
           rowwise() %>% 
-          mutate(EVOTIP_volume_needed = input$EvoTips_amount/(input_amount*1000/24.44)) %>% 
-          mutate(EVOTIP_volume_needed = ifelse(EVOTIP_volume_needed<1,1,EVOTIP_volume_needed))
-        # dilution is adapted minimal volume for pipetting = 1µl
+          mutate(EVOTIP_volume_needed = input$EvoTips_amount/(input_amount*1000/24.44))
       
       OT2_template_tmp <- OT2_template_tmp %>% 
         rowwise() %>% 

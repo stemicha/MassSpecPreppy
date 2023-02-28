@@ -600,19 +600,18 @@ plot_deck_layout_step3_EvoTips <- function(number_of_samples = 96,
   Slot3 <- tip_rack_plot(label = "EvoTips",OT_slot = 3,number_of_used_tips = number_of_samples,text_color = text_color)
   
   #tips
-  tips_20ul <- plate_columns_used*8*3+8
+  tips_20ul <- plate_columns_used*8+8
   tips_300ul <- 8*4
   
   
-  Slot10 <- tip_rack_plot(label = "20ul_tips_1",text_color = text_color, OT_slot = 10,number_of_used_tips = ifelse(tips_20ul>96,96,tips_20ul))
-  Slot7 <- tip_rack_plot(label = "20ul_tips_2",text_color = text_color,OT_slot = 7,number_of_used_tips = ifelse((tips_20ul-96)>=96,96,ifelse((tips_20ul-96)<0,0,(tips_20ul-96))))
-  Slot11 <- tip_rack_plot(label = "20ul_tips_3",text_color = text_color,OT_slot = 4,number_of_used_tips = ifelse((tips_20ul-192)>=96,96,ifelse((tips_20ul-192)<0,0,(tips_20ul-192))))
-  Slot8 <- tip_rack_plot(label = "20ul_tips_4",text_color = text_color,OT_slot = 11,number_of_used_tips = ifelse((tips_20ul-288)>=96,96,ifelse((tips_20ul-288)<0,0,(tips_20ul-288))))
-  
+  Slot10 <- plot_spacer()
+  Slot7 <- tip_rack_plot(label = "20ul_tips_1",text_color = text_color,OT_slot = 7,number_of_used_tips = ifelse((tips_20ul)>=96,96,ifelse((tips_20ul)<0,0,(tips_20ul))))
+  Slot8 <- tip_rack_plot(label = "20ul_tips_2",text_color = text_color,OT_slot = 8,number_of_used_tips = ifelse((tips_20ul-96)>=96,96,ifelse((tips_20ul-96)<0,0,(tips_20ul-96))))
+  Slot11 <- plot_spacer()
   
   Slot6 <- plot_spacer()
   Slot4 <- plot_spacer()
-  Slot5 <- prep_plate_plot(label = "dilution plate (96well NEST plate)",text_color = text_color,OT_slot = 5,number_of_samples = number_of_samples)
+  Slot5 <- plot_spacer()
   Slot9 <- tip_rack_plot(label = "300ul_tips_1",text_color = text_color, OT_slot = 9,number_of_used_tips = ifelse(tips_300ul>96,96,tips_300ul))
   
   #preparation plate

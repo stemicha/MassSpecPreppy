@@ -265,4 +265,4 @@ f{INCUBATION_TIME} minutes.')
   magnet_module.disengage()
 
   #comment step
-  protocol.comment("take preparation plate out, seal it > place plate in MixMate and shake for at least 5 minutes at 3000rpm > short centrifugation with table plate centrifuge > incubate it at 37°C with MixMate at 1500rpm (or optional no shaking) for 15-16hours.")
+  protocol.comment("take preparation plate out, seal it > place plate in MixMate and shake for at least 5 minutes at 3000rpm > short centrifugation with table plate centrifuge > incubate it at 37°C in MixMate C with ThermoTop (or similar) at 1500rpm (or optional no shaking) for 15-16hours.")

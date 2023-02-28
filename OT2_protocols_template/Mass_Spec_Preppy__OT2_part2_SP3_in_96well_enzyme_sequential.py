@@ -267,7 +267,7 @@ f{INCUBATION_TIME} minutes.')
   magnet_module.disengage()
   
   #pause step
-  protocol.pause("take preparation plate out, seal it > place plate in MixMate and shake for at least 5 minutes at 3000rpm > short centrifugation with table plate centrifuge > incubate it at with MixMate at 1500rpm (or optional no shaking) at 37°C for 3 hours. Replace 20ul tips with a new FULL tip racks, add trypsin in the reagent plate and resume!")
+  protocol.pause("take preparation plate out, seal it > place plate in MixMate and shake for at least 5 minutes at 3000rpm > short centrifugation with table plate centrifuge > incubate it at in MixMate C with ThermoTop (or similar) at 1500rpm (or optional no shaking) at 37°C for 3 hours. Replace 20ul tips with a new FULL tip racks, add trypsin in the reagent plate and resume!")
   
   #reset 20ul tip rack
   m20.reset_tipracks()
@@ -287,4 +287,4 @@ f{INCUBATION_TIME} minutes.')
   magnet_module.disengage()
 
  #comment step
-  protocol.comment("take preparation plate out, seal it > place plate in MixMate and shake for at least 5 minutes at 3000rpm > short centrifugation with table plate centrifuge > incubate it with MixMate at 1500rpm (or optional no shaking) at 37°C for 15-16hours.")
+  protocol.comment("take preparation plate out, seal it > place plate in MixMate and shake for at least 5 minutes at 3000rpm > short centrifugation with table plate centrifuge > incubate it in MixMate C with ThermoTop (or similar) at 1500rpm (or optional no shaking) at 37°C for 15-16hours.")

@@ -600,7 +600,7 @@ plot_deck_layout_step3_EvoTips <- function(number_of_samples = 96,
   Slot3 <- tip_rack_plot(label = "EvoTips",OT_slot = 3,number_of_used_tips = number_of_samples,text_color = text_color)
   
   #tips
-  tips_20ul <- plate_columns_used*8+8
+  tips_20ul <- (plate_columns_used*8)*2
   tips_300ul <- 8*4
   
   

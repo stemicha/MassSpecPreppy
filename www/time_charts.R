@@ -30,17 +30,17 @@ part2<- tribble(~item, ~activity,~manual_OT_2,~start,~end,
 
 # part3 EvoTip
 part3_EvoTip<- tribble(~item, ~activity,~manual_OT_2,~start,~end,
-                1,"sample elution & dilution","OT-2",0,21,#sample prep
-                2,"EvoTip preparation","OT-2",21,23,#Solvent B
-                3,"centrifugation","manual",23,25,
-                4,"EvoTip preparation","OT-2",25,27,#Solvent A
-                5,"centrifugation","manual",27,30,
-                6,"EvoTip preparation","OT-2",30,35,#sample loading
-                7,"centrifugation","manual",35,38,
-                8,"EvoTip preparation","OT-2",38,39,#Solvent A
-                9,"centrifugation","manual",39,42,
-                10,"EvoTip preparation","OT-2",42,45,#Solvent A
-                11,"centrifugation","manual",45,47
+                1,"sample elution & dilution","OT-2",0,5,#sample prep
+                2,"EvoTip preparation","OT-2",5,7,#Solvent B
+                3,"centrifugation","manual",7,9,
+                4,"EvoTip preparation","OT-2",9,11,#Solvent A
+                5,"centrifugation","manual",11,13,
+                6,"EvoTip preparation","OT-2",13,23,#sample loading
+                7,"centrifugation","manual",23,25,
+                8,"EvoTip preparation","OT-2",25,27,#Solvent A
+                9,"centrifugation","manual",27,29,
+                10,"EvoTip preparation","OT-2",29,31,#Solvent A
+                11,"centrifugation","manual",31,33
 )
 
 

@@ -1,24 +1,21 @@
 ---
-title: "BCA assay - protein concentration determination on OT-2"
-author: | 
-  | author: Stephan Michalik
-  | C_FunGene
-  | Department of Functional Genomics
-  | University Medicine Greifswald
+title: "Mass Spec Preppy"
+author: "Stephan Michalik"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
-output: 
-  html_document:
-    fontsize: 12pt
-    theme: spacelab
-    highlight: tango
-    df_print: paged
+title-block-banner: "#151515"
+subtitle: "BCA assay - protein concentration determination on OT-2"
+page-layout: full
+css: styles.css
+format:
+  html:
     toc: true
-    toc_depth: 3
-    number_sections: true
-    toc_float:
-      collapsed: true
-      smooth_scroll: true
-      number_sections: true
+    toc-depth: 3
+    toc-title: Contents
+    toc-location: left # default is right, option is 'body'
+    html-math-method: katex
+    self-contained: true
+    anchor-sections: true
+    smooth-scroll: true
 params:
   number_of_samples: NA
   sample_list: NA
@@ -58,46 +55,48 @@ suppressMessages(library(htmlwidgets))
 
 ```
 
-  <!-- include logo -->  
-
-```{r, echo=FALSE}
-htmltools::img(src = knitr::image_uri("ShinyBCA_hexbin_small.png"), 
-               alt = 'logo', 
-               style = 'position:absolute; top:50px; right:0; padding:10px;width: 300;height: 153px;')
-```
 
 **filename:** <span style="color:#4A7CB3; font-weight: bold; font-size:18.0pt">`r params$file_name`</span>
 
-# shinyBCA - Inputs
+
+# BCA assay - samples according to provided input table
 
 - number of samples: **`r params$number_of_samples`**
 
 ## sample list
 
-<span style="color:red; font-weight: bold;">samples should be well resolubilized and all liquid should be at the bottom of the reaction vessel</span>
+::: {.callout-warning}
+## samples should be well resolubilized and all liquid should be at the bottom of the reaction vessel
+:::
 
 ```{r,echo=F}
-datatable(params$sample_list,options = list(
+datatable(as_tibble(params$sample_list),options = list(
             columnDefs = list(list(className = 'dt-center', targets = "_all"))
             ))
 ```
 
 # shinyBCA protocol on OT-2
 
-<span style="color:red; font-weight: bold;">Always perform labware calibration before starting this protocol at the OT-2 app</span>
+::: {.callout-important}
+## Always perform labware calibration before starting this protocol at the OT-2 app
+:::
 
-**please provide:**
+::: {.callout-note appearance="simple" icon=false}
+## please provide WITHOUT AIR BUBBLES:
 
 - 1 mg/ml BSA standard in H~2~O
 - 1x sample buffer
 - 2x sample buffer
 - Micro BCA Protein Assay Kit - working reagent (25:24:1, Reagent MA:MB:MC)
+:::
 
-<u>After robot is done:</u>
+::: {.callout-note}
+## After robot is done:
 
 - incubate in the dark at 60°C for 1 hour
 - after incubation led plate cool down for 30 minutes 
-- measure at the Synergy H1
+- measure e.g. at the Synergy H1 plate reader
+:::
 
 ```{r,echo=F}
 knitr::include_graphics(params$deck_plot)
@@ -125,5 +124,3 @@ DT::datatable(step1,rownames= FALSE,options = list(pageLength = nrow(step1),
                                                     "}")))
 
 ```
-
-

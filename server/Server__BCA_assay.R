@@ -188,16 +188,22 @@ output$dlOT2_BCA <- downloadHandler(
       saveWorkbook(BCA_OT2_template_generation()$excel_output_template_OT2, file = paste0(BCA_OT2_template_generation()$file_output_short, "_BCA_assay_meta_file.xlsx"), overwrite = TRUE)
 
       incProgress(0.4, detail = "copy files")
-
-      # Rmd file
-      file.copy("www/OT2_BCA_MASTER.Rmd",
-        file.path(tempdir(), "OT2_BCA_MASTER.Rmd"),
-        overwrite = TRUE
+      
+      # copy quarto
+      file.copy("www/styles.css",
+                file.path(tempdir(), "styles.css"),
+                overwrite = TRUE
+      )
+      
+      # qmd file
+      file.copy("report_template/Mass_spec_Preppy_BCA_MASTER.qmd",
+                file.path(tempdir(), "Mass_spec_Preppy_BCA_MASTER.qmd"),
+                overwrite = TRUE
       )
       # copy logo and other pics
-      file.copy("www/ShinyBCA_hexbin_small.png",
-        file.path(tempdir(), "ShinyBCA_hexbin_small.png"),
-        overwrite = TRUE
+      file.copy("www/Mass_Spec_Preppy_hexbin_small.png",
+                file.path(tempdir(), "Mass_Spec_Preppy_hexbin_small.png"),
+                overwrite = TRUE
       )
 
       ggsave(
@@ -221,12 +227,13 @@ output$dlOT2_BCA <- downloadHandler(
       incProgress(0.6, detail = "render report")
 
       # render report
-      rmarkdown::render(file.path(tempdir(), "OT2_BCA_MASTER.Rmd"),
-        output_file = file.path(tempdir(), paste(format(Sys.Date(), "%Y_%m_%d_"), "__", BCA_OT2_template_generation()$file_output_short, "__BCA_assay_description.html", sep = "")),
-        params = params,
-        envir = new.env(parent = globalenv())
+      #render quarto
+      quarto::quarto_render(input = file.path(tempdir(), "Mass_spec_Preppy_BCA_MASTER.qmd"),
+                            execute_params = params
       )
-
+      #rename file
+      file.rename(from = file.path(tempdir(), "Mass_spec_Preppy_BCA_MASTER.html"),to = file.path(tempdir(),paste(format(Sys.Date(), "%Y_%m_%d_"), "__", BCA_OT2_template_generation()$file_output_short, "__BCA_assay_description.html", sep = "")))
+      
       # copy report
       file.copy(file.path(tempdir(), paste(format(Sys.Date(), "%Y_%m_%d_"), "__", BCA_OT2_template_generation()$file_output_short, "__BCA_assay_description.html", sep = "")),
         file.path(paste(format(Sys.Date(), "%Y_%m_%d_"), "__", BCA_OT2_template_generation()$file_output_short, "__BCA_assay_description.html", sep = "")),
@@ -256,8 +263,8 @@ output$dlOT2_BCA <- downloadHandler(
 
       # remove temp. files
       file.remove(fs)
-      file.remove(file.path(tempdir(), "OT2_BCA_MASTER.Rmd"))
-      file.remove(file.path(tempdir(), "ShinyBCA_hexbin_small.png"))
+      file.remove(file.path(tempdir(), "Mass_spec_Preppy_BCA_MASTER.qmd"))
+      file.remove(file.path(tempdir(), "Mass_Spec_Preppy_hexbin_small.png"))
       file.remove(file.path(tempdir(), paste(BCA_OT2_template_generation()$file_output_short, "__decklayout.png", sep = "")))
       file.remove(file.path(paste(BCA_OT2_template_generation()$file_output_short, "__decklayout.png", sep = "")))
     }) # end progress

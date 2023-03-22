@@ -85,7 +85,7 @@ def run(protocol: protocol_api.ProtocolContext):
   #column 4 = solvent A: 0.1% formic acid - storage
   reagents = protocol.load_labware("nest_12_reservoir_15ml", "2",label = "reagents")
   
-  #vial labware (48 samples per slot)
+  #EVOTIPS
   EvoTips = protocol.load_labware("cfungeneapapterevotips_96_tuberack_200ul", "3",label = "EvoTips")
 
 

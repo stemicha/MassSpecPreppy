@@ -357,6 +357,9 @@ output$myFileName <- renderText({
 # split standard and sample measurements ----------------------------------
 
 calculations <- reactive({
+  
+  theme_base_size <- 18
+  
   withProgress(
     message = "processing data...",
     style = "notification",
@@ -466,31 +469,33 @@ calculations <- reactive({
       # CV plot
       std_cv_plot <- ggplot(std_tidy_summary, aes(as.factor(conc_mg_per_ml), CV_Abs, fill = CV_Abs > 0.2)) +
         geom_bar(stat = "identity") +
-        theme_minimal(base_size = 18) +
+        theme_minimal(base_size = theme_base_size) +
         scale_fill_manual(values = c("TRUE" = "orangered3", "FALSE" = "grey")) +
-        theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
         labs(title = "Standard CV plot", x = "conc_mg_per_ml") +
         geom_hline(yintercept = 0.1) +
         geom_hline(yintercept = 0.2, linetype = "dotted") +
         ylim(0, 1) +
         facet_wrap(~`Plate Number`) +
         theme(
+          axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5,size = theme_base_size-6),
+          axis.text.y = element_text(size = theme_base_size-6),
           strip.text = element_text(face = "bold"),
           plot.background = element_rect(fill = "white", color = "white")
         )
 
       data_cv_plot <- ggplot(data_samples_summary, aes(Sample, CV_Abs, fill = CV_Abs > 0.2)) +
         geom_bar(stat = "identity") +
-        theme_minimal(base_size = 18) +
+        theme_minimal(base_size = theme_base_size) +
         scale_fill_manual(values = c("TRUE" = "orangered3", "FALSE" = "grey")) +
-        theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
-        labs(title = "CV plot") +
+        labs(title = "CV plot", caption = "solid line: CV = 0.1 / dashed line: CV = 0.2") +
         geom_hline(yintercept = 0.1) +
         geom_hline(yintercept = 0.2, linetype = "dotted") +
         ylim(0, 1) +
         facet_wrap(~Dilution, labeller = label_both, ncol = 1) +
         theme(
-          strip.text = element_text(face = "bold"),
+          axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5,size = theme_base_size-6),
+          axis.text.y = element_text(size = theme_base_size-6),
+          strip.text = element_text(face = "bold", size = theme_base_size-2),
           plot.background = element_rect(fill = "white", color = "white")
         )
 
@@ -548,7 +553,7 @@ calculations <- reactive({
         ) +
         stat_smooth(method = "lm", color = "#4285F4", formula = "y ~ x", size = 2, se = F, fullrange = T) +
         stat_smooth(method = "loess", color = "black", formula = "y ~ x", size = 3, se = T, level = 0.95, fill = "grey") +
-        theme_minimal(base_size = 18) +
+        theme_minimal(base_size = theme_base_size) +
         geom_point(size = 5, alpha = 0.8, color = "darkgrey") +
         geom_errorbar(mapping = aes(xmin = meanAbs - SD_Abs, xmax = meanAbs + SD_Abs), width = 0.005, color = "black") +
         scale_y_continuous(breaks = seq(0, 0.16, length.out = 9)) +
@@ -556,11 +561,12 @@ calculations <- reactive({
         labs(
           title = "standard curve (loess / linear fit)",
           y = "µg/µl",
-          caption = "loess fit & 95% CI in black / linear fit in blue / hard coded std. curve in green"
+          caption = "loess fit & 95% CI in black / linear fit in blue /\n hard coded std. curve in green"
         ) +
         coord_flip() +
         facet_wrap(~`Plate Number`, nrow = 1) +
         theme(
+          strip.text = element_text(face = "bold", size = theme_base_size-5),
           axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
           plot.background = element_rect(fill = "white", color = "white")
         )
@@ -570,10 +576,14 @@ calculations <- reactive({
         geom_hline(yintercept = 0) +
         geom_point(size = 5, alpha = 0.8, color = "darkgrey") +
         scale_x_continuous(breaks = seq(0, 0.16, length.out = 9)) +
-        theme_minimal(base_size = 18) +
+        theme_minimal(base_size = theme_base_size) +
         labs(title = "loess fit residual plot", subtitle = "closer to 0 is better") +
         facet_wrap(~`Plate Number`) +
-        theme(plot.background = element_rect(fill = "white", color = "white"))
+        theme(
+          axis.text = element_text(size = theme_base_size-6),
+          plot.background = element_rect(fill = "white", color = "white"),
+          strip.text = element_text(face = "bold", size = theme_base_size-5)
+          )
 
 
 
@@ -584,14 +594,17 @@ calculations <- reactive({
         geom_hline(yintercept = -1 * z_score_threshold, linetype = "dashed") +
         scale_color_manual(values = c("TRUE" = "orangered", "FALSE" = "black")) +
         scale_x_continuous(breaks = seq(0, 0.16, length.out = 9)) +
-        theme_minimal(base_size = 18) +
+        theme_minimal(base_size = theme_base_size) +
         labs(
           title = "z-score plot",
           caption = "z = residuals - mean(residuals)) / sd(residuals)",
           subtitle = "z-score threshold > 3 (= outlier)"
         ) +
         facet_wrap(~`Plate Number`) +
-        theme(plot.background = element_rect(fill = "white", color = "white"))
+        theme(
+          axis.text = element_text(size = theme_base_size-6),
+          plot.background = element_rect(fill = "white", color = "white"),
+          strip.text = element_text(face = "bold", size = theme_base_size-5))
 
 
 
@@ -704,7 +717,6 @@ calculations <- reactive({
       measurements_plot <- ggplot(data_samples_summary) +
         geom_vline(mapping = aes(xintercept = meanAbs, color = comment), alpha = 0.5) +
         scale_color_manual(values = comments_colors) +
-        geom_point(data = std_tidy_summary, mapping = aes(meanAbs, conc_mg_per_ml), size = 5, alpha = 0.8, color = "black") +
         stat_smooth(
           data = standard_hard_coded, mapping = aes(y = conc_mg_per_ml, x = meanAbs),
           method = "loess",
@@ -713,13 +725,16 @@ calculations <- reactive({
           color = "#2E7D32",
           inherit.aes = F, formula = "y ~ x"
         ) +
+        geom_point(data = std_tidy_summary, 
+                   mapping = aes(meanAbs, conc_mg_per_ml),
+                   size = 5, alpha = 0.8, color = "black") +
         stat_smooth(
           data = std_tidy_summary,
           mapping = aes(meanAbs, conc_mg_per_ml),
           method = "loess",
           color = "black", fill = "grey", formula = "y ~ x", size = 2, se = T, level = 0.95
         ) +
-        theme_minimal(base_size = 18) +
+        theme_minimal(base_size = theme_base_size-5) +
         labs(
           title = "standard curve (loess / linear fit)", y = "µg/µl",
           caption = "loess fit & 95% CI in black / linear fit in blue"
@@ -729,7 +744,8 @@ calculations <- reactive({
         coord_flip() +
         facet_grid(`Plate Number` ~ dilution_factor, labeller = as_labeller(c(dilution_factors_names, plates_names))) +
         theme(
-          strip.text = element_text(face = "bold"),
+          axis.text = element_text(size = theme_base_size-6),
+          strip.text = element_text(face = "bold", size = theme_base_size-5),
           plot.background = element_rect(fill = "white", color = "white")
         ) +
         guides(color = "none")
@@ -746,9 +762,10 @@ calculations <- reactive({
           scales = "free_x",
           labeller = as_labeller(c(dilution_factors_names, plates_names))
         ) +
-        theme_minimal(base_size = 18) +
+        theme_minimal(base_size = theme_base_size) +
         theme(
-          strip.text = element_text(face = "bold"),
+          axis.text = element_text(size = theme_base_size-6),
+          strip.text = element_text(face = "bold", size = theme_base_size-5),
           plot.background = element_rect(fill = "white", color = "white")
         ) +
         guides(color = "none") +
@@ -791,7 +808,7 @@ calculations <- reactive({
           y = conc_µg_per_µl_LINEAR_fit
         ), method = "loess", color = "black", se = F) +
         coord_cartesian(xlim = c(0, max(max_scatter)), ylim = c(0, max(max_scatter))) +
-        theme_minimal(base_size = 18) +
+        theme_minimal(base_size = theme_base_size) +
         geom_abline(slope = 1, intercept = 0, linetype = "dashed",  color = "black") +
         labs(
           color = "% outside standard curve",
@@ -801,7 +818,8 @@ calculations <- reactive({
         ) +
         facet_grid(`Plate Number` ~ dilution_factor, labeller = as_labeller(c(dilution_factors_names, plates_names))) +
         theme(
-          strip.text = element_text(face = "bold"),
+          axis.text = element_text(size = theme_base_size-6),
+          strip.text = element_text(face = "bold", size = theme_base_size-5),
           plot.background = element_rect(fill = "white", color = "white")
         )
 
@@ -874,9 +892,11 @@ calculations <- reactive({
           labeller = as_labeller(c(dilution_factors_names, plates_names))
         ) +
         scale_fill_manual(values = comments_colors) +
-        theme_minimal(base_size = 18) +
+        theme_minimal(base_size = theme_base_size) +
         theme(
-          axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
+          strip.text = element_text(face = "bold", size = theme_base_size-5),
+          axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5,size = theme_base_size-6),
+          axis.text.y = element_text(size = theme_base_size-6),
           plot.background = element_rect(fill = "white", color = "white")
         ) +
         labs(

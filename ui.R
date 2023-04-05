@@ -338,6 +338,11 @@ secure_app(
               "how to ...",
               fluidRow(withMathJax(includeMarkdown("www/how_to_Mass_Spec_Preppy.md")))
               
+            ),
+            tabPanel(
+              "disclaimer",
+              fluidRow(withMathJax(includeMarkdown("www/disclaimer.md")))
+              
             )
           )
         ),
@@ -381,6 +386,11 @@ secure_app(
             tabPanel(
               "how to ...",
               fluidRow(withMathJax(includeMarkdown("www/BCA_description.md")))
+            ),
+            tabPanel(
+              "disclaimer",
+              fluidRow(withMathJax(includeMarkdown("www/disclaimer.md")))
+              
             )
           )
         )

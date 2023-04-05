@@ -149,7 +149,7 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
     # error: volume left is below 10µl > air can be aspirated ------------------------------------
     OT2_template_tmp_low_volume <- OT2_template_tmp %>%
       rowwise() %>%
-      mutate(volume_left = volume - volume_needed) %>%
+      mutate(volume_left = `volume (µl)` - volume_needed) %>%
       filter(volume_left < 10)
 
     if (dim(OT2_template_tmp_low_volume)[1] != 0) {
@@ -240,7 +240,7 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
     # JSON implementation of files
     # genrate python JSON input edited file -----------------------------------
 
-    input_JSON <- "    _all_values = json.loads(\"\"\"{\"csv_sample\":\"sample,protein concentration (µg/µl),OT-2 slot,OT-2 position,volume,preparation plate position"
+    input_JSON <- "    _all_values = json.loads(\"\"\"{\"csv_sample\":\"sample,protein concentration (µg/µl),OT-2 slot,OT-2 position,volume (µl),preparation plate position"
 
 
     for (i in 1:nrow(OT2_template)) {
@@ -369,7 +369,7 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
     
     # plot volume needed plot -------------------------------------------------
     
-    volume_needed_plot<- ggplot(OT2_template_tmp,aes(col_pos,row_pos,fill=pipetting_quality, color = (volume-volume_needed)<10))+
+    volume_needed_plot<- ggplot(OT2_template_tmp,aes(col_pos,row_pos,fill=pipetting_quality, color = (`volume (µl)`-volume_needed)<10))+
       geom_tile(size = 1)+
       scale_fill_manual(values = c("above max. volume" = "#D84738",
                                    "≥ 1µl & < 2µl" = "#EB9711",
@@ -381,6 +381,7 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
       #geom_vline(xintercept = seq(1.5,11.5,by = 1), color = "white")+
       theme_void(base_size = 18)+
       scale_x_continuous(breaks = c(1:12),position = "top")+
+      scale_y_discrete(limits=rev(LETTERS[1:8]))+
       theme(axis.text = element_text(),legend.position = "bottom",legend.key.width = unit(1.5,"cm"), title = element_text(face = "bold"))+
       geom_rect(mapping = aes(xmin=0.5,xmax=12.5,ymin=0.5,ymax = 8.5),fill=NA,color="grey")+
       labs(title = "Pipetted sample volume with settings", subtitle = "preparation plate",fill = "",caption = "red line around well means volume left is below 10µl = critical" )+
@@ -399,6 +400,7 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
       geom_text(mapping = aes(label = round(EVOTIP_volume_needed,digits = 2)),color= "white",show.legend = F, fontface = "bold")+
       theme_void(base_size = 18)+
       scale_x_continuous(breaks = c(1:12),position = "top")+
+      scale_y_discrete(limits=rev(LETTERS[1:8]))+
       theme(axis.text = element_text(),legend.position = "bottom",legend.key.width = unit(1.5,"cm"), title = element_text(face = "bold"))+
       geom_rect(mapping = aes(xmin=0.5,xmax=12.5,ymin=0.5,ymax = 8.5),fill=NA,color="grey")+
       labs(title = "Pipetted digest volume for EVOTIP loading with settings",color = "", subtitle = "EVOTIP dilution plate",fill = "" )+

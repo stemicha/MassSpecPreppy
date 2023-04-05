@@ -114,11 +114,11 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
 
     # error: above 10µl for amount of red/alk or 15.625µl nor NON red/alk! --------------------------
     
-    if (input$logical_red_alk == TRUE) {
+    if (input$logical_red_alk == "yes") {
       OT2_template_tmp_low_conc <- OT2_template_tmp %>%
         filter(volume_needed > 10)
     }
-    if (input$logical_red_alk == FALSE) {
+    if (input$logical_red_alk == "no") {
       OT2_template_tmp_low_conc <- OT2_template_tmp %>%
         filter(volume_needed > 15.625)
     }

@@ -162,8 +162,8 @@ secure_app(
           awesomeRadio(
             inputId = "logical_red_alk",
             label = "reduction & alkylation",
-            choices = c(TRUE, FALSE),
-            selected = TRUE
+            choices = c("yes", "no"),
+            selected = "yes"
           ),
           # decide EvoTips or vials
           awesomeRadio(

@@ -19,11 +19,11 @@ decklayout_plots <- eventReactive(input$inputButton_generate_OT2_template, {
     incProgress(0.6, detail = "generate plots")
 
     # step 1 red & alk == TRUE
-    if (input$logical_red_alk == TRUE) {
+    if (input$logical_red_alk == "yes") {
       deck_plot1 <- plot_deck_layout_step1(red_alk = T, meta_table = OT2_template, text_color = "white")
     }
     # step 1 red & alk == FALSE
-    if (input$logical_red_alk == FALSE) {
+    if (input$logical_red_alk == "no") {
       deck_plot1 <- plot_deck_layout_step1(red_alk = F, meta_table = OT2_template, text_color = "white")
       
     }

@@ -168,16 +168,23 @@ knitr::include_graphics(params$deck_plot1)
 ## Protocol step 1 - sample preparation - steps
 
 ```{r,echo=F}
-step1 <- tibble::tribble(
+if(params$reduction_and_alkylation=="yes"){
+    step1 <- tibble::tribble(
+      ~"step",	~"pipette",	~"transfer volume [µl]",	~"sample volume [µl] after step",	~"descritpion",
+      "1",	"single channel P20",	"variable",	"variable",	"transfer the calculated volume of dilution buffer to preparation plate (for a final volume of 10µl)",
+      "2",	"single channel P20",	"variable",	"variable",	"transfer and mix the calculated volume of sample  to preparation plate (final volume will be 10µl)",
+      "3",	"8-channel P20",	"2.5",	"12.5",	"transfer and mix 2.5µl of 12.5mM DTT to sample for reduction",
+      "4","","","","heat shaker incubation step: incubate 30 minutes at 37°C",
+      "5",	"8-channel P20",	"3.125",	"15.625",	"transfer and mix 3.125µl of 50mM IAA to sample for alkylation",
+      "6","","","","heat shaker incubation step: incubate 15 minutes at 37°C",
+      "7",	"8-channel P20",	"5",	"20.625",	"transfer 5µl of 50µg/µl SP3 bead stock to sample (preparation plate)")
+}else{
+   step1 <- tibble::tribble(
   ~"step",	~"pipette",	~"transfer volume [µl]",	~"sample volume [µl] after step",	~"descritpion",
   "1",	"single channel P20",	"variable",	"variable",	"transfer the calculated volume of dilution buffer to preparation plate (for a final volume of 10µl)",
   "2",	"single channel P20",	"variable",	"variable",	"transfer and mix the calculated volume of sample  to preparation plate (final volume will be 10µl)",
-  "3",	"8-channel P20",	"2.5",	"12.5",	"transfer and mix 2.5µl of 12.5mM DTT to sample for reduction",
-  "4","","","","heat shaker incubation step: incubate 30 minutes at 37°C",
-  "5","","","","add freshly prepared alkylating agent (IAA) directly before usage",
-  "6",	"8-channel P20",	"3.125",	"15.625",	"transfer and mix 3.125µl of 50mM IAA to sample for alkylation",
-  "7","","","","heat shaker incubation step: incubate 15 minutes at 37°C",
-  "8",	"8-channel P20",	"5",	"20.625",	"transfer 5µl of 50µg/µl SP3 bead stock to sample (preparation plate)")
+  "3",	"8-channel P20",	"5",	"20.625",	"transfer 5µl of 50µg/µl SP3 bead stock to sample (preparation plate)") 
+  }
 
 DT::datatable(step1,rownames= FALSE,options = list(pageLength = nrow(step1),
                                    initComplete = htmlwidgets::JS("function(settings, json) {",

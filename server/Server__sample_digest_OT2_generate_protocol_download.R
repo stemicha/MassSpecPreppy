@@ -32,7 +32,7 @@ output$dlOT2 <- downloadHandler(
       )
       
       
-    if (input$logical_red_alk == F & input$EvoTips_vials == "Vial") {
+    if (input$logical_red_alk == "no" & input$EvoTips_vials == "Vial") {
         writeLines(
           text = OT2_template_generation()$OT2_protocol_part1_wo_alk_red_out,
           con = OT2_template_generation()$file_output_part1_wo_alk_red
@@ -87,7 +87,7 @@ output$dlOT2 <- downloadHandler(
         )
       } #end vial w/o red. alk.
 
-    if (input$logical_red_alk == T & input$EvoTips_vials == "Vial") {
+    if (input$logical_red_alk == "yes" & input$EvoTips_vials == "Vial") {
         writeLines(text = OT2_template_generation()$OT2_protocol_part1_out, con = OT2_template_generation()$file_output_part1)
         # SP3 part2 mix or sequential
         if (input$enzyme_or_mix == "Trypsin/LysC Mix") {
@@ -137,7 +137,7 @@ output$dlOT2 <- downloadHandler(
       } #end vial with red. alk.
 
       # write protocol / decklayout files ----------------------------------------------
-      if (input$logical_red_alk == F & input$EvoTips_vials == "EvoTips") {
+      if (input$logical_red_alk == "no" & input$EvoTips_vials == "EvoTips") {
         writeLines(text = OT2_template_generation()$OT2_protocol_part1_wo_alk_red_out, con = OT2_template_generation()$file_output_part1_wo_alk_red)
         # SP3 part2 mix or sequential
         if (input$enzyme_or_mix == "Trypsin/LysC Mix") {
@@ -196,7 +196,7 @@ output$dlOT2 <- downloadHandler(
       } #end EVOTIP w/o red. alk.
       
       # EvoTip == T & red&alk == F
-    if (input$logical_red_alk == T & input$EvoTips_vials == "EvoTips") {
+    if (input$logical_red_alk == "yes" & input$EvoTips_vials == "EvoTips") {
         writeLines(
           text = OT2_template_generation()$OT2_protocol_part1_out,
           con = OT2_template_generation()$file_output_part1
@@ -316,7 +316,7 @@ output$dlOT2 <- downloadHandler(
 
       
       # red/alk == F
-      if (as.logical(input$logical_red_alk) == FALSE) {
+      if (input$logical_red_alk == "no") {
         file.copy(paste(OT2_template_generation()$file_output_part1_wo_alk_red, "__decklayout.png", sep = ""),
           file.path(tempdir(), paste(OT2_template_generation()$file_output_part1_wo_alk_red, "__decklayout.png", sep = "")),
           overwrite = TRUE
@@ -324,7 +324,7 @@ output$dlOT2 <- downloadHandler(
         deck1_plot_tmp <- paste(OT2_template_generation()$file_output_part1_wo_alk_red, "__decklayout.png", sep = "")
       }
       # red/alk == T
-      if (as.logical(input$logical_red_alk) == TRUE) {
+      if (input$logical_red_alk == "yes") {
         file.copy(paste(OT2_template_generation()$file_output_part1, "__decklayout.png", sep = ""),
           file.path(tempdir(), paste(OT2_template_generation()$file_output_part1, "__decklayout.png", sep = "")),
           overwrite = TRUE
@@ -468,12 +468,12 @@ output$dlOT2 <- downloadHandler(
         file.remove(file.path(OT2_template_generation()$file_output_part3_vial_out))
       }
       # red/alk == F
-      if (as.logical(input$logical_red_alk) == FALSE) {
+      if (input$logical_red_alk == "no") {
         file.remove(file.path(OT2_template_generation()$file_output_part1_wo_alk_red))
         file.remove(file.path(paste(OT2_template_generation()$file_output_part1_wo_alk_red, "__decklayout.png", sep = "")))
       }
       # red/alk == T
-      if (as.logical(input$logical_red_alk) == TRUE) {
+      if (input$logical_red_alk == "yes") {
         file.remove(file.path(OT2_template_generation()$file_output_part1))
         file.remove(file.path(paste(OT2_template_generation()$file_output_part1, "__decklayout.png", sep = "")))
       }

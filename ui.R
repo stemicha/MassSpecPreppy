@@ -74,7 +74,7 @@ secure_app(
   fluidPage(
     theme = shinytheme("cyborg"),
     # Application title
-    titlePanel(title = img(src = "Mass_Spec_Preppy_logo.png", height = 100, align = "center")),
+    titlePanel(title = img(src = "Mass_Spec_Preppy_logo.png", height = 100, align = "center"),windowTitle = "MassSpecPreppy"),
     # Sidebar with a slider input for number of bins
     sidebarLayout( #
       sidebarPanel(
@@ -292,7 +292,15 @@ secure_app(
         
         # version  ----------------------------------------------------------------
         hr(),
-        p("MassSpecPreppy version 1.0.0",style = "text-align: right")
+        fluidRow(
+          column(6,      
+                 tags$a(icon("book"), href="manual/index.html",target="_blank",style = "font-size: 40px;")
+                 ),
+          column(6,
+                 p("MassSpecPreppy version 1.0.0",style = "text-align: right")
+                 )
+          )
+        
       ), # end sidebar panel
       # main panel --------------------------------------------------------------
 

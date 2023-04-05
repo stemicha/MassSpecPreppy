@@ -70,7 +70,8 @@ BCA_OT2_template_generation <- eventReactive(input$inputButton_generate_BCA_OT2_
     BCA_OT2_template <- read_excel(
       input$BCA_OT2_template_upload_file$datapath,
       skip = 0, sheet = 1
-    )
+    ) %>% 
+      rename(dilution = `x-fold dilution`)
     BCA_OT2_template <- BCA_OT2_template |> filter(!is.na(sample))
     BCA_OT2_template$sample <- as.character(BCA_OT2_template$sample)
 
@@ -125,7 +126,7 @@ BCA_OT2_template_generation <- eventReactive(input$inputButton_generate_BCA_OT2_
     incProgress(0.6, detail = "generate BCA assay OT-2 protocol")
 
     # load OT-2 python protocol max. 40 samples
-    BCA_OT2_protocol <- read_lines(file = "www/BCAassay_OT2_C_FunGene_version1.py")
+    BCA_OT2_protocol <- read_lines(file = "OT2_protocols_template/Mass_Spec_Preppy__OT2_BCAassay.py")
 
     # implement files
     # genrate python JSON input edited file -----------------------------------

@@ -70,7 +70,10 @@ suppressMessages(library(htmlwidgets))
 :::
 
 ```{r,echo=F}
-datatable(as_tibble(params$sample_list),options = list(
+datatable(as_tibble(params$sample_list) %>% 
+            rename(`x-fold dilution` = dilution,
+                   `sample volume (µl)` = sample_volume),
+          options = list(
             columnDefs = list(list(className = 'dt-center', targets = "_all"))
             ))
 ```

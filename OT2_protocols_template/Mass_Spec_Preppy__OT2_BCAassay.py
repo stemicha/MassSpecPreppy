@@ -112,7 +112,7 @@ def run(protocol: protocol_api.ProtocolContext):
          
   #BSA standard dilution
   for i in range(0,7): 
-    print(vol_height_1_5_ml(initial_volume=standard_initial_volume,aspirate_volume=std_volumes[i],height_below_mm=3))
+    # print(vol_height_1_5_ml(initial_volume=standard_initial_volume,aspirate_volume=std_volumes[i],height_below_mm=3))
     p20.transfer(std_volumes[i], 
                                     samples2.wells_by_name()["D6"].bottom(vol_height_1_5_ml(initial_volume=standard_initial_volume,aspirate_volume=std_volumes[i],height_below_mm=5)),
                                     prep_plate.wells_by_name()[std_positions[i]],

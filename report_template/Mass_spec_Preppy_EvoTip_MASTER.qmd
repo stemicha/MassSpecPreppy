@@ -174,7 +174,7 @@ DT::datatable(as_tibble(params$volume_needed_table) %>%
 
 ## SP3 bead working solution
 
-To prepare the SP3 beads working solution, hydrophilic Cytiva Sera-Mag SpeedBeads™ carboxyl magnetic beads (451521050250, 50 mg/mL) and hydrophobic Cytiva Sera-Mag SpeedBeads™ carboxyl magnetic beads (651521050250, 50 mg/mL) were mixed 1:1 (e.g. 100µL:100µL). e.g. 100µL:100µL), washed five times with water (J.T. Baker™ HPLC analyzed), with a 1-minute incubation on the magnet rack between wash steps, and finally resuspended in water to 50 mg/mL (e.g. 200µL).
+To prepare the SP3 beads working solution, hydrophilic Cytiva Sera-Mag SpeedBeads™ carboxyl magnetic beads (451521050250, 50 mg/mL) and hydrophobic Cytiva Sera-Mag SpeedBeads™ carboxyl magnetic beads (651521050250, 50 mg/mL) were mixed 1:1 (e.g. 100µL:100µL), washed five times with water (J.T. Baker™ HPLC analyzed), with a 1-minute incubation on the magnet rack between wash steps, and finally resuspended in water to 50 mg/mL (e.g. 200µL).
 :::
 
 

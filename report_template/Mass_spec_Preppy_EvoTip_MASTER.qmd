@@ -166,10 +166,16 @@ DT::datatable(as_tibble(params$volume_needed_table) %>%
 - 1x sample buffer
 - 12.5mM DTT in water (freshly prepared) *[only when reduction and alkylation is being used]*
 - 50mM IAA in water (freshly prepared) *[only when reduction and alkylation is being used]*
-- 50µg/µl SP3 beads (mix of hyrdophilic and hydrophobic beads)
+- 50µg/µl SP3 bead working solution (mix of hyrdophilic and hydrophobic beads)
 
 :::
 
+::: {.callout-note}
+
+## SP3 bead working solution
+
+To prepare the SP3 beads working solution, hydrophilic Cytiva Sera-Mag SpeedBeads™ carboxyl magnetic beads (451521050250, 50 mg/mL) and hydrophobic Cytiva Sera-Mag SpeedBeads™ carboxyl magnetic beads (651521050250, 50 mg/mL) were mixed 1:1 (e.g. 100µL:100µL). e.g. 100µL:100µL), washed five times with water (J.T. Baker™ HPLC analyzed), with a 1-minute incubation on the magnet rack between wash steps, and finally resuspended in water to 50 mg/mL (e.g. 200µL).
+:::
 
 
 ```{r,echo=F}

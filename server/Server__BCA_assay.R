@@ -544,14 +544,14 @@ calculations <- reactive({
 
       # generate plots
       standard_plot <- ggplot(std_tidy_summary, aes(meanAbs, conc_mg_per_ml)) +
-        stat_smooth(
-          data = standard_hard_coded, mapping = aes(y = conc_mg_per_ml, x = meanAbs),
-          method = "loess",
-          se = F,
-          size = 5,
-          color = "#2E7D32",
-          inherit.aes = F, formula = "y ~ x"
-        ) +
+        #stat_smooth(
+        #  data = standard_hard_coded, mapping = aes(y = conc_mg_per_ml, x = meanAbs),
+        #  method = "loess",
+        #  se = F,
+        #  size = 5,
+        #  color = "#2E7D32",
+        #  inherit.aes = F, formula = "y ~ x"
+        #) +
         stat_smooth(method = "lm", color = "#4285F4", formula = "y ~ x", size = 2, se = F, fullrange = T) +
         stat_smooth(method = "loess", color = "black", formula = "y ~ x", size = 3, se = T, level = 0.95, fill = "grey") +
         theme_minimal(base_size = theme_base_size) +
@@ -562,7 +562,8 @@ calculations <- reactive({
         labs(
           title = "standard curve (loess / linear fit)",
           y = "µg/µl",
-          caption = "loess fit & 95% CI in black / linear fit in blue /\n hard coded std. curve in green"
+          caption = "loess fit & 95% CI in black / linear fit in blue"
+          #caption = "loess fit & 95% CI in black / linear fit in blue /\n hard coded std. curve in green"
         ) +
         coord_flip() +
         facet_wrap(~`Plate Number`, nrow = 1) +
@@ -718,14 +719,14 @@ calculations <- reactive({
       measurements_plot <- ggplot(data_samples_summary) +
         geom_vline(mapping = aes(xintercept = meanAbs, color = comment), alpha = 0.5) +
         scale_color_manual(values = comments_colors) +
-        stat_smooth(
-          data = standard_hard_coded, mapping = aes(y = conc_mg_per_ml, x = meanAbs),
-          method = "loess",
-          se = F,
-          size = 5,
-          color = "#2E7D32",
-          inherit.aes = F, formula = "y ~ x"
-        ) +
+        #stat_smooth(
+        #  data = standard_hard_coded, mapping = aes(y = conc_mg_per_ml, x = meanAbs),
+        #  method = "loess",
+        #  se = F,
+        #  size = 5,
+        #  color = "#2E7D32",
+        #  inherit.aes = F, formula = "y ~ x"
+        #) +
         geom_point(data = std_tidy_summary, 
                    mapping = aes(meanAbs, conc_mg_per_ml),
                    size = 5, alpha = 0.8, color = "black") +

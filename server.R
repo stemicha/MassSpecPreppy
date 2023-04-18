@@ -9,8 +9,8 @@
 credentials <- data.frame(
   user = c("admin","reviewer"), # mandatory
   password = c("Protein!112", "Msp!34cvhvdo385461"), # mandatory
-  expire = c(NA),
-  admin = c(TRUE),
+  expire = c(NA,NA),
+  admin = c(TRUE,FALSE),
   comment = "please login ...",
   stringsAsFactors = FALSE
 )

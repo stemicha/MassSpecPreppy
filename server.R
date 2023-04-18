@@ -7,8 +7,8 @@
 
 # define some credentials
 credentials <- data.frame(
-  user = c("admin"), # mandatory
-  password = c("Protein!112"), # mandatory
+  user = c("admin","reviewer"), # mandatory
+  password = c("Protein!112", "Msp!34cvhvdo385461"), # mandatory
   expire = c(NA),
   admin = c(TRUE),
   comment = "please login ...",

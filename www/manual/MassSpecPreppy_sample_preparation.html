@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.475">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="How to prepare your samples for MassSpecPreppy.">
+
+<title>Mass Spec Preppy Manual - Sample preparation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="theme.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./Mass_Spec_Preppy_hexbin_small.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Mass Spec Preppy Manual</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="./index.html"><i class="bi bi-fa-home" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./materials.html">
+ <span class="menu-text">list of essential materials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./printed_parts.html">
+ <span class="menu-text">3D printed parts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./MassSpecPreppy_sample_preparation.html" aria-current="page">
+ <span class="menu-text">sample preparation</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./How_to_use_the_app.html">
+ <span class="menu-text">how to use the app</span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#cell-disruption-and-protein-lysate-generation" id="toc-cell-disruption-and-protein-lysate-generation" class="nav-link" data-scroll-target="#cell-disruption-and-protein-lysate-generation">Cell disruption and protein lysate generation</a>
+  <ul>
+  <li><a href="#bacterial-or-solid-samples" id="toc-bacterial-or-solid-samples" class="nav-link" data-scroll-target="#bacterial-or-solid-samples">bacterial or solid samples</a></li>
+  <li><a href="#blood-plasma-samples" id="toc-blood-plasma-samples" class="nav-link" data-scroll-target="#blood-plasma-samples">blood plasma samples</a></li>
+  </ul></li>
+  <li><a href="#protein-concentration-determination-using-microbca" id="toc-protein-concentration-determination-using-microbca" class="nav-link" data-scroll-target="#protein-concentration-determination-using-microbca">protein concentration determination using microBCA</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Sample preparation</h1>
+</div>
+
+<div>
+  <div class="description">
+    <p>How to prepare your samples for MassSpecPreppy.</p>
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Sample preparation is the key to a successful experiment
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>If you have a insufficient sample disruption the ID number might be hampered</li>
+<li>If DNA is still present in your sample the efficient binding of proteins to the SP3 beads is jeopardized because DNA can bind to the beads as well! In addition, LC-MS columns might be damaged because of the DNA contamination.</li>
+<li>Insufficient inactivation of proteases in your sample will lead to uncontrolled protein cleavage. This must be minimized.</li>
+</ol>
+<p><strong>To tackle all these issues please follow carefully the protocol below</strong></p>
+</div>
+</div>
+</section>
+<section id="cell-disruption-and-protein-lysate-generation" class="level1">
+<h1>Cell disruption and protein lysate generation</h1>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+buffers
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="table">
+<colgroup>
+<col style="width: 54%">
+<col style="width: 45%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>buffer</th>
+<th>composition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1x sample buffer</td>
+<td>20mM HEPES, 1% (w/v) SDS, pH8</td>
+</tr>
+<tr class="even">
+<td>2x sample buffer</td>
+<td>40mM HEPES, 2% (w/v) SDS, pH8</td>
+</tr>
+<tr class="odd">
+<td>disruption buffer</td>
+<td>20mM HEPES, 5% (w/v) SDS, pH8</td>
+</tr>
+<tr class="even">
+<td>wash buffer</td>
+<td>20mM HEPES, pH8</td>
+</tr>
+<tr class="odd">
+<td>Benzonase cofactor solution</td>
+<td>1M MgCl<sub>2</sub></td>
+</tr>
+<tr class="even">
+<td>Benzonase dilution buffer</td>
+<td>5 mM Tris-HCl pH 7.4, 20 mM NaCl, and 2 mM MgCl<sub>2</sub></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+tips for different samples
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><strong>Bacterial sample:</strong> For a bacterial cell pellet use 16 OD-units (e.g.&nbsp;16 ml of a culture at OD = 1 should be harvested or 32 ml of a culture at OD = 0.5). This is important to keep the samples in the range of the capacity of the used buffers and to equalize your samples.</li>
+<li><strong>Human plasma:</strong> Dilute human plasma 1:50 in SDS containing buffer (e.g.&nbsp;20mM HEPES, 1% (w/v) SDS, pH8) and inactivate it at 95°C for 5 minutes</li>
+</ol>
+</div>
+</div>
+<section id="bacterial-or-solid-samples" class="level2">
+<h2 class="anchored" data-anchor-id="bacterial-or-solid-samples">bacterial or solid samples</h2>
+<ul>
+<li>harvest the needed amount of material</li>
+<li>wash the pellet 2 time with 1 ml wash buffer</li>
+<li>discard the supernatant and resuspend the pellet in disruption buffer</li>
+<li>immediately disrupt the cells in the dismembrator (ball mill) for 3 min at 2600 rpm</li>
+</ul>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>in a Teflon vessel on liquid nitrogen with an 8 mm diameter steel ball</p>
+</div>
+</div>
+<ul>
+<li>resuspend the cell powder in 400 µl of pre-heated (95°C) wash buffer and transfer the viscous lysate into a fresh 1.5 mL low bind pre-lubricated reaction tube and shake for 1 min at 95°C at 1400 rpm</li>
+<li>then put the lysate on ice and add 2 µL of Benzonase cofactor solution (1 M MgCl<sub>2</sub>) (final 4 mM MgCl<sub>2</sub>)</li>
+<li>now add 1 µL of a 1:100 diluted Benzonase (Pierce Universal Nuclease No#88702; 250 U/µl) stock solution (2.5 U/µL) and mix by short vortexing</li>
+</ul>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Benzonase protein should then always be included in the contaminant list of the organism specific library fasta-file</li>
+<li>Benzonase should be diluted for easy handling of small quantities with 5 mM Tris-HCl pH 7.4, 20 mM NaCl, and 2 mM MgCl<sub>2</sub></li>
+<li>Diluted samples can be stored at 4°C for several days without loss of activity</li>
+</ul>
+</div>
+</div>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+CAUTION
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>PBS buffer (phosphate buffered saline) inhibits the Benzonase activity</p>
+</div>
+</div>
+<ul>
+<li>now put the samples in the ultrasonic bath for 5 min</li>
+</ul>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The viscous lysate should liquefy by complete degradation of DNA and RNA. This step ensures solubilization of all DNA and RNA binding proteins and avoids the binding of long DNA or RNA stretches to the SP3 beads.</p>
+</div>
+</div>
+<ul>
+<li>centrifuge the samples for 30 min at 17000xg at room temperature</li>
+<li>transfer the protein lysate into a fresh 1.5 mL low bind pre-lubricated reaction tube, store or dispose the residual cell debris</li>
+<li><ol start="5" type="a">
+<li><ol start="7" type="a">
+<li>a bacterial lysate should now have a concentration between 1.5 and 3 µg/µL (important for microBCA protein concentration measurement)</li>
+</ol></li>
+</ol></li>
+</ul>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>The linear working range of the microBCA protein assay kit is 2-40μg/ml for microtiter plates according to the manufacturer (<a href="https://www.thermofisher.com/order/catalog/product/de/de/23235">Thermo Fischer scientific microBCA</a>).</li>
+</ul>
+</div>
+</div>
+<ul>
+<li>store the raw lysates at -80°C</li>
+<li>for thawing place samples to 65°C</li>
+</ul>
+</section>
+<section id="blood-plasma-samples" class="level2">
+<h2 class="anchored" data-anchor-id="blood-plasma-samples">blood plasma samples</h2>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+buffers
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="table">
+<thead>
+<tr class="header">
+<th>buffer</th>
+<th>composition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1x sample buffer</td>
+<td>20mM HEPES, 1%SDS, pH8</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li>dilute sample blood plasma with 1x sample buffer (human plasma 1:50)</li>
+<li>incubate 5 minutes at 95°C to inactivate the plasma</li>
+<li>store the samples at -80°C</li>
+<li>for thawing place samples to 65°C</li>
+</ul>
+</section>
+</section>
+<section id="protein-concentration-determination-using-microbca" class="level1">
+<h1>protein concentration determination using microBCA</h1>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+buffers
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="table">
+<thead>
+<tr class="header">
+<th>buffer</th>
+<th>composition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1x sample buffer</td>
+<td>20mM HEPES, 1%SDS, pH8</td>
+</tr>
+<tr class="even">
+<td>2x sample buffer</td>
+<td>40mM HEPES, 2%SDS, pH8</td>
+</tr>
+<tr class="odd">
+<td>microBCA working reagent</td>
+<td>25:24:1 (MA:MB:MC) mixture</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li>follow the guidelines of MassSpecPreppy</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

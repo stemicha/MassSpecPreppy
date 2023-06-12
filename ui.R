@@ -205,6 +205,7 @@ secure_app(
             trigger = "hover",
             options = NULL
           ),
+          tags$h5("the smallest possible dilution is 5x", style = "color:#C95C54; font-weight: bold; align:center; margin-left: 15px"),
           downloadButton(
             outputId = "input_BCA_template_OT2",
             label = "BCA OT-2 template download",
@@ -356,6 +357,7 @@ secure_app(
         conditionalPanel(
           "input.BCA_sample_digest_selection == 'BCA assay'",
           tabsetPanel(
+            id = "BCA_assay_tabset",
             type = "tabs",
             selected = "CV plot over samples",
             tabPanel(
@@ -387,6 +389,10 @@ secure_app(
             tabPanel(
               "comment counts",
               uiOutput("comment_count_barchart_out_ui")
+            ),
+            tabPanel(
+              "BCA assay OT-2 layout",
+              withSpinner(plotOutput("BCA_layout_plot", height = 1000, width = 950), color = "#649CCC", type = 5)
             ),
             tabPanel(
               "how to ...",

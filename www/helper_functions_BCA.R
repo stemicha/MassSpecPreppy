@@ -176,7 +176,7 @@ BCA_nest_12well_reagent_plot <- function(input_df=input_df,
 
 
 
-BCA_pipette_plot <- function(left = "20µl single channel",right = "20µl multi channel",text_color = "black"){
+BCA_pipette_plot <- function(left = "20µl single channel",right = "20µl multi channel",text_color = "white"){
   
   #pipette images tibble
   images_pipettes<- tibble(
@@ -208,7 +208,7 @@ BCA_pipette_plot <- function(left = "20µl single channel",right = "20µl multi 
 
 # decklayout -------------------------------------------------------
 
-plot_deck_layout_BCA <- function(meta_table = meta_table, text_color = "black"){
+plot_deck_layout_BCA <- function(meta_table = meta_table, number_of_20ul_tips = 116,text_color = "black"){
   
   
   #number of samples
@@ -227,17 +227,17 @@ plot_deck_layout_BCA <- function(meta_table = meta_table, text_color = "black"){
     Slot3 <- BCA_nest_12well_reagent_plot(input_df = input_df_NEST_12ml,text_color = text_color,label = "reagent plate (NEST 12 column reservoir)",OT_slot = 3)
     
     #tips
-    tips_20ul <- 96*2
-    tips_300ul <- 96
+    tips_20ul <- number_of_20ul_tips
+    tips_300ul <- 80
     
     
     Slot10 <- plot_spacer()
     Slot11 <- plot_spacer()
-    Slot6 <- plot_spacer()
+    Slot6 <- BCA_tip_rack_plot(label = "300ul_tips",text_color = text_color,OT_slot = 6,number_of_used_tips = tips_300ul)
     
-    Slot7 <- BCA_tip_rack_plot(label = "20ul_tips_1",text_color = text_color,OT_slot = 7,number_of_used_tips = ifelse((tips_20ul-96)>=96,96,ifelse((tips_20ul-96)<0,0,(tips_20ul-96))))
-    Slot8 <- BCA_tip_rack_plot(label = "20ul_tips_2",text_color = text_color,OT_slot = 8,number_of_used_tips = ifelse((tips_20ul-96)>=96,96,ifelse((tips_20ul-96)<0,0,(tips_20ul-96))))
-    Slot9 <- BCA_tip_rack_plot(label = "300ul_tips",text_color = text_color,OT_slot = 9,number_of_used_tips = tips_300ul)
+    Slot7 <- BCA_tip_rack_plot(label = "20ul_tips_1",text_color = text_color,OT_slot = 7,number_of_used_tips = ifelse(test = (96-tips_20ul)<=0,yes = 96,no = tips_20ul))
+    Slot8 <- BCA_tip_rack_plot(label = "20ul_tips_2",text_color = text_color,OT_slot = 8,number_of_used_tips = ifelse(test = (192-tips_20ul)<=0,yes = 96,no = ifelse((tips_20ul-96)<=0,0,tips_20ul-96)))
+    Slot9 <- BCA_tip_rack_plot(label = "20ul_tips_3",text_color = text_color,OT_slot = 9,number_of_used_tips = ifelse(test = (288-tips_20ul)<=0,yes = 96,no = ifelse((tips_20ul-192)<=0,0,tips_20ul-192)))
     
     #preparation plate
     Slot2<- BCA_prep_plate_plot(label = "preparation plate plate (full area plate)",point_size = 8,text_color = text_color,OT_slot = 2,number_of_samples = 0)

@@ -72,7 +72,9 @@ def run(protocol: protocol_api.ProtocolContext):
   #tips
   tiprack20_1 = protocol.load_labware("opentrons_96_tiprack_20ul", "7",label = "opentrons_96_tiprack_20ul_1")
   tiprack20_2 = protocol.load_labware("opentrons_96_tiprack_20ul", "8",label = "opentrons_96_tiprack_20ul_2")
-  tiprack300 = protocol.load_labware("opentrons_96_tiprack_300ul", "9",label = "opentrons_96_tiprack_300ul")
+  tiprack20_3 = protocol.load_labware("opentrons_96_tiprack_20ul", "9",label = "opentrons_96_tiprack_20ul_3")
+  tiprack300 = protocol.load_labware("opentrons_96_tiprack_300ul", "6",label = "opentrons_96_tiprack_300ul")
+
   #plates
   reagent_plate = protocol.load_labware("nest_12_reservoir_15ml", "3",label = "reagent_plate_nest_12_reservoir_15ml")
   #A1 = water min. 5ml
@@ -87,7 +89,7 @@ def run(protocol: protocol_api.ProtocolContext):
   # D6 samples 2 = BSA stock 1mg/ml min. 350µl
   
   #pipettes
-  p20 = protocol.load_instrument("p20_single_gen2", mount = "left", tip_racks = [tiprack20_1,tiprack20_2])
+  p20 = protocol.load_instrument("p20_single_gen2", mount = "left", tip_racks = [tiprack20_1,tiprack20_2,tiprack20_3])
   m300 = protocol.load_instrument("p300_multi_gen2", mount = "right", tip_racks=[tiprack300])
 
   #wells for transfer to plates with multichannel pipette

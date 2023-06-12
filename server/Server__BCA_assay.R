@@ -13,6 +13,18 @@ observeEvent(input$BCA_inputButton_data_processing, {
   }
 })
 
+
+# change between template generation tabset view and analysis -------------
+observeEvent(
+  input$inputButton_generate_BCA_OT2_template, 
+  updateTabsetPanel(inputId = "BCA_assay_tabset", selected = "BCA assay OT-2 layout")
+)
+observeEvent(
+  input$BCA_inputButton_data_processing, 
+  updateTabsetPanel(inputId = "BCA_assay_tabset", selected = "CV plot over samples")
+)
+
+
 # generating template
 observeEvent(input$inputButton_generate_BCA_OT2_template, {
   # Show a modal when the button is pressed
@@ -67,6 +79,32 @@ BCA_OT2_template_generation <- eventReactive(input$inputButton_generate_BCA_OT2_
   withProgress(message = "generate BCA protocol for the OT-2", style = "notification", value = 0, {
     incProgress(0.2, detail = "load data")
 
+    
+    # error vector generation
+    error_BCA <- c()
+    
+    # error no input file selected
+    if (is.null(input$BCA_OT2_template_upload_file)) {
+      error_BCA <- c(error_BCA, no_input_sample_file = 1)
+      shinyalert(
+        title = "no input sample file selcted",
+        text = paste("please select a sample file"),
+        closeOnEsc = TRUE,
+        closeOnClickOutside = FALSE,
+        html = FALSE,
+        type = "error",
+        showConfirmButton = TRUE,
+        showCancelButton = FALSE,
+        confirmButtonText = "OK",
+        confirmButtonCol = "#AEDEF4",
+        timer = 0,
+        imageUrl = "Mass_Spec_Preppy_hexbin_small.png",
+        imageWidth = 100,
+        imageHeight = 100,
+        animation = TRUE
+      )
+    }
+    
     BCA_OT2_template <- read_excel(
       input$BCA_OT2_template_upload_file$datapath,
       skip = 0, sheet = 1
@@ -75,6 +113,71 @@ BCA_OT2_template_generation <- eventReactive(input$inputButton_generate_BCA_OT2_
     BCA_OT2_template <- BCA_OT2_template |> filter(!is.na(sample))
     BCA_OT2_template$sample <- as.character(BCA_OT2_template$sample)
 
+    if (dim(BCA_OT2_template)[1] > 40) {
+      error_BCA <- c(error_BCA, N_above_40_samples = 1)
+      shinyalert(
+        title = "N of samples > 40",
+        text = "this protocol only allows the simultaneous preparation of 40 samples!!!!",
+        closeOnEsc = TRUE,
+        closeOnClickOutside = FALSE,
+        html = FALSE,
+        type = "error",
+        showConfirmButton = TRUE,
+        showCancelButton = FALSE,
+        confirmButtonText = "OK",
+        confirmButtonCol = "#AEDEF4",
+        timer = 0,
+        imageUrl = "Mass_Spec_Preppy_hexbin_small.png",
+        imageWidth = 100,
+        imageHeight = 100,
+        animation = TRUE
+      )
+    }
+    
+    
+    # calculate 20ul tip amount 
+    BCA_OT2_template_tips_calculation <- BCA_OT2_template %>% 
+      rowwise() %>% 
+      mutate(tips_used = ifelse(test = (260/dilution)<=20,
+                                yes =  2,
+                                no = ifelse(test = (260/dilution)<=40,
+                                            yes =  4,
+                                            no = ifelse(test = (260/dilution)<=60,
+                                                        yes =  6,
+                                                        no = NA)))) %>% 
+      ungroup()
+    
+    
+    
+    
+    
+    # error: volume left is below 10µl > air can be aspirated ------------------------------------
+    OT2_BCA_template_tmp_low_volume <- BCA_OT2_template %>%
+      rowwise() %>%
+      mutate(volume_left = `volume (µl)` - 260/dilution) %>%
+      filter(volume_left < 10)
+    
+    if (dim(OT2_BCA_template_tmp_low_volume)[1] != 0) {
+      error_BCA <- c(error_BCA, low_volume = 1)
+      shinyalert(
+        title = "volume of sample is to low (volume left is below 10µl); please use a higher volume of sample",
+        text = paste("sample with too low volume for the selected dilution are:\n", paste(OT2_BCA_template_tmp_low_volume$sample, collapse = "\n")),
+        closeOnEsc = TRUE,
+        closeOnClickOutside = FALSE,
+        html = FALSE,
+        type = "error",
+        showConfirmButton = TRUE,
+        showCancelButton = FALSE,
+        confirmButtonText = "OK",
+        confirmButtonCol = "#AEDEF4",
+        timer = 0,
+        imageUrl = "Mass_Spec_Preppy_hexbin_small.png",
+        imageWidth = 100,
+        imageHeight = 100,
+        animation = TRUE
+      )
+    }
+    
     # load shinyBCA meta file template for 1 plate and adjust it
     shiny_plate1_template <- read_excel(path = "www/Meta_file_template_for__1_plates.xlsx")
     index <- 17
@@ -160,11 +263,17 @@ BCA_OT2_template_generation <- eventReactive(input$inputButton_generate_BCA_OT2_
       OT2_template = BCA_OT2_template,
       excel_output_template_OT2 = BCA_excel_output_template_OT2,
       file_output_short = file_out_tmp,
+      tips_20ul_used = sum(BCA_OT2_template_tips_calculation$tips_used,na.rm=T)+36, # +36 tips for standard
       file_output = paste(str_replace_all(file_out_tmp, ".xlsx", ""), "__OT2_BCA_half_area_plate_protocol.py", sep = "")
     )
   }) # end progressbar
 }) # end BCA_OT2_template_generation
 
+
+# generate decklayout plot output
+output$BCA_layout_plot <- renderPlot(plot_deck_layout_BCA(meta_table = BCA_OT2_template_generation()$OT2_template,
+                                                     number_of_20ul_tips = BCA_OT2_template_generation()$tips_20ul_used,
+                                                     text_color = "white"))
 
 # generate BCA OT2_template download -------------------------------------------
 
@@ -208,7 +317,10 @@ output$dlOT2_BCA <- downloadHandler(
       )
 
       ggsave(
-        plot = plot_deck_layout_BCA(meta_table = BCA_OT2_template_generation()$OT2_template, text_color = "white"), device = "png",
+        plot = plot_deck_layout_BCA(meta_table = BCA_OT2_template_generation()$OT2_template,
+                                    number_of_20ul_tips = BCA_OT2_template_generation()$tips_20ul_used,
+                                    text_color = "white"),
+        device = "png",
         filename = paste(BCA_OT2_template_generation()$file_output_short, "__decklayout.png", sep = ""),
         width = 13,
         height = 11
@@ -251,6 +363,7 @@ output$dlOT2_BCA <- downloadHandler(
       # append report to file list
       fs <- c(
         fs,
+        paste(BCA_OT2_template_generation()$file_output_short, "__decklayout.png", sep = ""),
         file.path(paste(format(Sys.Date(), "%Y_%m_%d_"), "__", BCA_OT2_template_generation()$file_output_short,
           "__BCA_assay_description.html",
           sep = ""

@@ -12,10 +12,9 @@ part1<- tribble(~item, ~activity,~manual_OT_2,~start,~end,
         1,"sample dilution","OT-2",0,58,
         2,"reduction","OT-2",58,63,
         3,"reduction","H/S incubation_time",63,93,
-        4,"alkylation","manual",93,95,
-        6,"alkylation","OT-2",95,100,
-        8,"alkylation","H/S incubation_time",100,130,
-        9,"SP3 beads dispensing","OT-2",130,145
+        4,"alkylation","OT-2",93,98,
+        5,"alkylation","H/S incubation_time",98,128,
+        6,"SP3 beads dispensing","OT-2",128,143
         )
 
 

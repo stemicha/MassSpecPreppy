@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.475">
+<meta name="generator" content="quarto-1.4.151">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -18,7 +18,7 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
 </style>
@@ -47,6 +47,11 @@ ul.task-list li input[type="checkbox"] {
   "panel-placement": "end",
   "type": "overlay",
   "limit": 20,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -56,17 +61,17 @@ ul.task-list li input[type="checkbox"] {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
-
 <script src="site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
 <link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="site_libs/datatables-binding-0.27/datatables.js"></script>
+<script src="site_libs/datatables-binding-0.28/datatables.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<link href="site_libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
-<link href="site_libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="site_libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="site_libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="site_libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
 <link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
 <script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 
@@ -80,7 +85,7 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
     <img src="./Mass_Spec_Preppy_hexbin_small.png" alt="" class="navbar-logo">
     </a>
@@ -88,35 +93,37 @@ ul.task-list li input[type="checkbox"] {
     <span class="navbar-title">Mass Spec Preppy Manual</span>
     </a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="./index.html"><i class="bi bi-fa-home" role="img">
+    <a class="nav-link" href="./index.html" rel="" target=""><i class="bi bi-fa-home" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./materials.html" aria-current="page">
+    <a class="nav-link active" href="./materials.html" rel="" target="" aria-current="page">
  <span class="menu-text">list of essential materials</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./printed_parts.html">
+    <a class="nav-link" href="./printed_parts.html" rel="" target="">
  <span class="menu-text">3D printed parts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./MassSpecPreppy_sample_preparation.html">
+    <a class="nav-link" href="./MassSpecPreppy_sample_preparation.html" rel="" target="">
  <span class="menu-text">sample preparation</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./How_to_use_the_app.html">
+    <a class="nav-link" href="./How_to_use_the_app.html" rel="" target="">
  <span class="menu-text">how to use the app</span></a>
   </li>  
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -163,9 +170,8 @@ ul.task-list li input[type="checkbox"] {
 <p>The material list shown here also contains items that you can choose yourself, such as a 3D printer. However, you can also use a 3D printing service, then the 3D printer and the required filament would be omitted. Furthermore, you can choose another 2-component glue, it should only quickly solidify to glue the magnets quickly into the printed plate.</p>
 <div class="cell" data-caption="list of materials needed for the operation of MassSpecPreppy">
 <div class="cell-output-display">
-
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-7abbf49952264c9e5b09" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-7abbf49952264c9e5b09">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45"],["Sequencing Grade Modified Trypsin","Trypsin/Lys-C Mix, Mass Spec Grade","Lys-C, Mass Spec Grade","Synergy™ H1 is a configurable multi-mode microplate reader","OT-2 robot","OT-2 Single Channel pipette (20µl) - GEN2","OT-2 8-Channel Pipette (20µl) - GEN2","OT-2 8-Channel Pipette (300µl) - GEN2","OT-2 Magnetic Module -  GEN2","OT-2 Heater-Shaker Module - GEN1, PCR Adapter","3D Printer (e.g. Prusa i3 MK3S+)","MixMate®","ThermoMixer C","SmartBlock™ PCR 96","Eppendorf ThermoTop®","Plate centrifuge, PerfectSpin P","M-20 rotor","centrifuge for M-20 rotor like VWR MegaStar R1.6","NEST 0.2 mL 96-Well PCR Plate, Full Skirt","NEST 12-Well Reservoirs, 15 mL","Opentrons 20µL Tips Refills","Opentrons 300µL Tips Refills","PLA filament for 3D print","UHU 2-component adhesive Plus Sofortfest, Super fast and crystal clear 2K adhesive, 35 g; or similar","Micro BCA™ Protein-Assay-Kit","Sera-Mag SpeedBeads Carboxylate (hydrophylic)","Sera-Mag SpeedBeads Carboxylate (hydrophobic)","1.7 ml Low Binding MCT","MICROPLATTE, 96 WELL, PS, HALF AREA, TRANSP.","Corning® 96-well Clear Flat Bottom Polypropylene Not Treated Microplate, 25 per Bag, without Lids, Nonsterile","Evotip Pure","Micro-insert, 15 mm top, 0,10 ml, Conical bottom, Borosilicate glass 5.1","Screw caps for vials with thread vial ND8","FOR SAMPLE DIGEST: RAPID EPS (Sheet type)  100 sheets / pack - Easy Piercing Seal","FOR BCA ASSAY: Aluminum seals","Septa ND8, White silicone/red PTFE, slit","Calciumchlorid Dihydrat","Trifluoroacetic Acid, HPLC grade, &gt;99.5 %","Tris(hydroxymethyl)aminomethane TRIS","water, BAKER HPLC ANALYZED, J.T. Baker™","Acetonitril Ultra Gradient HPLC Grade 2,5L, J.T. Baker™","Isopropanol, Optima™, LC-MS grade, Fisher Chemical","Ethanol, ≥99,5 %, Ph. Eur.","OT-2 4-in-1 Tube Rack Set (4x 1.5ml tube adapter; can also be 3D printed)","rod magnets (diameter 5mm, height 13.96mm, neodym N45; holding force 1.1kg)"],["V5111","V5071","VA1170","not specified","999-00111","999-00002","999-00005","999-00006","not specified","not specified","various","5353000510","5382000015","5306000006","5308000003","PEQL91-PSPIN-P","10787205","521-2660","999-00050","999-00076","999-00011","999-00012","various","various","23235","45152105050250","65152105050250","39640T","675101","3364","EV2013","548-0020A","548-0025A","REPS001","95.1995","548-1455A","C3306","044630.5Y","1083872500","10546602","JB9017.2500","10091304","5054.3","999-00030","various"],["Promega","Promega","Promega","BioTek","opentrons","opentrons","opentrons","opentrons","opentrons","opentrons","various / your choice","Eppendorf","Eppendorf","Eppendorf","Eppendorf","Peqlab","Thermo Scientific","VWR","opentrons","opentrons","opentrons","opentrons","various / your choice","UHU","Thermo Scientific","Cytiva","Cytiva","Sorenson BioScience","Greiner","Corning","EVOSEP","VWR","VWR","Dichrom","Sarstedt","VWR","Merck","Thermo Scientific","Merck","Thermo Scientific","Thermo Scientific","Thermo Scientific","Roth","opentrons","various / your choice"],["enzyme","enzyme","enzyme","device","device","device","device","device","device","device","device","device","device","device","device","device","device","device","consumable","consumable","consumable","consumable","consumable","consumable","consumable","consumable","consumable","consumable","consumable","consumable","consumable","consumable","consumable","consumable","consumable","consumable","chemical","chemical","chemical","chemical","chemical","chemical","chemical","accessory","accessory"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Name<\/th>\n      <th>prodcut number<\/th>\n      <th>company<\/th>\n      <th>type<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":50,"autoWidth":true,"scrollX":true,"columnDefs":[{"width":"10%","targets":[0,1,2,3,4]},{"orderable":false,"targets":0}],"dom":"t","initComplete":"function(settings, json) {\n$(this.api().table().header()).css({'background-color': '#181818', 'color': '#fff'});\nvar css = document.createElement('style');\n                                                        css.type = 'text/css';\n                                                        css.innerHTML = '.table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover { background-color: #9c4242 !important }';\n                                                        document.body.appendChild(css);\n}","order":[],"orderClasses":false,"rowCallback":"function(row, data, displayNum, displayIndex, dataIndex) {\nvar value=data[4]; $(row).css({'background-color':value == \"enzyme\" ? \"#0098C6\" : value == \"device\" ? \"#A9A9A9\" : value == \"consumable\" ? \"#61B436\" : value == \"chemical\" ? \"#DF505B\" : value == \"accessory\" ? \"#E18A2B\" : null});\n}"}},"evals":["options.initComplete","options.rowCallback"],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-a02388e0d99c6b19982c" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-a02388e0d99c6b19982c">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45"],["Sequencing Grade Modified Trypsin","Trypsin/Lys-C Mix, Mass Spec Grade","Lys-C, Mass Spec Grade","Synergy™ H1 is a configurable multi-mode microplate reader","OT-2 robot","OT-2 Single Channel pipette (20µl) - GEN2","OT-2 8-Channel Pipette (20µl) - GEN2","OT-2 8-Channel Pipette (300µl) - GEN2","OT-2 Magnetic Module -  GEN2","OT-2 Heater-Shaker Module - GEN1, PCR Adapter","3D Printer (e.g. Prusa i3 MK3S+)","MixMate®","ThermoMixer C","SmartBlock™ PCR 96","Eppendorf ThermoTop®","Plate centrifuge, PerfectSpin P","M-20 rotor","centrifuge for M-20 rotor like VWR MegaStar R1.6","NEST 0.2 mL 96-Well PCR Plate, Full Skirt","NEST 12-Well Reservoirs, 15 mL","Opentrons 20µL Tips Refills","Opentrons 300µL Tips Refills","PLA filament for 3D print","UHU 2-component adhesive Plus Sofortfest, Super fast and crystal clear 2K adhesive, 35 g; or similar","Micro BCA™ Protein-Assay-Kit","Sera-Mag SpeedBeads Carboxylate (hydrophylic)","Sera-Mag SpeedBeads Carboxylate (hydrophobic)","1.7 ml Low Binding MCT","MICROPLATTE, 96 WELL, PS, HALF AREA, TRANSP.","Corning® 96-well Clear Flat Bottom Polypropylene Not Treated Microplate, 25 per Bag, without Lids, Nonsterile","Evotip Pure","Micro-insert, 15 mm top, 0,10 ml, Conical bottom, Borosilicate glass 5.1","Screw caps for vials with thread vial ND8","FOR SAMPLE DIGEST: RAPID EPS (Sheet type)  100 sheets / pack - Easy Piercing Seal","FOR BCA ASSAY: Aluminum seals","Septa ND8, White silicone/red PTFE, slit","Calciumchlorid Dihydrat","Trifluoroacetic Acid, HPLC grade, &gt;99.5 %","Tris(hydroxymethyl)aminomethane TRIS","water, BAKER HPLC ANALYZED, J.T. Baker™","Acetonitril Ultra Gradient HPLC Grade 2,5L, J.T. Baker™","Isopropanol, Optima™, LC-MS grade, Fisher Chemical","Ethanol, ≥99,5 %, Ph. Eur.","OT-2 4-in-1 Tube Rack Set (4x 1.5ml tube adapter; can also be 3D printed)","rod magnets (diameter 5mm, height 13.96mm, neodym N45; holding force 1.1kg)"],["V5111","V5071","VA1170","not specified","999-00111","999-00002","999-00005","999-00006","not specified","not specified","various","5353000510","5382000015","5306000006","5308000003","PEQL91-PSPIN-P","10787205","521-2660","999-00050","999-00076","999-00011","999-00012","various","various","23235","45152105050250","65152105050250","39640T","675101","3364","EV2013","548-0020A","548-0025A","REPS001","95.1995","548-1455A","C3306","044630.5Y","1083872500","10546602","JB9017.2500","10091304","5054.3","999-00030","various"],["Promega","Promega","Promega","BioTek","opentrons","opentrons","opentrons","opentrons","opentrons","opentrons","various / your choice","Eppendorf","Eppendorf","Eppendorf","Eppendorf","Peqlab","Thermo Scientific","VWR","opentrons","opentrons","opentrons","opentrons","various / your choice","UHU","Thermo Scientific","Cytiva","Cytiva","Sorenson BioScience","Greiner","Corning","EVOSEP","VWR","VWR","Dichrom","Sarstedt","VWR","Merck","Thermo Scientific","Merck","Thermo Scientific","Thermo Scientific","Thermo Scientific","Roth","opentrons","various / your choice"],["enzyme","enzyme","enzyme","device","device","device","device","device","device","device","device","device","device","device","device","device","device","device","consumable","consumable","consumable","consumable","consumable","consumable","consumable","consumable","consumable","consumable","consumable","consumable","consumable","consumable","consumable","consumable","consumable","consumable","chemical","chemical","chemical","chemical","chemical","chemical","chemical","accessory","accessory"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Name<\/th>\n      <th>prodcut number<\/th>\n      <th>company<\/th>\n      <th>type<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":50,"autoWidth":true,"scrollX":true,"columnDefs":[{"width":"10%","targets":[0,1,2,3,4]},{"orderable":false,"targets":0}],"dom":"t","initComplete":"function(settings, json) {\n$(this.api().table().header()).css({'background-color': '#181818', 'color': '#fff'});\nvar css = document.createElement('style');\n                                                        css.type = 'text/css';\n                                                        css.innerHTML = '.table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover { background-color: #9c4242 !important }';\n                                                        document.body.appendChild(css);\n}","order":[],"orderClasses":false,"rowCallback":"function(row, data, displayNum, displayIndex, dataIndex) {\nvar value=data[4]; $(row).css({'background-color':value == \"enzyme\" ? \"#0098C6\" : value == \"device\" ? \"#A9A9A9\" : value == \"consumable\" ? \"#61B436\" : value == \"chemical\" ? \"#DF505B\" : value == \"accessory\" ? \"#E18A2B\" : null});\n}"}},"evals":["options.initComplete","options.rowCallback"],"jsHooks":[]}</script>
 </div>
 </div>
 
@@ -200,9 +206,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -238,10 +258,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -251,8 +270,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -267,6 +295,147 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    if (id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
+        }
+        return container.innerHTML
+      } else {
+        return note.innerHTML;
+      }
+    } else {
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      try { hash = new URL(url).hash; } catch {}
+      const id = hash.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note !== null) {
+        try {
+          const html = processXRef(id, note);
+          instance.setContent(html);
+        } finally {
+          instance.enable();
+          instance.show();
+        }
+      } else {
+        // See if we can fetch this
+        fetch(url.split('#')[0])
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.getElementById(id);
+          if (note !== null) {
+            const html = processXRef(id, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -307,6 +476,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.475">
+<meta name="generator" content="quarto-1.4.151">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -18,7 +18,7 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
 </style>
@@ -47,6 +47,11 @@ ul.task-list li input[type="checkbox"] {
   "panel-placement": "end",
   "type": "overlay",
   "limit": 20,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -56,7 +61,8 @@ ul.task-list li input[type="checkbox"] {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -70,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
     <img src="./Mass_Spec_Preppy_hexbin_small.png" alt="" class="navbar-logo">
     </a>
@@ -78,35 +84,37 @@ ul.task-list li input[type="checkbox"] {
     <span class="navbar-title">Mass Spec Preppy Manual</span>
     </a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="./index.html"><i class="bi bi-fa-home" role="img">
+    <a class="nav-link" href="./index.html" rel="" target=""><i class="bi bi-fa-home" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./materials.html">
+    <a class="nav-link" href="./materials.html" rel="" target="">
  <span class="menu-text">list of essential materials</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./printed_parts.html">
+    <a class="nav-link" href="./printed_parts.html" rel="" target="">
  <span class="menu-text">3D printed parts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./MassSpecPreppy_sample_preparation.html">
+    <a class="nav-link" href="./MassSpecPreppy_sample_preparation.html" rel="" target="">
  <span class="menu-text">sample preparation</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./How_to_use_the_app.html" aria-current="page">
+    <a class="nav-link active" href="./How_to_use_the_app.html" rel="" target="" aria-current="page">
  <span class="menu-text">how to use the app</span></a>
   </li>  
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -131,7 +139,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#scan-bca-assay-plate-with-biotek-synergy-h1" id="toc-scan-bca-assay-plate-with-biotek-synergy-h1" class="nav-link" data-scroll-target="#scan-bca-assay-plate-with-biotek-synergy-h1">Scan BCA assay plate with BioTek Synergy H1</a>
   <ul class="collapse">
   <li><a href="#sec-BCAscan" id="toc-sec-BCAscan" class="nav-link" data-scroll-target="#sec-BCAscan">Scan BCA assay plate: Protocol set-up in Gen5 software</a></li>
-  <li><a href="#handling-and-measurement-of-the-prepared-bca-plate" id="toc-handling-and-measurement-of-the-prepared-bca-plate" class="nav-link" data-scroll-target="#handling-and-measurement-of-the-prepared-bca-plate">Handling and measurement of the prepared BCA plate</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#analysis-of-bca-assay-measurement-results" id="toc-analysis-of-bca-assay-measurement-results" class="nav-link" data-scroll-target="#analysis-of-bca-assay-measurement-results">Analysis of BCA assay measurement results</a>
@@ -190,15 +197,15 @@ ul.task-list li input[type="checkbox"] {
 <div id="fig-BCAassayScreenshotUI" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="screenshots_app/BCA_assay_UI_labeled.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;1: BCA assay user interface screenshot</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;1: BCA assay user interface screenshot</figcaption>
 </figure>
 </div>
-<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Tip
 </div>
 </div>
@@ -210,7 +217,7 @@ Tip
 <ol type="1">
 <li>open the app and select <code>BCA assay</code></li>
 <li>download the <code>BCA OT-2 template</code></li>
-<li>fill out the BCA template excel file (<a href="#fig-BCAassayTemplateFile">Figure&nbsp;2</a>)</li>
+<li>fill out the BCA template excel file (<a href="#fig-BCAassayTemplateFile" class="quarto-xref">Figure&nbsp;2</a>)</li>
 <li>upload the BCA template excel file</li>
 <li>click on <code>generate OT-2 protocol</code></li>
 <li>unpack the downloaded zip folder, which contains:
@@ -227,20 +234,23 @@ Tip
 </ol>
 <section id="bca-template-excel-file" class="level3">
 <h3 class="anchored" data-anchor-id="bca-template-excel-file">BCA template excel file</h3>
-<div class="callout-important callout callout-style-simple">
-<div class="callout-body d-flex">
+<div class="callout callout-style-simple callout-important callout-titled" style="color: red;">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-body-container" style="color: red;">
-<p><strong>DO NOT USE “STD” or “BLK” in sample naming !!!</strong></p>
+<div class="callout-title-container flex-fill">
+
 </div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>DO NOT USE “STD” or “BLK” in sample naming !!!</strong></p>
 </div>
 </div>
 <div id="fig-BCAassayTemplateFile" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="screenshots_app/BCA_template_labeled.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;2: BCA assay template excel file</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;2: BCA assay template excel file</figcaption>
 </figure>
 </div>
 <ul>
@@ -254,11 +264,11 @@ Tip
 <div id="fig-BCAassayTemplateFileMultipleDilutions" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="screenshots_app/BCA_template_mulitple_dilutions_per_sample.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;3: BCA assay template excel file - multiple dilutions per sample</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;3: BCA assay template excel file - multiple dilutions per sample</figcaption>
 </figure>
 </div>
 <p>It is also possible to perform multiple dilutions per sample, e.g.&nbsp;if you cannot estimate the rough range where you sample may lie in the standard curve. For example, a human plasma sample (approx. 70-80 µg/µl) should be initially 50-fold diluted, and a 40-fold dilution should be used in the BCA assay to have read-outs in the linear range of the standard curve.</p>
-<p>If you cannot estimate the protein concentration use multiple dilutions per sample. You can edit the BCA assay template excel file for that purpose to have e.g.&nbsp;a 30fold, 50fold and 80fold dilution of your sample. Be aware of the correct entries in <em>OT-2 slot</em> &amp; <em>OT-2 postion</em> column when using multiple dilutions per sample. Also adjust the volume accordingly (<a href="#fig-BCAassayTemplateFileMultipleDilutions">Figure&nbsp;3</a>).</p>
+<p>If you cannot estimate the protein concentration use multiple dilutions per sample. You can edit the BCA assay template excel file for that purpose to have e.g.&nbsp;a 30fold, 50fold and 80fold dilution of your sample. Be aware of the correct entries in <em>OT-2 slot</em> &amp; <em>OT-2 postion</em> column when using multiple dilutions per sample. Also adjust the volume accordingly (<a href="#fig-BCAassayTemplateFileMultipleDilutions" class="quarto-xref">Figure&nbsp;3</a>).</p>
 </section>
 </section>
 <section id="generated-bca-assay-files" class="level3">
@@ -272,15 +282,15 @@ Tip
 <div id="fig-BCAassayHTML" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="screenshots_app/BCA_assay_OT2_html_screenshot.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;4: BCA assay HTML file</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;4: BCA assay HTML file</figcaption>
 </figure>
 </div>
 <p><a href="screenshots_app/2023_03_22___test_set_BCA__BCA_assay_description.html" target="_blank">example BCA assay HTML file</a></p>
-<p>When opening the HTML file (<a href="#fig-BCAassayHTML">Figure&nbsp;4</a>) you may find a detailed how-to procedure for the operation of the OT-2. The instructions in the HTML document include beside the sample list a deck layout plot (<a href="#fig-BCAassayDeckLayout">Figure&nbsp;5</a>), which graphically explains the user how to load the OT-2 for the assay.</p>
+<p>When opening the HTML file (<a href="#fig-BCAassayHTML" class="quarto-xref">Figure&nbsp;4</a>) you may find a detailed how-to procedure for the operation of the OT-2. The instructions in the HTML document include beside the sample list a deck layout plot (<a href="#fig-BCAassayDeckLayout" class="quarto-xref">Figure&nbsp;5</a>), which graphically explains the user how to load the OT-2 for the assay.</p>
 <div id="fig-BCAassayDeckLayout" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="screenshots_app/BCA_assay_example_decklayout.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;5: BCA assay decklayout example</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;5: BCA assay decklayout example</figcaption>
 </figure>
 </div>
 <p>After the OT-2 is prepared, the python protocol can be executed in the OT-2 control software (<a href="https://support.opentrons.com/s/article/Get-started-Run-your-protocol" target="_blank">detailed instruction to run a protocol on OT-2</a>).</p>
@@ -293,15 +303,15 @@ Tip
 <p>Reaction takes place in a transparent half-area 96-well microplate (Greiner Bio-One).</p>
 <ol type="1">
 <li>After incubation and cool down of the assay plate, remove the aluminium foil and place the plate in the plate carrier. Ensure that the plate is properly aligned.</li>
-<li>Open the measurement protocol in Gen5 (<a href="#sec-BCAscan">Section&nbsp;1.1.3.1</a>) and read the plate (“Create experiment and read now”).</li>
-<li>Data is exported automatically to excel according to the output settings (<a href="#sec-BCAscan">Section&nbsp;1.1.3.1</a>; <a href="#fig-BCAExcelExportSettings">Figure&nbsp;7</a>).</li>
+<li>Open the measurement protocol in Gen5 (<a href="#sec-BCAscan" class="quarto-xref">Section&nbsp;1.1.3.1</a>) and read the plate (“Create experiment and read now”).</li>
+<li>Data is exported automatically to excel according to the output settings (<a href="#sec-BCAscan" class="quarto-xref">Section&nbsp;1.1.3.1</a>; <a href="#fig-BCAExcelExportSettings" class="quarto-xref">Figure&nbsp;7</a>).</li>
 </ol>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Note
 </div>
 </div>
@@ -331,8 +341,13 @@ Note
 </ul></li>
 <li>Plate Layout
 <ul>
-<li>See provided layout file (<a href="supplemental_data/PlateLayout_BCA_96well.xml">PlateLayout_BCA_96well.xml</a>) (<a href="#fig-BCAassayPlateLayout">Figure&nbsp;6</a>)</li>
-<li><img src="supplemental_data/PlateLayout_BCA_96well_import.png" title="fig:" class="img-fluid" alt="import plate layout"></li>
+<li>See provided layout file (<a href="supplemental_data/PlateLayout_BCA_96well.xml">PlateLayout_BCA_96well.xml</a>) (<a href="#fig-BCAassayPlateLayout" class="quarto-xref">Figure&nbsp;6</a>)</li>
+<li><div id="fig-BCAassayPlateLayout" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="supplemental_data/PlateLayout_BCA_96well_import.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure&nbsp;6: import plate layout</figcaption>
+</figure>
+</div></li>
 </ul></li>
 <li>Data Reduction
 <ul>
@@ -341,7 +356,7 @@ Note
 <li>Report/Export Builders (Excel add-in necessary)
 <ul>
 <li>Properties: Results plate-wise, Customised content</li>
-<li>Content: A table starting in cell A1 (Excel add-in; Table – Statistics – 562) (<a href="#fig-BCAExcelExportSettings">Figure&nbsp;7</a>)
+<li>Content: A table starting in cell A1 (Excel add-in; Table – Statistics – 562) (<a href="#fig-BCAExcelExportSettings" class="quarto-xref">Figure&nbsp;7</a>)
 <ul>
 <li>Identifier Types: Standard Curve, Blank, Sample</li>
 <li>Index: All</li>
@@ -356,31 +371,12 @@ Note
 </ul></li>
 </ul></li>
 </ul>
-<div id="fig-BCAassayPlateLayout" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="supplemental_data/PlateLayout_BCA_96well.PNG" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;6: plate layout for BCA assay (96well)</figcaption><p></p>
-</figure>
-</div>
 <div id="fig-BCAExcelExportSettings" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="supplemental_data/Export_xlsx_settings.PNG" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7: Excel Report/Export Builders</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;7: Excel Report/Export Builders</figcaption>
 </figure>
 </div>
-</section>
-<section id="handling-and-measurement-of-the-prepared-bca-plate" class="level4">
-<h4 class="anchored" data-anchor-id="handling-and-measurement-of-the-prepared-bca-plate">Handling and measurement of the prepared BCA plate</h4>
-<ul>
-<li>Carefully take out the BCA plate (OT-2), seal it with aluminium seal tape and incubate it at 60 °C for exactly 60 minutes.</li>
-<li>After incubation, briefly centrifuge the plate and cool it down to room temperature (15 minutes).</li>
-<li>Remove the seal tape and place the plate in the plate reader. Ensure that the plate is properly aligned.</li>
-<li>Measure the plate (“Create experiment and read now”; protocol as described above).</li>
-<li>Data was exported to Excel according to the output settings (described above).</li>
-<li>If the plate is re-read, manual export to excel is necessary.</li>
-<li>Every plate has to be measured and exported separately!</li>
-<li>Load output excel file into the MassSpecPreppy-App for analysis (see below)</li>
-</ul>
 </section>
 </section>
 </section>
@@ -389,7 +385,7 @@ Note
 <p>The app offers the possibility to analyze the BCA assay data using a non-linear regression. After the analysis, an overview report of the measurement can be downloaded.</p>
 <section id="start-the-analysis-of-the-bca-assay" class="level3">
 <h3 class="anchored" data-anchor-id="start-the-analysis-of-the-bca-assay">start the analysis of the BCA assay</h3>
-<p>In order to perform the analysis of the BCA assay the user must provide 2 files (<a href="#fig-BCAassayInput">Figure&nbsp;8</a>).</p>
+<p>In order to perform the analysis of the BCA assay the user must provide 2 files (<a href="#fig-BCAassayInput" class="quarto-xref">Figure&nbsp;8</a>).</p>
 <ol type="1">
 <li>plate reader measurement xlsx file</li>
 <li>sample meta Excel file, which was generated by the app during the OT-2 protocol generation</li>
@@ -397,7 +393,7 @@ Note
 <div id="fig-BCAassayInput" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="screenshots_app/BCA_assay_analysis_of_BCA_assay_input.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;8: BCA assay analysis input</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;8: BCA assay analysis input</figcaption>
 </figure>
 </div>
 <p>After up-loading the files hit the “Run data processing” button and the app will perfom the analysis.</p>
@@ -409,30 +405,30 @@ Note
 <div id="fig-BCAassayResultsCVsamples" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="screenshots_app/BCA_assay_RESULTS_CV_plot_samples.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;9: BCA assay analysis - CV over samples</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;9: BCA assay analysis - CV over samples</figcaption>
 </figure>
 </div>
-<p>The first graph you see is the CV graph of the samples (<a href="#fig-BCAassayResultsCVsamples">Figure&nbsp;9</a>), which represents the CV over the technical measurement repetitions and is a measure of the reproducibility of the sample measurement.</p>
+<p>The first graph you see is the CV graph of the samples (<a href="#fig-BCAassayResultsCVsamples" class="quarto-xref">Figure&nbsp;9</a>), which represents the CV over the technical measurement repetitions and is a measure of the reproducibility of the sample measurement.</p>
 </section>
 <section id="standard-curve" class="level4">
 <h4 class="anchored" data-anchor-id="standard-curve">Standard curve</h4>
 <div id="fig-BCAassayResultsStdCurve" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="screenshots_app/BCA_assay_RESULTS_standard_curve_plot.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;10: BCA assay analysis - standard curve plot</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;10: BCA assay analysis - standard curve plot</figcaption>
 </figure>
 </div>
-<p>In the standard plot panel (<a href="#fig-BCAassayResultsStdCurve">Figure&nbsp;10</a>) the standard curve of the measurement is shown. The green background curve shows an optimal standard reference curve. Furthermore, also CV, residuals of the regression and Z-score of the measured standard curve are shown.</p>
+<p>In the standard plot panel (<a href="#fig-BCAassayResultsStdCurve" class="quarto-xref">Figure&nbsp;10</a>) the standard curve of the measurement is shown. The green background curve shows an optimal standard reference curve. Furthermore, also CV, residuals of the regression and Z-score of the measured standard curve are shown.</p>
 </section>
 <section id="data-table" class="level4">
 <h4 class="anchored" data-anchor-id="data-table">Data table</h4>
 <div id="fig-BCAassayResultsDataTable" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="screenshots_app/BCA_assay_RESULTS_data_table.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;11: BCA assay analysis - data table</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;11: BCA assay analysis - data table</figcaption>
 </figure>
 </div>
-<p>In the data table (<a href="#fig-BCAassayResultsDataTable">Figure&nbsp;11</a>) you can find information like:</p>
+<p>In the data table (<a href="#fig-BCAassayResultsDataTable" class="quarto-xref">Figure&nbsp;11</a>) you can find information like:</p>
 <ul>
 <li>sample name</li>
 <li>x-fold dilution used in the BCA assay</li>
@@ -440,12 +436,12 @@ Note
 <li>standard deviation of absorption</li>
 <li>coefficient of variation of absorption</li>
 <li>estimated protein concentration in µg/µl</li>
-<li>comment, which refers to <a href="#fig-BCAassayResultsComment">Figure&nbsp;12</a> (also stored in “how to …” panel)</li>
+<li>comment, which refers to <a href="#fig-BCAassayResultsComment" class="quarto-xref">Figure&nbsp;12</a> (also stored in “how to …” panel)</li>
 </ul>
 <div id="fig-BCAassayResultsComment" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="screenshots_app/BCA_assay_comments.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;12: BCA assay analysis - comment categories</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;12: BCA assay analysis - comment categories</figcaption>
 </figure>
 </div>
 </section>
@@ -454,18 +450,21 @@ Note
 <div id="fig-BCAassayResultsSampleMeasurements" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="screenshots_app/BCA_assay_RESULTS_sample_measurements.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;13: BCA assay analysis - sample measurements</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;13: BCA assay analysis - sample measurements</figcaption>
 </figure>
 </div>
-<p>In the sample measurements plot panel (<a href="#fig-BCAassayResultsSampleMeasurements">Figure&nbsp;13</a>) the standard curve of the measurement is shown together with the sample measurements. This indicates if you are in the linear region of the standard curve.</p>
-<div class="callout-note callout callout-style-simple">
-<div class="callout-body d-flex">
+<p>In the sample measurements plot panel (<a href="#fig-BCAassayResultsSampleMeasurements" class="quarto-xref">Figure&nbsp;13</a>) the standard curve of the measurement is shown together with the sample measurements. This indicates if you are in the linear region of the standard curve.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-body-container">
-<p>If you do not meet the linear range, it is advisable to repeat the measurement with a different sample dilution.</p>
+<div class="callout-title-container flex-fill">
+
 </div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you do not meet the linear range, it is advisable to repeat the measurement with a different sample dilution.</p>
 </div>
 </div>
 </section>
@@ -474,10 +473,10 @@ Note
 <div id="fig-BCAassayResultsCommentCount" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="screenshots_app/BCA_assay_RESULTS_barchart_comments.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;14: BCA assay analysis - comments count barchart</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;14: BCA assay analysis - comments count barchart</figcaption>
 </figure>
 </div>
-<p>In the comments count bar chart (<a href="#fig-BCAassayResultsCommentCount">Figure&nbsp;14</a>) the count of comments is summarized. This is based on the comment categories defined in <a href="#fig-BCAassayResultsComment">Figure&nbsp;12</a>. If all sample measurements are in the desired linear range of the standard curve it will look like in <a href="#fig-BCAassayResultsCommentCount">Figure&nbsp;14</a>.</p>
+<p>In the comments count bar chart (<a href="#fig-BCAassayResultsCommentCount" class="quarto-xref">Figure&nbsp;14</a>) the count of comments is summarized. This is based on the comment categories defined in <a href="#fig-BCAassayResultsComment" class="quarto-xref">Figure&nbsp;12</a>. If all sample measurements are in the desired linear range of the standard curve it will look like in <a href="#fig-BCAassayResultsCommentCount" class="quarto-xref">Figure&nbsp;14</a>.</p>
 </section>
 <section id="excel-report-file" class="level4">
 <h4 class="anchored" data-anchor-id="excel-report-file">Excel report file</h4>
@@ -485,7 +484,7 @@ Note
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="screenshots_app/2022_04_22__BCA_assay_test_measurement_file__shinyBCA_output.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">example BCA assay result excel file screenshot</figcaption><p></p>
+<figcaption class="figure-caption">example BCA assay result excel file screenshot</figcaption>
 </figure>
 </div>
 <p><a href="screenshots_app/2022_04_22__BCA_assay_test_measurement_file__shinyBCA_output.xlsx">example BCA assay result excel file</a></p>
@@ -494,12 +493,12 @@ Note
 </section>
 <section id="sample-digest" class="level2">
 <h2 class="anchored" data-anchor-id="sample-digest">Sample digest</h2>
-<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 import custom labware definition
 </div>
 </div>
@@ -514,13 +513,13 @@ import custom labware definition
 <div id="fig-SampleDigestScreenshotUI" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="screenshots_app/Sample_digest_sequential_UI_labeled.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;15: Sample digest user interface screenshot</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;15: Sample digest user interface screenshot</figcaption>
 </figure>
 </div>
 <ol type="1">
 <li>open the app and select <code>Sample digest assay</code></li>
 <li>download the <code>OT-2 template</code></li>
-<li>fill out the sample digest template Excel file (<a href="#fig-SampleDigestTemplateFile">Figure&nbsp;16</a>)</li>
+<li>fill out the sample digest template Excel file (<a href="#fig-SampleDigestTemplateFile" class="quarto-xref">Figure&nbsp;16</a>)</li>
 <li>upload the sample digest template Excel file</li>
 <li>do all digest parameter adjustments using radio buttons and sliders</li>
 <li>click on <code>processing...generate template</code></li>
@@ -530,7 +529,7 @@ import custom labware definition
 <div id="fig-SampleDigestTemplateFile" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="screenshots_app/Sample_digest_template_labeled.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;16: Sample digest template Excel file</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;16: Sample digest template Excel file</figcaption>
 </figure>
 </div>
 <section id="sample-digest-excel-file" class="level3">
@@ -540,10 +539,10 @@ import custom labware definition
 <div id="fig-SampleDigestTemplateFileMultipleDigests" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="screenshots_app/Sample_digest_template_multiple_digests_of_one_sample.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;17: Sample digest template excel file - multiple digests of e.g.&nbsp;one sample</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;17: Sample digest template excel file - multiple digests of e.g.&nbsp;one sample</figcaption>
 </figure>
 </div>
-<p>It is also possible to perform multiple digests per sample, e.g.&nbsp;if you want to add five digest batch standards. Be aware of the correct entries in <em>OT-2 slot</em> &amp; <em>OT-2 position</em> column when using multiple digests per sample. Also adjust the volume accordingly (<a href="#fig-SampleDigestTemplateFileMultipleDigests">Figure&nbsp;17</a>).</p>
+<p>It is also possible to perform multiple digests per sample, e.g.&nbsp;if you want to add five digest batch standards. Be aware of the correct entries in <em>OT-2 slot</em> &amp; <em>OT-2 position</em> column when using multiple digests per sample. Also adjust the volume accordingly (<a href="#fig-SampleDigestTemplateFileMultipleDigests" class="quarto-xref">Figure&nbsp;17</a>).</p>
 
 
 </section>
@@ -579,9 +578,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -617,10 +630,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -630,8 +642,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -646,6 +667,147 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    if (id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
+        }
+        return container.innerHTML
+      } else {
+        return note.innerHTML;
+      }
+    } else {
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      try { hash = new URL(url).hash; } catch {}
+      const id = hash.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note !== null) {
+        try {
+          const html = processXRef(id, note);
+          instance.setContent(html);
+        } finally {
+          instance.enable();
+          instance.show();
+        }
+      } else {
+        // See if we can fetch this
+        fetch(url.split('#')[0])
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.getElementById(id);
+          if (note !== null) {
+            const html = processXRef(id, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -686,6 +848,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

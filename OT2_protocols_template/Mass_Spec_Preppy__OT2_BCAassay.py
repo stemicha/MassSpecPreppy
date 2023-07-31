@@ -53,11 +53,11 @@ def run(protocol: protocol_api.ProtocolContext):
              if line.split(",")[0].strip()][1:]
                   
   #define prep plate sample postion
-  samples_plate_position = ["A3","B3","C3","D3","E3","F3","G3","H3",
+  samples_plate_position = ["A2","B2","C2","D2","E2","F2","G2","H2"
+                            "A3","B3","C3","D3","E3","F3","G3","H3",
                             "A4","B4","C4","D4","E4","F4","G4","H4",
                             "A5","B5","C5","D5","E5","F5","G5","H5",
-                            "A6","B6","C6","D6","E6","F6","G6","H6",
-                            "A7","B7","C7","D7","E7","F7","G7","H7"]
+                            "A6","B6","C6","D6","E6","F6","G6","H6"]
   
   sample_dilution_end_volume = 260
   standard_initial_volume = 350
@@ -93,7 +93,7 @@ def run(protocol: protocol_api.ProtocolContext):
   m300 = protocol.load_instrument("p300_multi_gen2", mount = "right", tip_racks=[tiprack300])
 
   #wells for transfer to plates with multichannel pipette
-  prep_columns_positions = ["A3","A4","A5","A6","A7"]
+  prep_columns_positions = ["A2","A3","A4","A5","A6"]
   BCA_columns_position = [["A3","A4"],["A5","A6"],["A7","A8"],["A9","A10"],["A11","A12"]]
   WR_BCA_columns_position = [["A1","A2"],["A3","A4"],["A5","A6"],["A7","A8"],["A9","A10"],["A11","A12"]]
 

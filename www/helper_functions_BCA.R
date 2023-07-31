@@ -45,16 +45,27 @@ BCA_prep_plate_plot <- function(label = "preparation plate (96 NEST 100ul plate)
                           text_color = "black"){
   
   
-  slot_template_96 <- read_excel("www/slot_template_96well.xlsx")
+  slot_template_96 <- read_excel("www/slot_template_96well_BCA.xlsx")
   
   slot_template_96$samples <- FALSE
-  if(number_of_samples!=0){slot_template_96$samples[1:number_of_samples] <- TRUE}
-  
-  
+  slot_template_96$samples[1:16] <- rep(c("Std1","Std2","Std3","Std4","Std5","Std6","Std7","Std8"),2)
+  if(number_of_samples!=0){
+    slot_template_96$samples[which(slot_template_96$sample%in%c(1:number_of_samples))] <- TRUE
+    }
+
   ggplot(slot_template_96,aes(col_pos,row_pos))+
     geom_tile()+
     geom_point(size = point_size, mapping = aes(color = samples))+
-    scale_color_manual(values = c("FALSE" = "darkgrey", "TRUE"= "#00897B"))+
+    scale_color_manual(values = c("FALSE" = "darkgrey", "TRUE"= "#00897B",
+                                  "Std1"= "#4C208C",
+                                  "Std2"= "#592598",
+                                  "Std3"= "#7549AD",
+                                  "Std4"= "#835BB8",
+                                  "Std5"= "#9A78C8",
+                                  "Std6"= "#A98DD4",
+                                  "Std7"= "#BAA3E0",
+                                  "Std8"= "#D2BDE0"
+    ))+
     labs(subtitle = paste("OT-2 slot:",OT_slot), title = label)+
     theme_void()+
     theme(text = element_text(color = text_color),plot.title = element_text(face = "bold"))+
@@ -68,6 +79,50 @@ BCA_prep_plate_plot <- function(label = "preparation plate (96 NEST 100ul plate)
   
 }
 
+
+
+# dilution plate ----------------------------------------------------------
+
+BCA_dil_plate_plot <- function(label = "preparation plate (96 NEST 100ul plate)",
+                                OT_slot = "6",
+                                point_size = 8,
+                                number_of_samples = 12,
+                                text_color = "black"){
+  
+  
+  slot_template_96 <- read_excel("www/slot_template_96well.xlsx")
+  
+  slot_template_96$samples <- FALSE
+  slot_template_96$samples[1:8] <- c("Std1","Std2","Std3","Std4","Std5","Std6","Std7","Std8")
+  if(number_of_samples!=0){
+    slot_template_96$samples[9:c(number_of_samples+8)] <- TRUE
+  }
+  
+  ggplot(slot_template_96,aes(col_pos,row_pos))+
+    geom_tile()+
+    geom_point(size = point_size, mapping = aes(color = samples))+
+    scale_color_manual(values = c("FALSE" = "darkgrey", "TRUE"= "#00897B",
+                                  "Std1"= "#4C208C",
+                                  "Std2"= "#592598",
+                                  "Std3"= "#7549AD",
+                                  "Std4"= "#835BB8",
+                                  "Std5"= "#9A78C8",
+                                  "Std6"= "#A98DD4",
+                                  "Std7"= "#BAA3E0",
+                                  "Std8"= "#D2BDE0"
+                                  ))+
+    labs(subtitle = paste("OT-2 slot:",OT_slot), title = label)+
+    theme_void()+
+    theme(text = element_text(color = text_color),plot.title = element_text(face = "bold"))+
+    #theme(axis.text = element_text())+
+    scale_x_continuous(breaks = c(1:12),position = "top")+
+    guides(color = "none")+
+    geom_text(mapping = aes(x= col_pos, y = row_pos,
+                            label = position),
+              size = 2,angle = 0, color = "white")+
+    scale_y_discrete(limits=rev)
+  
+}
 # samples 1.5ml tube plot -----------------------------------------------------------
 
 BCA_sample_rack_plot <- function(label = "samples_1 (24 x 1.5ml tube rack)",
@@ -212,7 +267,8 @@ plot_deck_layout_BCA <- function(meta_table = meta_table, number_of_20ul_tips = 
   
   
   #number of samples
-  number_of_samples <- nrow(meta_table %>% filter(!is.na(sample)))
+  number_of_samples <- nrow(meta_table %>% 
+                              filter(!is.na(sample)))
   
   plate_columns_used<- ceiling(number_of_samples/8)
   pipettes <- BCA_pipette_plot(left = "20µl single channel",right = "300µl multi channel")
@@ -240,8 +296,8 @@ plot_deck_layout_BCA <- function(meta_table = meta_table, number_of_20ul_tips = 
     Slot9 <- BCA_tip_rack_plot(label = "20ul_tips_3",text_color = text_color,OT_slot = 9,number_of_used_tips = ifelse(test = (288-tips_20ul)<=0,yes = 96,no = ifelse((tips_20ul-192)<=0,0,tips_20ul-192)))
     
     #preparation plate
-    Slot2<- BCA_prep_plate_plot(label = "preparation plate plate (full area plate)",point_size = 8,text_color = text_color,OT_slot = 2,number_of_samples = 0)
-    Slot1<- BCA_prep_plate_plot(label = "BCA plate (half area plate)",point_size = 5,text_color = text_color,OT_slot = 1,number_of_samples = 0)
+    Slot2<- BCA_dil_plate_plot(label = "preparation plate plate (full area plate)",point_size = 8,text_color = text_color,OT_slot = 2,number_of_samples = number_of_samples)
+    Slot1<- BCA_prep_plate_plot(label = "BCA plate (half area plate)",point_size = 5,text_color = text_color,OT_slot = 1,number_of_samples = number_of_samples)
     
     #samples plot
     Slot4 <- BCA_sample_rack_plot(label = "samples_1 (24x 1.5ml tube rack)",text_color = text_color,OT_slot = 4,BSA_standard = F,meta_table = meta_table, slot_meta_table = "samples1")

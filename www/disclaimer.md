@@ -27,7 +27,7 @@ When you use our website, we only collect data that your browser transmits to ou
 - Date and time at the time of access
 - No uploaded data is stored on the server after closing the session. The data processing is carried out in accordance with Art. 5 (1) point of the GDPR on the basis of our legitimate interest in improving the stability and functionality of our website. The data will not be passed on or used in any other way.
 
-The data protection guidelines of University Medicine Greifswald (UMG) apply. (https://www.medizin.uni-greifswald.de/de/service/datenschutz/)
+The data protection guidelines of University Medicine Greifswald (UMG) apply. Data protection declaration according to Art. 13 DSGVO applies. (https://www.medizin.uni-greifswald.de/de/service/datenschutz/)
 
 # Use of the app
 

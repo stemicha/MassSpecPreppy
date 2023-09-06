@@ -58,15 +58,15 @@ tags$head(tags$link(
 ))
 
 # add app login -----------------------------------------------------------
-secure_app(
-  choose_language = FALSE,
-  theme = shinythemes::shinytheme("cyborg"),
-  tags_top = tags$div(
-    tags$head(tags$style(css)),
-    tags$img(
-      src = "Mass_Spec_Preppy_hexbin_small.png", width = 200, height = 229, alt = "Logo not found", deleteFile = FALSE
-    )
-  ),
+#secure_app(
+#  choose_language = FALSE,
+#  theme = shinythemes::shinytheme("cyborg"),
+#  tags_top = tags$div(
+#    tags$head(tags$style(css)),
+#    tags$img(
+#      src = "Mass_Spec_Preppy_hexbin_small.png", width = 200, height = 229, alt = "Logo not found", deleteFile = FALSE
+#    )
+#  ),
   # define page layout of app
   fluidPage(
     theme = shinytheme("cyborg"),
@@ -408,4 +408,4 @@ secure_app(
       ) # end main panel
     )
   )
-) # end secure app / shinymanager
+#) # end secure app / shinymanager

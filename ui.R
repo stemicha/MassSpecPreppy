@@ -27,6 +27,7 @@ library(ggimage)
 library(bslib)
 library(thematic)
 library(quarto)
+library(shinyThings)
 source("www/helper_functions_BCA.R")
 source("www/helper_functions_sample_digest.R")
 
@@ -50,7 +51,8 @@ css <- HTML(".btn-primary {
               }
               .panel-primary {
                   border-color: #649CCC;
-              }")
+              }
+              ")
 
 tags$head(tags$link(
   rel = "shortcut icon",
@@ -184,7 +186,23 @@ tags$head(tags$link(
         # BCA assay ui ------------------------------------------------------------
         conditionalPanel(
           condition = "input.BCA_sample_digest_selection == 'BCA assay'",
-          
+          # conditional input take3 or 96well
+          # setup radio button group style
+          tags$style(
+            ".btn-selectBgRadio {background-color: darkgrey; color: grey;}",
+            ".btn-selectBgRadio.active {background-color: #521253; color: white; border-color: white;}"
+          ),
+          # Create input
+          radioGroupButtons("InputSelectionBCA",
+                            label = p("96well or take3 input?"), 
+                            choices = c("96well", "take3"),
+                            selected = "96well",
+                            checkIcon = list("yes" = icon("check"),"no" = icon("remove")),
+                            width = "100%",
+                            status = "selectBgRadio",
+                            justified = T,
+                            individual = T),
+          p("max. dilution for take3 assay = 50x"),
           wellPanel(
             h4("BCA assay on OT-2:"),
             style = "background-color: #0D0D0D;",
@@ -291,13 +309,15 @@ tags$head(tags$link(
         # version  ----------------------------------------------------------------
         hr(),
         fluidRow(
-          column(6,      
-                 tags$a(icon("book"), href="manual/index.html",target="_blank",style = "font-size: 40px;")
+          column(5,
+                 tags$a("MassSpecPreppy Manual", href="manual/index.html",target="_blank",style = "text-align: left;")
                  ),
-          column(6,
-                 p("MassSpecPreppy version 1.0.0",style = "text-align: right")
-                 )
-          )
+          column(7,
+                 p("MassSpecPreppy version 1.0.0",style = "text-align: right;"))
+          ),
+        br(),
+        strong("please cite:"),
+        p("Reder, A., Hentschker, C., Steil, L., Gesell Salazar, M., Hammer, E., Dhople, V. M., Sura, T., Lissner, U., Wolfgramm, H., Dittmar, D., Harms, M., Surmann, K., Völker, U., & Michalik, S. (2023). MassSpecPreppy—An end-to-end solution for automated protein concentration determination and flexible sample digestion for proteomics applications. Proteomics, 00, e2300294. https://doi.org/10.1002/pmic.202300294")
         
       ), # end sidebar panel
       # main panel --------------------------------------------------------------

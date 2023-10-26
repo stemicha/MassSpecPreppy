@@ -10,7 +10,7 @@ output$input_template_OT2 <- downloadHandler(
 # render BCA static excel input template --------------------------------------
 
 output$input_BCA_template_OT2 <- downloadHandler(
-  filename = "BCA_assay_OT2_96well_half_area_template.xlsx", # desired file name on client
+  filename = "BCA_assay_OT2_96well_template.xlsx", # desired file name on client
   content = function(con) {
     file.copy("www/BCA_assay_OT2_96well_half_area_template.xlsx", con)
   }

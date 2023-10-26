@@ -134,6 +134,30 @@ BCA_OT2_template_generation <- eventReactive(input$inputButton_generate_BCA_OT2_
       )
     }
     
+    #take 3 dilution function
+    take3_sample_dil_volume_fct<- function(dilution = 30){
+      #function is written for lowest sample volume to use for the assay / 1µl
+      
+      # minimal sample dilution possible
+      min_vol = 25
+      # minimal sample volume
+      min_sample_vol = 1
+      
+      if(min_sample_vol*dilution<min_vol){
+        buffer_volume <-  min_vol-(min_vol/dilution)
+        sample_volume <- min_vol/dilution
+        #paste0(sample_volume,"µl + ",buffer_volume,"µl")
+        
+      }else{
+        buffer_volume <- (min_sample_vol*dilution)-1
+        sample_volume <- min_sample_vol
+        #paste0(sample_volume,"µl + ",buffer_volume,"µl")
+      }
+      
+      return(list(buffer_volume = buffer_volume,sample_volume=sample_volume))
+      
+    }
+    
     
     # calculate 20ul tip amount 
     BCA_OT2_template_tips_calculation <- BCA_OT2_template %>% 
@@ -147,20 +171,31 @@ BCA_OT2_template_generation <- eventReactive(input$inputButton_generate_BCA_OT2_
                                                         no = NA)))) %>% 
       ungroup()
     
-    
+    tips_20ul_used = sum(BCA_OT2_template_tips_calculation$tips_used,na.rm=T)+36
     
     
     
     # error: volume left is below 10µl > air can be aspirated ------------------------------------
-    OT2_BCA_template_tmp_low_volume <- BCA_OT2_template %>%
-      rowwise() %>%
-      mutate(volume_left = `volume (µl)` - 260/dilution) %>%
-      filter(volume_left < 10)
+    
+    if(input$selection_BCA_96well_or_take3=="take3"){
+      OT2_BCA_template_tmp_low_volume <- BCA_OT2_template %>%
+        rowwise() %>%
+        mutate(volume_left = `volume (µl)` - take3_sample_dil_volume_fct(dilution)$sample_volume) %>%
+        filter(volume_left < 5)
+    }
+    if(input$selection_BCA_96well_or_take3=="96well"){
+      OT2_BCA_template_tmp_low_volume <- BCA_OT2_template %>%
+        rowwise() %>%
+        mutate(volume_left = `volume (µl)` - 260/dilution) %>%
+        filter(volume_left < 10)
+    }  
+       
+
     
     if (dim(OT2_BCA_template_tmp_low_volume)[1] != 0) {
       error_BCA <- c(error_BCA, low_volume = 1)
       shinyalert(
-        title = "volume of sample is to low (volume left is below 10µl); please use a higher volume of sample",
+        title = "volume of sample is to low (volume left is below 10µl [96well] / 5µl [take3]); please use a higher volume of sample",
         text = paste("sample with too low volume for the selected dilution are:\n", paste(OT2_BCA_template_tmp_low_volume$sample, collapse = "\n")),
         closeOnEsc = TRUE,
         closeOnClickOutside = FALSE,
@@ -229,7 +264,12 @@ BCA_OT2_template_generation <- eventReactive(input$inputButton_generate_BCA_OT2_
     incProgress(0.6, detail = "generate BCA assay OT-2 protocol")
 
     # load OT-2 python protocol max. 40 samples
-    BCA_OT2_protocol <- read_lines(file = "OT2_protocols_template/Mass_Spec_Preppy__OT2_BCAassay.py")
+    if(input$selection_BCA_96well_or_take3=="take3"){
+      BCA_OT2_protocol <- read_lines(file = "OT2_protocols_template/Mass_Spec_Preppy__OT2_BCAassay_take3.py")
+    }
+    if(input$selection_BCA_96well_or_take3=="96well"){
+      BCA_OT2_protocol <- read_lines(file = "OT2_protocols_template/Mass_Spec_Preppy__OT2_BCAassay.py")
+    }  
 
     # implement files
     # genrate python JSON input edited file -----------------------------------
@@ -258,22 +298,49 @@ BCA_OT2_template_generation <- eventReactive(input$inputButton_generate_BCA_OT2_
     )
     incProgress(0.8, detail = "BCA assay...writing output")
 
+    
+    # render deckplots
+    if(input$selection_BCA_96well_or_take3=="take3"){
+      output_deckplot <- plot_deck_layout_BCA_take3(meta_table = BCA_OT2_template,
+                                                    number_of_20ul_tips = tips_20ul_used,
+                                                    text_color = "white")
+    }
+    if(input$selection_BCA_96well_or_take3=="96well"){
+      output_deckplot <- plot_deck_layout_BCA(meta_table = BCA_OT2_template,
+                                              number_of_20ul_tips = tips_20ul_used,
+                                              text_color = "white")
+    }  
+    
+    # output file
+    if(input$selection_BCA_96well_or_take3=="take3"){
+      file_output <- paste(str_replace_all(file_out_tmp, ".xlsx", ""), "__OT2_BCA_take3_protocol.py", sep = "")
+    }
+    if(input$selection_BCA_96well_or_take3=="96well"){
+      file_output <- paste(str_replace_all(file_out_tmp, ".xlsx", ""), "__OT2_BCA_half_area_plate_protocol.py", sep = "")
+    }  
+    
     list(
       OT2_protocol_out = BCA_OT2_protocol_out,
       OT2_template = BCA_OT2_template,
       excel_output_template_OT2 = BCA_excel_output_template_OT2,
       file_output_short = file_out_tmp,
-      tips_20ul_used = sum(BCA_OT2_template_tips_calculation$tips_used,na.rm=T)+36, # +36 tips for standard
-      file_output = paste(str_replace_all(file_out_tmp, ".xlsx", ""), "__OT2_BCA_half_area_plate_protocol.py", sep = "")
+      tips_20ul_used = tips_20ul_used, # +36 tips for standard
+      BCA_output_deckplot = output_deckplot,
+      file_output = file_output
     )
   }) # end progressbar
+  
+
+  # generate decklayout plot output
+  
+  
+  
 }) # end BCA_OT2_template_generation
 
 
-# generate decklayout plot output
-output$BCA_layout_plot <- renderPlot(plot_deck_layout_BCA(meta_table = BCA_OT2_template_generation()$OT2_template,
-                                                     number_of_20ul_tips = BCA_OT2_template_generation()$tips_20ul_used,
-                                                     text_color = "white"))
+# generate BCA decklayout plot render
+output$BCA_layout_plot <- renderPlot(BCA_OT2_template_generation()$BCA_output_deckplot)
+
 
 # generate BCA OT2_template download -------------------------------------------
 
@@ -306,25 +373,48 @@ output$dlOT2_BCA <- downloadHandler(
       )
       
       # qmd file
-      file.copy("report_template/Mass_spec_Preppy_BCA_MASTER.qmd",
-                file.path(tempdir(), "Mass_spec_Preppy_BCA_MASTER.qmd"),
-                overwrite = TRUE
-      )
+      if(input$selection_BCA_96well_or_take3=="take3"){
+          file.copy("report_template/Mass_spec_Preppy_BCA_take3_MASTER.qmd",
+                  file.path(tempdir(), "Mass_spec_Preppy_BCA_MASTER.qmd"),
+                  overwrite = TRUE
+        )
+      }
+      if(input$selection_BCA_96well_or_take3=="96well"){
+        file.copy("report_template/Mass_spec_Preppy_BCA_MASTER.qmd",
+                  file.path(tempdir(), "Mass_spec_Preppy_BCA_MASTER.qmd"),
+                  overwrite = TRUE
+        )
+      }
+      
       # copy logo and other pics
       file.copy("www/Mass_Spec_Preppy_hexbin_small.png",
                 file.path(tempdir(), "Mass_Spec_Preppy_hexbin_small.png"),
                 overwrite = TRUE
       )
-
-      ggsave(
-        plot = plot_deck_layout_BCA(meta_table = BCA_OT2_template_generation()$OT2_template,
-                                    number_of_20ul_tips = BCA_OT2_template_generation()$tips_20ul_used,
-                                    text_color = "white"),
-        device = "png",
-        filename = paste(BCA_OT2_template_generation()$file_output_short, "__decklayout.png", sep = ""),
-        width = 13,
-        height = 11
-      )
+      
+      if(input$selection_BCA_96well_or_take3=="take3"){
+        ggsave(
+          plot = plot_deck_layout_BCA_take3(meta_table = BCA_OT2_template_generation()$OT2_template,
+                                      number_of_20ul_tips = BCA_OT2_template_generation()$tips_20ul_used,
+                                      text_color = "white"),
+          device = "png",
+          filename = paste(BCA_OT2_template_generation()$file_output_short, "__decklayout.png", sep = ""),
+          width = 13,
+          height = 11
+        )
+      }
+      if(input$selection_BCA_96well_or_take3=="96well"){
+        ggsave(
+          plot = plot_deck_layout_BCA(meta_table = BCA_OT2_template_generation()$OT2_template,
+                                      number_of_20ul_tips = BCA_OT2_template_generation()$tips_20ul_used,
+                                      text_color = "white"),
+          device = "png",
+          filename = paste(BCA_OT2_template_generation()$file_output_short, "__decklayout.png", sep = ""),
+          width = 13,
+          height = 11
+        )
+      }  
+      
       file.copy(paste(BCA_OT2_template_generation()$file_output_short, "__decklayout.png", sep = ""),
         file.path(tempdir(), paste(BCA_OT2_template_generation()$file_output_short, "__decklayout.png", sep = "")),
         overwrite = TRUE

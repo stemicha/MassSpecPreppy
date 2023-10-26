@@ -193,7 +193,7 @@ tags$head(tags$link(
             ".btn-selectBgRadio.active {background-color: #521253; color: white; border-color: white;}"
           ),
           # Create input
-          radioGroupButtons("InputSelectionBCA",
+          radioGroupButtons(inputId = "selection_BCA_96well_or_take3",
                             label = p("96well or take3 input?"), 
                             choices = c("96well", "take3"),
                             selected = "96well",
@@ -313,9 +313,10 @@ tags$head(tags$link(
                  tags$a("MassSpecPreppy Manual", href="manual/index.html",target="_blank",style = "text-align: left;")
                  ),
           column(7,
-                 p("MassSpecPreppy version 1.0.0",style = "text-align: right;"))
+                 p("MassSpecPreppy version 1.1.0",style = "text-align: right;"))
           ),
         br(),
+        #add MassSpecPreppy citation
         strong("please cite:"),
         p("Reder, A., Hentschker, C., Steil, L., Gesell Salazar, M., Hammer, E., Dhople, V. M., Sura, T., Lissner, U., Wolfgramm, H., Dittmar, D., Harms, M., Surmann, K., Völker, U., & Michalik, S. (2023). MassSpecPreppy—An end-to-end solution for automated protein concentration determination and flexible sample digestion for proteomics applications. Proteomics, 00, e2300294. https://doi.org/10.1002/pmic.202300294")
         

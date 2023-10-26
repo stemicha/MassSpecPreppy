@@ -41,3 +41,4 @@ shinyServer(function(input, output) {
   # BCA assay server --------------------------------------------------------
   source("server/Server__BCA_assay.R", local = TRUE)$value
 })
+

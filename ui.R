@@ -27,7 +27,6 @@ library(ggimage)
 library(bslib)
 library(thematic)
 library(quarto)
-library(shinyThings)
 source("www/helper_functions_BCA.R")
 source("www/helper_functions_sample_digest.R")
 

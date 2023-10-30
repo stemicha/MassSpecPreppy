@@ -147,7 +147,7 @@ def run(protocol: protocol_api.ProtocolContext):
   #dispense diluent for sample dilution
   m20.distribute(sample_dilution_end_volume,
                   reagent_plate.wells_by_name()["A2"],
-                  [prep_plate.wells_by_name()[well_name].bottom(bottom_offset) for well_name in prep_columns_positions[: int(len(SampleTransfer)/8)+1]],
+                  [prep_plate.wells_by_name()[well_name].bottom(bottom_offset) for well_name in prep_columns_positions[: math.ceil(len(SampleTransfer)/8)]],
                   new_tip = "once",
                   touch_tip = True)
                   

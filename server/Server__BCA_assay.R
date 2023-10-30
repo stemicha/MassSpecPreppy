@@ -579,6 +579,10 @@ calculations <- reactive({
       # add meta data -----------------------------------------------------------
       incProgress(amount = 2 / 10, message = "add meta data")
 
+
+      # 96well data cleaning ----------------------------------------------------
+
+      if(input$selection_BCA_96well_or_take3=="96well"){
       # 96 well plate
       raw_data <- left_join(raw_data, meta, by = c("Plate Number", "Well"))
       # plate positions to add missing sample and plate information
@@ -598,9 +602,58 @@ calculations <- reactive({
       }
       # remove empty samples
       raw_data <- raw_data %>% filter(!is.na(Sample))
+  }#end 96 well meta file adding
+        
 
-      # end 96 well meta file adding
+# take3 data cleaning -----------------------------------------------------
 
+      # take3 well plate
+      if(input$selection_BCA_96well_or_take3=="take3"){
+        #rename columns
+        raw_data_take3 <- raw_data %>% 
+          rename(`Plate Number take3` = `Plate Number`,
+                 Well_take3 = Well)
+        
+        # workaround for changed output format in take3 output
+        raw_data_take3 <- raw_data_take3 %>% filter(!is.na(`562`))
+        
+        #add missing plate data
+        for(i in 1:nrow(raw_data_take3)){
+          if(is.na(raw_data_take3$`Plate Number take3`[i])){
+            raw_data_take3$`Plate Number take3`[i] <- raw_data_take3$`Plate Number take3`[i-1]
+          }
+        }
+        number_of_columns <- length(unique(raw_data_take3$`Plate Number take3`))
+        #set number of meta samples
+        meta <- meta[1:(number_of_columns*8),]
+        
+        #make take3 meta file from 96well template (technical replicates take3)
+        meta_take3 <- c()
+        plates_take_3_vector <- unique(meta$`Plate Number`)
+        for(i in 1:length(plates_take_3_vector)){
+          tmp_take3<- meta %>% filter(`Plate Number`==plates_take_3_vector[i])
+          plate_row_count <- as.integer(nrow(tmp_take3)/8)
+          if(plate_row_count<nrow(tmp_take3)/8){plate_row_count <- plate_row_count+1}
+          for(k in 1:plate_row_count){
+            tmp_tmp_take3 <- tmp_take3 %>% filter(Well%in%paste(LETTERS[seq(from=1, to=8)],k,sep=""))
+            for(s in 1:nrow(tmp_tmp_take3)){
+              meta_take3 <- bind_rows(meta_take3,tmp_tmp_take3[s,],tmp_tmp_take3[s,])
+            }
+          }
+        }
+        
+        # remove in between plate headings
+        raw_data_take3 <- raw_data_take3 %>% filter(`Plate Number take3`!="Plate Number")
+        
+        #add sample
+        # remove samples without meta data [1:nrow(meta_take3),]
+        raw_data_take3 <- bind_cols(raw_data_take3[1:nrow(meta_take3),],meta_take3)
+        #remove empty samples
+        raw_data <- raw_data_take3 %>% filter(!is.na(Sample))
+      }#end take3 well meta file adding      
+      
+      
+      
       incProgress(amount = 3 / 10, message = "extract standard")
 
       # get standard ------------------------------------------------------------
@@ -625,7 +678,20 @@ calculations <- reactive({
 
       std_tidy <- left_join(std_tidy, std_conc_tibble, by = "Sample")
 
-      # mean over technical replicates
+      # mean over technical replicates / take 3 workaround
+      if(input$selection_BCA_96well_or_take3=="take3"){
+        std_tidy_summary_take3<- std_tidy %>% 
+          group_by(Well,`Plate Number`,conc_mg_per_ml) %>% 
+          summarise(Abs = mean(`562`,na.rm = T), 
+                    tech_Abs_CV = sd(`562`,na.rm = T)/mean(`562`,na.rm = T))
+        
+        std_tidy_summary <- std_tidy_summary_take3 %>% 
+          group_by(conc_mg_per_ml,`Plate Number`) %>% 
+          summarise(meanAbs = mean(Abs,na.rm=T),
+                    SD_Abs = sd(Abs,na.rm=T),
+                    CV_Abs = sd(Abs,na.rm=T)/mean(Abs,na.rm=T))%>% 
+          ungroup()
+      }else{      # mean over technical replicates 96wells
       std_tidy_summary <- std_tidy %>%
         rename(Abs = `562`) %>%
         group_by(Sample, `Plate Number`, conc_mg_per_ml) %>%
@@ -636,7 +702,7 @@ calculations <- reactive({
           CV_Abs = sd(Abs, na.rm = T) / mean(Abs, na.rm = T)
         ) %>%
         ungroup()
-
+      }#end sd, cv, mean calc. over std.
 
 
       incProgress(amount = 4 / 10, message = "summarizing samples")
@@ -737,6 +803,7 @@ calculations <- reactive({
 
 
       # add hard codes standard curve -------------------------------------------
+      # TODO: add take3 hard coded
       standard_hard_coded <- tibble(
         conc_mg_per_ml = c(0, 0.01, 0.02, 0.04, 0.06, 0.08, 0.12, 0.16),
         meanAbs = c(0.275, 0.533, 0.764, 1.199, 1.586, 1.932, 2.647, 3.304)
@@ -838,6 +905,7 @@ calculations <- reactive({
 
       # add comments ------------------------------------------------------------
       incProgress(amount = 9 / 10, message = "adding comments")
+      # TODO: add take3 
       # <1std. red;<40 yellow; 40-120 green, 120-160 yellow, >160 red
       std_tidy_cutoffs_comment <- std_tidy_summary %>%
         group_by(`Plate Number`) %>%

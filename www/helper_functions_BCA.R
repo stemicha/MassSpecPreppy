@@ -347,7 +347,7 @@ plot_deck_layout_BCA_take3 <- function(meta_table = meta_table, number_of_20ul_t
   Slot9 <- BCA_tip_rack_plot(label = "20ul_tips_3",text_color = text_color,OT_slot = 9,number_of_used_tips = ifelse(test = (288-tips_20ul)<=0,yes = 96,no = ifelse((tips_20ul-192)<=0,0,tips_20ul-192)))
   
   #preparation plate
-  Slot2<- BCA_dil_plate_plot(label = "preparation plate plate (NEST 100ul PCR)",point_size = 8,text_color = text_color,OT_slot = 2,number_of_samples = number_of_samples)
+  Slot2<- BCA_dil_plate_plot(label = "preparation plate plate (NEST 100ul PCR)",point_size = 5,text_color = text_color,OT_slot = 2,number_of_samples = number_of_samples)
   Slot1<- BCA_prep_plate_plot(label = "BCA plate (NEST 100ul PCR)",point_size = 5,text_color = text_color,OT_slot = 1,number_of_samples = number_of_samples)
   
   #samples plot

@@ -112,15 +112,16 @@ def run(protocol: protocol_api.ProtocolContext):
   BCA_columns_position = [["A3","A4"],["A5","A6"],["A7","A8"],["A9","A10"],["A11","A12"]]
   WR_BCA_columns_position = [["A1","A2"],["A3","A4"],["A5","A6"],["A7","A8"],["A9","A10"],["A11","A12"]]
 
-  #std. dilution: transfer 2xBSA diluent
-  m20.transfer(75, reagent_plate.columns_by_name()["1"], prep_plate.columns_by_name()["1"])
-      
   #generate standard position and volumes
   std_positions = ["A1","B1","C1","D1","E1","F1","G1"]
   std_volumes = [24,18,12,9,6,3,1.5]
 
   # offset piptette over bottom: default 1mm
   bottom_offset = 1.5
+
+  #std. dilution: transfer 2xBSA diluent
+  m20.transfer(75, reagent_plate.columns_by_name()["1"], prep_plate.columns_by_name()["1"])
+      
 
   #refine 2xBSA diluent with P20 / use one tip
   for i in range(0,7): p20.transfer(std_volumes[i], 

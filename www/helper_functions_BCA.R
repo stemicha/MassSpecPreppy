@@ -87,7 +87,9 @@ BCA_dil_plate_plot <- function(label = "preparation plate (96 NEST 100ul plate)"
                                 OT_slot = "6",
                                 point_size = 8,
                                 number_of_samples = 12,
-                                text_color = "black"){
+                                text_color = "black",
+                                outline = F, 
+                                outline_color = "orangered"){
   
   
   slot_template_96 <- read_excel("www/slot_template_96well.xlsx")
@@ -98,7 +100,7 @@ BCA_dil_plate_plot <- function(label = "preparation plate (96 NEST 100ul plate)"
     slot_template_96$samples[9:c(number_of_samples+8)] <- TRUE
   }
   
-  ggplot(slot_template_96,aes(col_pos,row_pos))+
+  prep_tmp_p <- ggplot(slot_template_96,aes(col_pos,row_pos))+
     geom_tile()+
     geom_point(size = point_size, mapping = aes(color = samples))+
     scale_color_manual(values = c("FALSE" = "darkgrey", "TRUE"= "#00897B",
@@ -122,6 +124,11 @@ BCA_dil_plate_plot <- function(label = "preparation plate (96 NEST 100ul plate)"
               size = 2,angle = 0, color = "white")+
     scale_y_discrete(limits=rev)
   
+  if(outline==T){
+    prep_tmp_p <- prep_tmp_p+
+      theme(panel.border = element_rect(colour = outline_color, fill=NA, size=5))
+  }
+  prep_tmp_p
 }
 # samples 1.5ml tube plot -----------------------------------------------------------
 
@@ -331,7 +338,10 @@ plot_deck_layout_BCA_take3 <- function(meta_table = meta_table, number_of_20ul_t
   )
   
   #regents
-  Slot3 <- BCA_nest_12well_reagent_plot(input_df = input_df_NEST_12ml,text_color = text_color,label = "reagent plate (NEST 12 column reservoir)",OT_slot = 3)
+  Slot2 <- BCA_nest_12well_reagent_plot(input_df = input_df_NEST_12ml,
+                                        text_color = text_color,
+                                        label = "reagent plate (NEST 12 column reservoir)",
+                                        OT_slot = 2)
   
   #tips
   tips_20ul <- number_of_20ul_tips
@@ -340,19 +350,40 @@ plot_deck_layout_BCA_take3 <- function(meta_table = meta_table, number_of_20ul_t
   
   Slot10 <- plot_spacer()
   Slot11 <- plot_spacer()
-  Slot6 <- BCA_tip_rack_plot(label = "20ul_tips_4",text_color = text_color,OT_slot = 6,number_of_used_tips = tips_20ul_multi)
-  
-  Slot7 <- BCA_tip_rack_plot(label = "20ul_tips_1",text_color = text_color,OT_slot = 7,number_of_used_tips = ifelse(test = (96-tips_20ul)<=0,yes = 96,no = tips_20ul))
-  Slot8 <- BCA_tip_rack_plot(label = "20ul_tips_2",text_color = text_color,OT_slot = 8,number_of_used_tips = ifelse(test = (192-tips_20ul)<=0,yes = 96,no = ifelse((tips_20ul-96)<=0,0,tips_20ul-96)))
-  Slot9 <- BCA_tip_rack_plot(label = "20ul_tips_3",text_color = text_color,OT_slot = 9,number_of_used_tips = ifelse(test = (288-tips_20ul)<=0,yes = 96,no = ifelse((tips_20ul-192)<=0,0,tips_20ul-192)))
+  Slot4 <- BCA_tip_rack_plot(label = "20ul_tips_1",
+                             text_color = text_color,OT_slot = 4,
+                             number_of_used_tips = ifelse(test = (96-tips_20ul)<=0,yes = 96,no = tips_20ul))
+  Slot8 <- BCA_tip_rack_plot(label = "20ul_tips_2",
+                             text_color = text_color,OT_slot = 8,
+                             number_of_used_tips = ifelse(test = (192-tips_20ul)<=0,yes = 96,no = ifelse((tips_20ul-96)<=0,0,tips_20ul-96)))
+  Slot5 <- BCA_tip_rack_plot(label = "20ul_tips_3",
+                             text_color = text_color,OT_slot = 5,
+                             number_of_used_tips = ifelse(test = (288-tips_20ul)<=0,yes = 96,no = ifelse((tips_20ul-192)<=0,0,tips_20ul-192)))
+  Slot9 <- BCA_tip_rack_plot(label = "20ul_tips_4",
+                             text_color = text_color,OT_slot = 9,
+                             number_of_used_tips = tips_20ul_multi)
   
   #preparation plate
-  Slot2<- BCA_dil_plate_plot(label = "preparation plate plate (NEST 100ul PCR)",point_size = 5,text_color = text_color,OT_slot = 2,number_of_samples = number_of_samples)
-  Slot1<- BCA_prep_plate_plot(label = "BCA plate (NEST 100ul PCR)",point_size = 5,text_color = text_color,OT_slot = 1,number_of_samples = number_of_samples)
+  Slot7<- BCA_dil_plate_plot(label = "HEAT/SHAKER MODULE +\npreparation plate plate (NEST 100ul PCR)",
+                             point_size = 5,text_color = text_color,
+                             OT_slot = 7,
+                             outline = T,
+                             outline_color = "orangered",
+                             number_of_samples = number_of_samples)
+  Slot1<- BCA_prep_plate_plot(label = "BCA plate (NEST 100ul PCR)",
+                              point_size = 5,text_color = text_color,
+                              OT_slot = 1,
+                              number_of_samples = number_of_samples)
   
   #samples plot
-  Slot4 <- BCA_sample_rack_plot(label = "samples_1 (24x 1.5ml tube rack)",text_color = text_color,OT_slot = 4,BSA_standard = F,meta_table = meta_table, slot_meta_table = "samples1")
-  Slot5 <- BCA_sample_rack_plot(label = "samples_2 (24x 1.5ml tube rack)",text_color = text_color,OT_slot = 5,BSA_standard = T,meta_table = meta_table, slot_meta_table = "samples2")
+  Slot6 <- BCA_sample_rack_plot(label = "samples_1 (24x 1.5ml tube rack)",
+                                text_color = text_color,
+                                OT_slot = 6,
+                                BSA_standard = F,meta_table = meta_table, slot_meta_table = "samples1")
+  Slot3 <- BCA_sample_rack_plot(label = "samples_2 (24x 1.5ml tube rack)",
+                                text_color = text_color,
+                                OT_slot = 3,
+                                BSA_standard = T,meta_table = meta_table, slot_meta_table = "samples2")
   
   
   BCA_deck_layout_plot_out<- (Slot10+Slot11+pipettes)/

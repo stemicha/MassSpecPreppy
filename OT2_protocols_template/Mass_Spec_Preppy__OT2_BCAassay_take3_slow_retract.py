@@ -248,8 +248,8 @@ def run(protocol: protocol_api.ProtocolContext):
       source_tmp = samples2.wells_by_name()["D6"],
       destination = prep_plate.wells_by_name()[std_positions[i]],
       destination_tmp = prep_plate.wells_by_name()[std_positions[i]],
-      mix_volume = 20,
-      mix_times = 5)
+      mix_volume = 10,
+      mix_times = 2)
     #standard height
     standard_initial_volume = standard_initial_volume - std_volumes[i]
 
@@ -275,16 +275,16 @@ def run(protocol: protocol_api.ProtocolContext):
         source_tmp = samples1.wells_by_name()[SampleTransfer[i][3]],
         destination = prep_plate.wells_by_name()[SampleTransfer[i][5]],
         destination_tmp = prep_plate.wells_by_name()[SampleTransfer[i][5]],
-        mix_volume = 20,
-        mix_times = 5)
+        mix_volume = 10,
+        mix_times = 2)
        
     else: p20_slow_retract_transfer_mixing(volume = SampleTransfer[i][6],
             source = samples2.wells_by_name()[SampleTransfer[i][3]].bottom(vol_height_1_5_ml(initial_volume=float(SampleTransfer[i][4]),aspirate_volume=SampleTransfer[i][6],height_below_mm=3)),
             source_tmp = samples2.wells_by_name()[SampleTransfer[i][3]],
             destination = prep_plate.wells_by_name()[SampleTransfer[i][5]],
             destination_tmp = prep_plate.wells_by_name()[SampleTransfer[i][5]],
-            mix_volume = 20,
-            mix_times = 5)
+            mix_volume = 10,
+            mix_times = 2)
     
     #sample height adjustment
     for k in range(0,len(SampleTransfer)):
@@ -308,39 +308,44 @@ def run(protocol: protocol_api.ProtocolContext):
   hs_mod.deactivate_shaker()
                   
   # distribute 2x buffer to BCA plate
-  m20_slow_retract_transfer_W_O_mix(volume = 5,
+  m20_slow_retract_transfer_mix(volume = 5,
     source = reagent_plate.wells_by_name()["A3"],
-    destination = BCA_plate.wells_by_name()["A1"])
+    destination = BCA_plate.wells_by_name()["A1"],
+    mix_volume = 5,
+    mix_times = 2)
   
-  m20_slow_retract_transfer_W_O_mix(volume = 5,
+  m20_slow_retract_transfer_mix(volume = 5,
     source = reagent_plate.wells_by_name()["A3"],
-    destination = BCA_plate.wells_by_name()["A2"])
+    destination = BCA_plate.wells_by_name()["A2"],
+    mix_volume = 5,
+    mix_times = 2)
   
   # distribute 2x std. to BCA plate
-  m20_slow_retract_transfer_mix_before(5,
+  m20_slow_retract_transfer_mix(volume = 5,
     source = prep_plate.wells_by_name()["A1"],
     destination = BCA_plate.wells_by_name()["A1"],
-    mix_volume_before = 15,
-    mix_times_before = 10)
+    mix_volume = 5,
+    mix_times = 2)
   
-  m20_slow_retract_transfer_mix_before(5,
+  
+  m20_slow_retract_transfer_mix(volume = 5,
     source = prep_plate.wells_by_name()["A1"],
     destination = BCA_plate.wells_by_name()["A2"],
-    mix_volume_before = 15,
-    mix_times_before = 1)
+    mix_volume = 5,
+    mix_times = 2)
   
   #distribute sample to BCA plate
   for i in range(0, math.ceil(sample_number/8)): 
-    m20_slow_retract_transfer_mix_before(10,
+    m20_slow_retract_transfer_mix(volume = 10,
       source = prep_plate.wells_by_name()[prep_columns_positions[i]],
       destination = BCA_plate.wells_by_name()[BCA_columns_position[i][0]],
-      mix_volume_before = 15,
-      mix_times_before = 10)
-    m20_slow_retract_transfer_mix_before(10,
+      mix_volume = 10,
+      mix_times = 2)
+    m20_slow_retract_transfer_mix(volume = 10,
       source = prep_plate.wells_by_name()[prep_columns_positions[i]],
       destination = BCA_plate.wells_by_name()[BCA_columns_position[i][1]],
-      mix_volume_before = 15,
-      mix_times_before = 1)
+      mix_volume = 10,
+      mix_times = 2)
  
   # open latch HS
   hs_mod.open_labware_latch()

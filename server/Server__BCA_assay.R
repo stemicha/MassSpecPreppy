@@ -146,15 +146,16 @@ BCA_OT2_template_generation <- eventReactive(input$inputButton_generate_BCA_OT2_
       if(min_sample_vol*dilution<min_vol){
         buffer_volume <-  min_vol-(min_vol/dilution)
         sample_volume <- min_vol/dilution
+        final_volume <- sample_volume+buffer_volume
         #paste0(sample_volume,"µl + ",buffer_volume,"µl")
-        
       }else{
         buffer_volume <- (min_sample_vol*dilution)-1
         sample_volume <- min_sample_vol
+        final_volume <- sample_volume+buffer_volume
         #paste0(sample_volume,"µl + ",buffer_volume,"µl")
       }
       
-      return(list(buffer_volume = buffer_volume,sample_volume=sample_volume))
+      return(list(buffer_volume = buffer_volume,sample_volume=sample_volume, final_volume = final_volume))
       
     }
     
@@ -320,6 +321,27 @@ BCA_OT2_template_generation <- eventReactive(input$inputButton_generate_BCA_OT2_
     if(input$selection_BCA_96well_or_take3=="96well"){
       file_output <- paste(str_replace_all(file_out_tmp, ".xlsx", ""), "__OT2_BCA_half_area_plate_protocol.py", sep = "")
     }  
+    
+    
+
+# add volumes to sample list for Quarto Rendering -------------------------
+
+    if(input$selection_BCA_96well_or_take3=="take3"){
+      BCA_OT2_template<- BCA_OT2_template %>% 
+        rowwise() %>% 
+        mutate(`sample volume (µl) used for the dilution` = take3_sample_dil_volume_fct(dilution)$sample_volume,
+               `final dilution volume (µl)` = take3_sample_dil_volume_fct(dilution)$final_volume
+        ) %>% 
+        mutate(`sample volume left (µl)` = `volume (µl)` - `sample volume (µl) used for the dilution`)
+    }else{
+      BCA_OT2_template <- BCA_OT2_template %>% 
+        rowise() %>% 
+        mutate(`sample volume (µl) used for the dilution` = 260/dilution,
+               `final dilution volume (µl)` = 260
+        ) %>% 
+        mutate(`sample volume left (µl)` = `volume (µl)` - `sample volume (µl) used for the dilution`)
+    }    
+    
     
     list(
       OT2_protocol_out = BCA_OT2_protocol_out,

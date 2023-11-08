@@ -267,7 +267,7 @@ BCA_OT2_template_generation <- eventReactive(input$inputButton_generate_BCA_OT2_
     if(input$selection_BCA_96well_or_take3=="take3"){
       #BCA_OT2_protocol <- read_lines(file = "OT2_protocols_template/Mass_Spec_Preppy__OT2_BCAassay_take3.py")
       # TODO: if used adapt layout plot!!!
-      BCA_OT2_protocol <- read_lines(file = "OT2_protocols_template/Mass_Spec_Preppy__OT2_BCAassay_take3_slow_retract.py")
+      BCA_OT2_protocol <- read_lines(file = "OT2_protocols_template/Mass_Spec_Preppy__OT2_BCAassay_take3_HS.py")
     }
     if(input$selection_BCA_96well_or_take3=="96well"){
       BCA_OT2_protocol <- read_lines(file = "OT2_protocols_template/Mass_Spec_Preppy__OT2_BCAassay.py")

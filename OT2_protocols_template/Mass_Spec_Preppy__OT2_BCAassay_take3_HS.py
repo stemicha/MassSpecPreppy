@@ -239,4 +239,5 @@ def run(protocol: protocol_api.ProtocolContext):
                                                            mix_before = [2,20],
                                                            disposal_volume = 0)
  
-
+  # open latch HS
+  hs_mod.open_labware_latch()

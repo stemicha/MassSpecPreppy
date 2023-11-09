@@ -133,7 +133,7 @@ f{INCUBATION_TIME} minutes.')
                  new_tip = "never",
                  mix_before = (1,200),
                  air_gap = 20,
-                 touch_tip = False)
+                 touch_tip = True)
   m300.drop_tip()
   
   #pause step
@@ -148,7 +148,7 @@ f{INCUBATION_TIME} minutes.')
                  reagents.wells_by_name()["A3"].bottom(1), # 1mm from bottom
                  [EvoTips.wells_by_name()[well_name].bottom().move(Point(x=-1.5, z=35)) for well_name in prep_plate_columns_position[0:num_cols]],#35 mm above
                  new_tip ="never",
-                 touch_tip = False)
+                 touch_tip = True)
   
   m300.drop_tip()
   #pause step
@@ -195,7 +195,7 @@ f{INCUBATION_TIME} minutes.')
                  reagents.wells_by_name()["A3"].bottom(1), # 1mm from bottom
                  [EvoTips.wells_by_name()[well_name].bottom().move(Point(x=-1.5, z=35)) for well_name in prep_plate_columns_position[0:num_cols]],#35 mm above
                  new_tip ="never",
-                 touch_tip = False)
+                 touch_tip = True)
   m300.drop_tip()
   #pause step
   m300.move_to(locPause)
@@ -210,7 +210,7 @@ f{INCUBATION_TIME} minutes.')
                  new_tip ="always",
                  blow_out = True,
                  blowout_location = "source well",
-                 touch_tip = False)
+                 touch_tip = True)
   #comment step
   protocol.comment("take EvoTips out >> centrifuge!!! keep them wet ! DONE!")
   

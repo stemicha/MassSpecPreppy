@@ -853,7 +853,8 @@ calculations <- reactive({
       standard_hard_coded <- tibble(
         conc_mg_per_ml = c(0, 0.01, 0.02, 0.04, 0.06, 0.08, 0.12, 0.16),
         meanAbs = c(0.072,0.095,0.111,0.146,0.177,0.205,0.259,0.309)
-      )
+        )
+      }
       if(input$selection_BCA_96well_or_take3=="96well"){
         # 96well half-area
         standard_hard_coded <- tibble(

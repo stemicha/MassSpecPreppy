@@ -74,7 +74,17 @@ datatable(as_tibble(params$sample_list) %>%
             rename(`x-fold dilution` = dilution),
           options = list(
             columnDefs = list(list(className = 'dt-center', targets = "_all"))
-            ))
+            ))%>% 
+  DT::formatStyle("pipetting quality dilution",
+                    backgroundColor = styleEqual(
+                      c("≥ 1µl & < 2µl" ,
+                        "<1µl" ,
+                        "≥ 2µl" ),
+                      c("≥ 1µl & < 2µl" = "#EB9711",
+                        "<1µl" = "#D84738",
+                        "≥ 2µl" = "seagreen")
+                    )
+    )
 ```
 
 # shinyBCA protocol on OT-2

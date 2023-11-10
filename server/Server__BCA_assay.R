@@ -334,14 +334,27 @@ BCA_OT2_template_generation <- eventReactive(input$inputButton_generate_BCA_OT2_
         mutate(`sample volume (µl) used for the dilution` = take3_sample_dil_volume_fct(dilution)$sample_volume,
                `final dilution volume (µl)` = take3_sample_dil_volume_fct(dilution)$final_volume
         ) %>% 
-        mutate(`sample volume left (µl)` = `volume (µl)` - `sample volume (µl) used for the dilution`)
+        mutate(`sample volume left (µl)` = `volume (µl)` - `sample volume (µl) used for the dilution`) %>% 
+        mutate(`pipetting quality dilution` = ifelse(`sample volume (µl) used for the dilution`<1,
+                                          yes = "<1µl",
+                                          no = ifelse(`sample volume (µl) used for the dilution`<2,
+                                                      yes = "≥ 1µl & < 2µl",
+                                                      no = "≥ 2µl"))
+        )
     }else{
       BCA_OT2_template <- BCA_OT2_template %>% 
-        rowise() %>% 
+        rowwise() %>% 
         mutate(`sample volume (µl) used for the dilution` = 260/dilution,
                `final dilution volume (µl)` = 260
         ) %>% 
-        mutate(`sample volume left (µl)` = `volume (µl)` - `sample volume (µl) used for the dilution`)
+        mutate(`sample volume left (µl)` = `volume (µl)` - `sample volume (µl) used for the dilution`) %>% 
+        rowwise() %>% 
+        mutate(`pipetting quality dilution` = ifelse(`sample volume (µl) used for the dilution`<1,
+                                          yes = "<1µl",
+                                          no = ifelse(`sample volume (µl) used for the dilution`<2,
+                                                      yes = "≥ 1µl & < 2µl",
+                                                      no = "≥ 2µl"))
+        )
     }    
     
     

@@ -124,7 +124,7 @@ step1 <- tibble::tribble(
   "2",	"single channel P20",	"variable",	"variable",	"transfer BSA standard to preparation plate for the 2x BSA standard curve",
   "3",	"8-channel P20",	"variable",	"variable",	"transfer 1x sample buffer to preparation plate for dilution",
   "4","single channel P20","variable","variable","take out volume from the before distributed well for the sample dilution",
-  "5",	"single channel P20",	"variable",	"variable",	"perform sample dilution (min. volume 25µl of diluted samples; min. max. 1µl of sample used depending on dilution)",
+  "5",	"single channel P20",	"variable",	"variable",	"perform sample dilution (min. volume 25µl up to max. 50 µl of diluted samples; min. max. 1-2µl of sample used depending on dilution)",
   "6","8-channel P20","10","10","distribute working reagent to BCA plate",
   "7",	"8-channel P20",	"5",	"15",	"distribute 2x sample buffer for standard wells",
   "8",	"8-channel P20",	"5",	"20",	"distribute 2x BSA standard curve to BCA plate",

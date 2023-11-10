@@ -198,7 +198,7 @@ BCA_OT2_template_generation <- eventReactive(input$inputButton_generate_BCA_OT2_
     if (dim(OT2_BCA_template_tmp_low_volume)[1] != 0) {
       error_BCA$low_volume <- 1
       shinyalert(
-        title = "volume of sample is to low (volume left is below 10µl [96well] / 5µl [take3]); please use a higher volume of sample",
+        title = "volume of sample is to low (volume left is below 10µl [96well] / 5µl [take3]); use higher dilution factor  or provide more sample",
         text = paste("sample with too low volume for the selected dilution are:\n", paste(OT2_BCA_template_tmp_low_volume$sample, collapse = "\n")),
         closeOnEsc = TRUE,
         closeOnClickOutside = FALSE,

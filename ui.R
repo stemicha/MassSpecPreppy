@@ -30,7 +30,6 @@ library(quarto)
 source("www/helper_functions_BCA.R")
 source("www/helper_functions_sample_digest.R")
 
-
 # shiny options -----------------------------------------------------------
 
 shinyOptions(plot.autocolors = TRUE)
@@ -369,6 +368,10 @@ tags$head(tags$link(
               "disclaimer",
               fluidRow(withMathJax(includeMarkdown("www/disclaimer.md")))
               
+            ),
+            tabPanel(
+              "release notes",
+              fluidRow(withMathJax(includeMarkdown("www/release_notes.md")))
             )
           )
         ),
@@ -422,6 +425,10 @@ tags$head(tags$link(
               "disclaimer",
               fluidRow(withMathJax(includeMarkdown("www/disclaimer.md")))
               
+            ),
+            tabPanel(
+              "release notes",
+              fluidRow(withMathJax(includeMarkdown("www/release_notes.md")))
             )
           )
         )

@@ -81,11 +81,11 @@ BCA_OT2_template_generation <- eventReactive(input$inputButton_generate_BCA_OT2_
 
     
     # error vector generation
-    error_BCA <- c()
+    error_BCA <- list()
     
     # error no input file selected
     if (is.null(input$BCA_OT2_template_upload_file)) {
-      error_BCA <- c(error_BCA, no_input_sample_file = 1)
+      error_BCA$no_input_sample_file <- 1
       shinyalert(
         title = "no input sample file selcted",
         text = paste("please select a sample file"),
@@ -114,7 +114,7 @@ BCA_OT2_template_generation <- eventReactive(input$inputButton_generate_BCA_OT2_
     BCA_OT2_template$sample <- as.character(BCA_OT2_template$sample)
 
     if (dim(BCA_OT2_template)[1] > 40) {
-      error_BCA <- c(error_BCA, N_above_40_samples = 1)
+      error_BCA$N_above_40_samples <- 1
       shinyalert(
         title = "N of samples > 40",
         text = "this protocol only allows the simultaneous preparation of 40 samples!!!!",
@@ -196,7 +196,7 @@ BCA_OT2_template_generation <- eventReactive(input$inputButton_generate_BCA_OT2_
 
     
     if (dim(OT2_BCA_template_tmp_low_volume)[1] != 0) {
-      error_BCA <- c(error_BCA, low_volume = 1)
+      error_BCA$low_volume <- 1
       shinyalert(
         title = "volume of sample is to low (volume left is below 10µl [96well] / 5µl [take3]); please use a higher volume of sample",
         text = paste("sample with too low volume for the selected dilution are:\n", paste(OT2_BCA_template_tmp_low_volume$sample, collapse = "\n")),
@@ -365,7 +365,8 @@ BCA_OT2_template_generation <- eventReactive(input$inputButton_generate_BCA_OT2_
       file_output_short = file_out_tmp,
       tips_20ul_used = tips_20ul_used, # +36 tips for standard
       BCA_output_deckplot = output_deckplot,
-      file_output = file_output
+      file_output = file_output,
+      error_BCA = error_BCA
     )
   }) # end progressbar
   
@@ -520,15 +521,19 @@ output$dlOT2_BCA <- downloadHandler(
 # render conditional download template
 output$download_BCA_OT2_template <- renderUI({
   if (!is.null(BCA_OT2_template_generation()$file_output)) {
-    tagList(
-      h6("download OT-2 BCA assay protocol folder:", style = "color:#C0C0C0;margin-left: 10px"),
-      downloadButton(
-        outputId = "dlOT2_BCA",
-        label = "OT-2 protocol zip folder",
-        width = "100%",
-        style = "color:#FFFFFF; background-color: #689EC8; border-color: #689EC8; margin-left: 5px;width:100%"
+    
+    if(is.null(BCA_OT2_template_generation()$error_BCA$low_volume)){
+      tagList(
+        h6("download OT-2 BCA assay protocol folder:", style = "color:#C0C0C0;margin-left: 10px"),
+        downloadButton(
+          outputId = "dlOT2_BCA",
+          label = "OT-2 protocol zip folder",
+          width = "100%",
+          style = "color:#FFFFFF; background-color: #689EC8; border-color: #689EC8; margin-left: 5px;width:100%"
+        )
       )
-    )
+      
+    }
   }
 })
 
@@ -842,25 +847,33 @@ calculations <- reactive({
 
 
       # add hard codes standard curve -------------------------------------------
-      # TODO: add take3 hard coded
+      
+      if(input$selection_BCA_96well_or_take3=="take3"){
+      # take3
       standard_hard_coded <- tibble(
         conc_mg_per_ml = c(0, 0.01, 0.02, 0.04, 0.06, 0.08, 0.12, 0.16),
-        meanAbs = c(0.275, 0.533, 0.764, 1.199, 1.586, 1.932, 2.647, 3.304)
+        meanAbs = c(0.072,0.095,0.111,0.146,0.177,0.205,0.259,0.309)
       )
-
+      if(input$selection_BCA_96well_or_take3=="96well"){
+        # 96well half-area
+        standard_hard_coded <- tibble(
+          conc_mg_per_ml = c(0, 0.01, 0.02, 0.04, 0.06, 0.08, 0.12, 0.16),
+          meanAbs = c(0.275, 0.533, 0.764, 1.199, 1.586, 1.932, 2.647, 3.304)
+        )
+      }
 
       incProgress(amount = 7 / 10, message = "generate output plots")
 
       # generate plots
       standard_plot <- ggplot(std_tidy_summary, aes(meanAbs, conc_mg_per_ml)) +
-        #stat_smooth(
-        #  data = standard_hard_coded, mapping = aes(y = conc_mg_per_ml, x = meanAbs),
-        #  method = "loess",
-        #  se = F,
-        #  size = 5,
-        #  color = "#2E7D32",
-        #  inherit.aes = F, formula = "y ~ x"
-        #) +
+        stat_smooth(
+          data = standard_hard_coded, mapping = aes(y = conc_mg_per_ml, x = meanAbs),
+          method = "loess",
+          se = F,
+          size = 5,
+          color = "#2E7D32",
+          inherit.aes = F, formula = "y ~ x"
+        ) +
         stat_smooth(method = "lm", color = "#4285F4", formula = "y ~ x", size = 2, se = F, fullrange = T) +
         stat_smooth(method = "loess", color = "black", formula = "y ~ x", size = 3, se = T, level = 0.95, fill = "grey") +
         theme_minimal(base_size = theme_base_size) +
@@ -871,8 +884,8 @@ calculations <- reactive({
         labs(
           title = "standard curve (loess / linear fit)",
           y = "µg/µl",
-          caption = "loess fit & 95% CI in black / linear fit in blue"
-          #caption = "loess fit & 95% CI in black / linear fit in blue /\n hard coded std. curve in green"
+          #caption = "loess fit & 95% CI in black / linear fit in blue"
+          caption = "loess fit & 95% CI in black / linear fit in blue /\n hard coded std. curve in green"
         ) +
         coord_flip() +
         facet_wrap(~`Plate Number`, nrow = 1) +

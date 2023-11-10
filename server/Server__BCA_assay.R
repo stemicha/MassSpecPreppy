@@ -140,8 +140,9 @@ BCA_OT2_template_generation <- eventReactive(input$inputButton_generate_BCA_OT2_
       
       # minimal sample dilution possible
       min_vol = 25
-      # minimal sample volume
-      min_sample_vol = 1
+      # maximal volume
+      max_vol = 50
+      min_sample_vol = 2
       
       if(min_sample_vol*dilution<min_vol){
         buffer_volume <-  min_vol-(min_vol/dilution)
@@ -149,9 +150,10 @@ BCA_OT2_template_generation <- eventReactive(input$inputButton_generate_BCA_OT2_
         final_volume <- sample_volume+buffer_volume
         #paste0(sample_volume,"µl + ",buffer_volume,"µl")
       }else{
-        buffer_volume <- (min_sample_vol*dilution)-1
-        sample_volume <- min_sample_vol
-        final_volume <- sample_volume+buffer_volume
+        sample_volume <- max_vol/dilution
+        final_volume <- max_vol
+        buffer_volume <- final_volume-sample_volume
+        
         #paste0(sample_volume,"µl + ",buffer_volume,"µl")
       }
       

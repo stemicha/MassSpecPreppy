@@ -256,7 +256,7 @@ tags$head(tags$link(
             # measured values file upload -------------------------------------------
             fileInput("BCA_xlsx_raw_96well",
                       accept = c("Excel", ".xlsx"),
-                      label = p("upload measured BCA data (96well)"),
+                      label = p("upload measured BCA data"),
                       multiple = FALSE
             ),
             # meta file upload --------------------------------------------------------

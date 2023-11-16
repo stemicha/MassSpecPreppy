@@ -227,7 +227,7 @@ def run(protocol: protocol_api.ProtocolContext):
                   [BCA_plate.wells_by_name()[well_name].bottom(bottom_offset) for well_name in ["A1","A2"]],
                   new_tip = "once",
                   touch_tip = False,
-                  mix_before = [2,20],
+                  mix_before = [5,20],
                   disposal_volume = 0)
   
   #distribute sample to BCA plate
@@ -236,7 +236,7 @@ def run(protocol: protocol_api.ProtocolContext):
                                                            [BCA_plate.wells_by_name()[well_name].bottom(bottom_offset) for well_name in BCA_columns_position[i]],
                                                            new_tip = "once",
                                                            touch_tip = False,
-                                                           mix_before = [2,20],
+                                                           mix_before = [5,20],
                                                            disposal_volume = 0)
  
   # open latch HS

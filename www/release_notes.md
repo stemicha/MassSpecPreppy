@@ -1,4 +1,8 @@
 
+## Version 1.1.1
+
+- add additional error messages for the digest module, when the provided sample table have missing values in volume or protein concentration column
+
 ## Version 1.1.0
 
 -   BCA assay: addition of take3 BCA assay for low sample volumes

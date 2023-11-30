@@ -494,7 +494,7 @@ output$dlOT2 <- downloadHandler(
 # render conditional output sample digest download ------------------------------------
 
 output$download_OT2_template <- renderUI({
-  if (!is.null(OT2_template_generation()$file_name) # & sum(OT2_template_generation()$error)==0
+  if (!is.null(OT2_template_generation()$file_name)  & sum(OT2_template_generation()$error)==0
   ) {
     tagList(
       hr(),

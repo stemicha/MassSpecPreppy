@@ -311,7 +311,7 @@ tags$head(tags$link(
                  tags$a("MassSpecPreppy Manual", href="manual/index.html",target="_blank",style = "text-align: left;")
                  ),
           column(7,
-                 p("MassSpecPreppy version 1.1.0",style = "text-align: right;"))
+                 p("MassSpecPreppy version 1.1.1",style = "text-align: right;"))
           ),
         br(),
         #add MassSpecPreppy citation

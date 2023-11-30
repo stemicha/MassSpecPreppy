@@ -12,6 +12,8 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
 
     # error vector generation
     error <- c()
+    # warning vector generation
+    warning_vector <- c()
 
     # error no input file selected
     if (is.null(input$input_sample_file)) {
@@ -123,7 +125,13 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
         filter(volume_needed > 15.625)
     }
  
-
+    # filter for potential error of missing volume
+    OT2_template_tmp_missing_volume <- OT2_template_tmp %>%
+      filter(is.na(`volume (µl)`))
+    
+    # filter for potential error of missing protein concentration
+    OT2_template_tmp_missing_protein_conc <- OT2_template_tmp %>%
+      filter(is.na(`protein concentration (µg/µl)`))
 
     if (dim(OT2_template_tmp_low_conc)[1] != 0) {
       error <- c(error, low_conc = 1)
@@ -145,6 +153,49 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
         animation = TRUE
       )
     }
+    
+    if (dim(OT2_template_tmp_missing_volume)[1] != 0) {
+      error <- c(error, missing_volume = 1)
+      shinyalert(
+        title = "volume is missing for samples in provided table !!!",
+        text = paste("sample with missing volume information:\n", paste(OT2_template_tmp_missing_volume$sample, collapse = "\n")),
+        closeOnEsc = TRUE,
+        closeOnClickOutside = FALSE,
+        html = FALSE,
+        type = "error",
+        showConfirmButton = TRUE,
+        showCancelButton = FALSE,
+        confirmButtonText = "OK",
+        confirmButtonCol = "#AEDEF4",
+        timer = 0,
+        imageUrl = "Mass_Spec_Preppy_hexbin_small.png",
+        imageWidth = 100,
+        imageHeight = 100,
+        animation = TRUE
+      )
+    }
+    
+    if (dim(OT2_template_tmp_missing_protein_conc)[1] != 0) {
+      error <- c(error, protein_conc = 1)
+      shinyalert(
+        title = "protein concentration is missing for samples in provided table !!!",
+        text = paste("sample with missing protein concentration information:\n", paste(OT2_template_tmp_missing_protein_conc$sample, collapse = "\n")),
+        closeOnEsc = TRUE,
+        closeOnClickOutside = FALSE,
+        html = FALSE,
+        type = "error",
+        showConfirmButton = TRUE,
+        showCancelButton = FALSE,
+        confirmButtonText = "OK",
+        confirmButtonCol = "#AEDEF4",
+        timer = 0,
+        imageUrl = "Mass_Spec_Preppy_hexbin_small.png",
+        imageWidth = 100,
+        imageHeight = 100,
+        animation = TRUE
+      )
+    }
+    
 
     # error: volume left is below 10µl > air can be aspirated ------------------------------------
     OT2_template_tmp_low_volume <- OT2_template_tmp %>%
@@ -153,14 +204,14 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
       filter(volume_left < 10)
 
     if (dim(OT2_template_tmp_low_volume)[1] != 0) {
-      error <- c(error, low_volume = 1)
+      warning_vector <- c(warning_vector, low_volume = 1)
       shinyalert(
         title = "volume of sample is to low (volume left is below 10µl); please use a higher volume of sample",
         text = paste("sample with too low concentration are:\n", paste(OT2_template_tmp_low_volume$sample, collapse = "\n")),
         closeOnEsc = TRUE,
         closeOnClickOutside = FALSE,
         html = FALSE,
-        type = "error",
+        type = "warning",
         showConfirmButton = TRUE,
         showCancelButton = FALSE,
         confirmButtonText = "OK",
@@ -178,7 +229,7 @@ OT2_template_generation <- eventReactive(input$inputButton_generate_OT2_template
       filter(volume_needed < 2)
 
     if (dim(OT2_template_tmp_to_high_conc)[1] != 0) {
-      error <- c(error, too_high_conc = 1)
+      warning_vector <- c(warning_vector, too_high_conc = 1)
       shinyalert(
         title = "concentration of samples is to high; pipetting less than 2µl of sample (dilute samples or increase protein amount for digest!!!)",
         text = paste("sample with too high concentration are:\n", paste(OT2_template_tmp_to_high_conc$sample, collapse = "\n")),

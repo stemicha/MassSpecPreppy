@@ -1,4 +1,8 @@
 
+## version 1.1.2
+
+- fix YAML header NA issues
+
 ## Version 1.1.1
 
 - add additional error messages for the digest module, when the provided sample table have missing values in volume or protein concentration column

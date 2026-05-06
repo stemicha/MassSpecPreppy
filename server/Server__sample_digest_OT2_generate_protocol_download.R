@@ -432,7 +432,10 @@ output$dlOT2 <- downloadHandler(
       # )
       #render quarto
       quarto::quarto_render(input = file.path(tempdir(), "Mass_spec_Preppy_MASTER.qmd"),
-                        execute_params = params
+                            # YAML NA workaround
+                        execute_params = lapply(params, function(x) {
+                          if (is.atomic(x) && length(x) == 1 && is.na(x)) "NA" else x
+                        })
                         )
       #rename file
       file.rename(from = file.path(tempdir(), "Mass_spec_Preppy_MASTER.html"),to = file.path(tempdir(),paste(format(Sys.Date(), "%Y_%m_%d_"), "__", OT2_template_generation()$file_name, "__Mass_Spec_Preppy.html", sep = "")))

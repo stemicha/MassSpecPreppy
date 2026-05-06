@@ -472,7 +472,9 @@ output$dlOT2_BCA <- downloadHandler(
       # render report
       #render quarto
       quarto::quarto_render(input = file.path(tempdir(), "Mass_spec_Preppy_BCA_MASTER.qmd"),
-                            execute_params = params
+                            execute_params = lapply(params, function(x) {
+                              if (is.atomic(x) && length(x) == 1 && is.na(x)) "NA" else x
+                            })
       )
       #rename file
       file.rename(from = file.path(tempdir(), "Mass_spec_Preppy_BCA_MASTER.html"),to = file.path(tempdir(),paste(format(Sys.Date(), "%Y_%m_%d_"), "__", BCA_OT2_template_generation()$file_output_short, "__BCA_assay_description.html", sep = "")))

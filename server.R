@@ -16,7 +16,7 @@ credentials <- data.frame(
 )
 
 # server function of Mass Spec Preppy
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
   # check credentials
   res_auth <- secure_server(
     check_credentials = check_credentials(credentials)

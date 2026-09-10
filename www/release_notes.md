@@ -1,3 +1,6 @@
+## version 1.1.3
+
+- fix download issue of zip files
 
 ## version 1.1.2
 

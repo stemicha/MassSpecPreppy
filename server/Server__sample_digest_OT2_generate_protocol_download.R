@@ -1,18 +1,23 @@
 
 # generate sample digest OT-2 protocol R code -----------------------------
 
+# holds the path + filename of the already-generated zip, so the actual
+# downloadHandler only has to copy a finished file (fast, no nginx timeout).
+# The heavy generation (quarto rendering, zipping, ...) happens beforehand in
+# an observeEvent triggered by a "prepare download" action button, decoupling
+# generation time from the HTTP download request.
+OT2_zip_ready <- reactiveVal(NULL)
 
+# invalidate a previously prepared zip whenever the template is (re-)generated,
+# so the download button always reflects the current inputs
+observeEvent(input$inputButton_generate_OT2_template, {
+  OT2_zip_ready(NULL)
+}, ignoreInit = TRUE)
 
-# download OT-2 template
-output$dlOT2 <- downloadHandler(
-  filename = function() {
-    paste(format(Sys.Date(), "%Y_%m_%d_"), "__", OT2_template_generation()$file_name, "__Mass_Spec_Preppy.zip", sep = "")
-  },
-  content = function(fname) {
-    # tmpdir <- gsub("//", "/", tempdir(), fixed = TRUE)
-    # tmpdir <- gsub("\\", "\\\\", tempdir(), fixed = TRUE)
-    # setwd(tmpdir)
-    # print(tmpdir)
+# prepare (generate + zip) the OT-2 protocol download
+observeEvent(input$dlOT2_prepare, {
+    fname <- tempfile(fileext = ".zip")
+    zip_filename <- paste(format(Sys.Date(), "%Y_%m_%d_"), "__", OT2_template_generation()$file_name, "__Mass_Spec_Preppy.zip", sep = "")
 
     # progressbar
     withProgress(message = "generate download", style = "notification", value = 0, {
@@ -490,6 +495,26 @@ output$dlOT2 <- downloadHandler(
         file.remove(file.path(deck2_plot_tmp))
       }
     })
+
+    # mark the zip as ready for download (generation happened here, so the
+    # actual downloadHandler below just serves the finished file)
+    OT2_zip_ready(list(path = fname, filename = zip_filename))
+
+    # auto-trigger the browser download once the download button has rendered
+    session$sendCustomMessage(type = "mspp_trigger_download", message = "dlOT2")
+})
+
+
+# download OT-2 template ----------------------------------------------------
+# generation already happened in the observeEvent above; this just serves the
+# already-zipped file, so the download starts (near-)instantly and doesn't
+# risk a proxy/gateway timeout (e.g. nginx 502) while the zip is being built.
+output$dlOT2 <- downloadHandler(
+  filename = function() {
+    OT2_zip_ready()$filename
+  },
+  content = function(fname) {
+    file.copy(OT2_zip_ready()$path, fname)
   }
 )
 
@@ -499,14 +524,26 @@ output$dlOT2 <- downloadHandler(
 output$download_OT2_template <- renderUI({
   if (!is.null(OT2_template_generation()$file_name)  & sum(OT2_template_generation()$error)==0
   ) {
-    tagList(
-      hr(),
-      p("download OT-2 template:", style = "color:#84B135;margin-left: 5px"),
-      downloadButton(
-        outputId = "dlOT2",
-        label = "OT-2 protocol (.py)",
-        style = "color:#FFFFFF; background-color: #060606; border-color: #84B135; margin-left: 5px;width:100%"
+    if (is.null(OT2_zip_ready())) {
+      tagList(
+        hr(),
+        p("download OT-2 template:", style = "color:#84B135;margin-left: 5px"),
+        actionButton(
+          inputId = "dlOT2_prepare",
+          label = "prepare OT-2 protocol (.py) for download",
+          style = "color:#FFFFFF; background-color: #060606; border-color: #84B135; margin-left: 5px;width:100%"
+        )
       )
-    )
+    } else {
+      tagList(
+        hr(),
+        p("download OT-2 template:", style = "color:#84B135;margin-left: 5px"),
+        downloadButton(
+          outputId = "dlOT2",
+          label = "OT-2 protocol (.py)",
+          style = "color:#FFFFFF; background-color: #060606; border-color: #84B135; margin-left: 5px;width:100%"
+        )
+      )
+    }
   }
 })

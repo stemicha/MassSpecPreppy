@@ -70,6 +70,17 @@ tags$head(tags$link(
   # define page layout of app
   fluidPage(
     theme = shinytheme("cyborg"),
+    # auto-trigger a download once its zip has been prepared server-side, so
+    # the user doesn't have to click a second "download" button after the
+    # "prepare download" step finishes (see server/Server__*download*.R)
+    tags$script(HTML("
+      Shiny.addCustomMessageHandler('mspp_trigger_download', function(elementId) {
+        setTimeout(function() {
+          var el = document.getElementById(elementId);
+          if (el) { el.click(); }
+        }, 100);
+      });
+    ")),
     # Application title
     titlePanel(title = img(src = "Mass_Spec_Preppy_logo.png", height = 100, align = "center"),windowTitle = "MassSpecPreppy"),
     # Sidebar with a slider input for number of bins
@@ -311,7 +322,7 @@ tags$head(tags$link(
                  tags$a("MassSpecPreppy Manual", href="manual/index.html",target="_blank",style = "text-align: left;")
                  ),
           column(7,
-                 p("MassSpecPreppy version 1.1.2",style = "text-align: right;"))
+                 p("MassSpecPreppy version 1.1.3",style = "text-align: right;"))
           ),
         br(),
         #add MassSpecPreppy citation

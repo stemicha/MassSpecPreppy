@@ -386,16 +386,24 @@ output$BCA_layout_plot <- renderPlot(BCA_OT2_template_generation()$BCA_output_de
 
 
 
-# download BCA OT-2 template
-output$dlOT2_BCA <- downloadHandler(
-  filename = function() {
-    paste(format(Sys.Date(), "%Y_%m_%d_"), "__", BCA_OT2_template_generation()$file_output_short, "__BCA_assay.zip", sep = "")
-  },
-  content = function(fname) {
-    # tmpdir <- gsub("//", "/", tempdir(), fixed = TRUE)
-    # tmpdir <- gsub("\\", "\\\\", tempdir(), fixed = TRUE)
-    # setwd(tmpdir)
-    # print(tmpdir)
+# holds the path + filename of the already-generated zip, so the actual
+# downloadHandler only has to copy a finished file (fast, no nginx timeout).
+# The heavy generation (quarto rendering, zipping, ...) happens beforehand in
+# an observeEvent triggered by a "prepare download" action button, decoupling
+# generation time from the HTTP download request.
+BCA_OT2_zip_ready <- reactiveVal(NULL)
+
+# invalidate a previously prepared zip whenever the template is (re-)generated,
+# so the download button always reflects the current inputs
+observeEvent(input$inputButton_generate_BCA_OT2_template, {
+  BCA_OT2_zip_ready(NULL)
+}, ignoreInit = TRUE)
+
+# prepare (generate + zip) the BCA OT-2 protocol download
+observeEvent(input$dlOT2_BCA_prepare, {
+    fname <- tempfile(fileext = ".zip")
+    zip_filename <- paste(format(Sys.Date(), "%Y_%m_%d_"), "__", BCA_OT2_template_generation()$file_output_short, "__BCA_assay.zip", sep = "")
+
     withProgress(message = "generate BCA assay output download", style = "notification", value = 0, {
       incProgress(0.2, detail = "format data")
 
@@ -514,27 +522,57 @@ output$dlOT2_BCA <- downloadHandler(
       file.remove(file.path(tempdir(), paste(BCA_OT2_template_generation()$file_output_short, "__decklayout.png", sep = "")))
       file.remove(file.path(paste(BCA_OT2_template_generation()$file_output_short, "__decklayout.png", sep = "")))
     }) # end progress
+
+    # mark the zip as ready for download (generation happened here, so the
+    # actual downloadHandler below just serves the finished file)
+    BCA_OT2_zip_ready(list(path = fname, filename = zip_filename))
+
+    # auto-trigger the browser download once the download button has rendered
+    session$sendCustomMessage(type = "mspp_trigger_download", message = "dlOT2_BCA")
+}) # end prepare BCA OT-2 template download
+
+
+# download BCA OT-2 template -------------------------------------------------
+# generation already happened in the observeEvent above; this just serves the
+# already-zipped file, so the download starts (near-)instantly and doesn't
+# risk a proxy/gateway timeout (e.g. nginx 502) while the zip is being built.
+output$dlOT2_BCA <- downloadHandler(
+  filename = function() {
+    BCA_OT2_zip_ready()$filename
+  },
+  content = function(fname) {
+    file.copy(BCA_OT2_zip_ready()$path, fname)
   }
-) # end download BCA OT-2 template
-
-
+)
 
 
 # render conditional download template
 output$download_BCA_OT2_template <- renderUI({
   if (!is.null(BCA_OT2_template_generation()$file_output)) {
-    
+
     if(is.null(BCA_OT2_template_generation()$error_BCA$low_volume)){
-      tagList(
-        h6("download OT-2 BCA assay protocol folder:", style = "color:#C0C0C0;margin-left: 10px"),
-        downloadButton(
-          outputId = "dlOT2_BCA",
-          label = "OT-2 protocol zip folder",
-          width = "100%",
-          style = "color:#FFFFFF; background-color: #689EC8; border-color: #689EC8; margin-left: 5px;width:100%"
+      if (is.null(BCA_OT2_zip_ready())) {
+        tagList(
+          h6("download OT-2 BCA assay protocol folder:", style = "color:#C0C0C0;margin-left: 10px"),
+          actionButton(
+            inputId = "dlOT2_BCA_prepare",
+            label = "prepare OT-2 protocol zip folder for download",
+            width = "100%",
+            style = "color:#FFFFFF; background-color: #689EC8; border-color: #689EC8; margin-left: 5px;width:100%"
+          )
         )
-      )
-      
+      } else {
+        tagList(
+          h6("download OT-2 BCA assay protocol folder:", style = "color:#C0C0C0;margin-left: 10px"),
+          downloadButton(
+            outputId = "dlOT2_BCA",
+            label = "OT-2 protocol zip folder",
+            width = "100%",
+            style = "color:#FFFFFF; background-color: #689EC8; border-color: #689EC8; margin-left: 5px;width:100%"
+          )
+        )
+      }
+
     }
   }
 })
@@ -1334,29 +1372,50 @@ output$comment_count_barchart_out_ui <- renderUI({
 
 # download folder with all tables and plots -------------------------------
 
+# holds the path + filename of the already-generated zip, so the actual
+# downloadHandler only has to copy a finished file (fast, no nginx timeout).
+# The heavy generation (plots, excel workbook, zipping, ...) happens
+# beforehand in an observeEvent triggered by a "prepare download" action
+# button, decoupling generation time from the HTTP download request.
+BCA_processed_zip_ready <- reactiveVal(NULL)
+
+# invalidate a previously prepared zip whenever the data is (re-)processed,
+# so the download button always reflects the current data
+observeEvent(input$BCA_inputButton_data_processing, {
+  BCA_processed_zip_ready(NULL)
+}, ignoreInit = TRUE)
+
 output$BCA_download_analysis <- renderUI({
   if (!is.null(calculations()$data_samples_summary_detailed)) {
-    tagList(
-      p("download processed data:", style = "color:#84B135;margin-left: 5px"),
-      downloadButton(
-        outputId = "BCA_downloadProcessedData",
-        label = "download processed BCA assay data",
-        style = "color:#FFFFFF; background-color: #060606; border-color: #84B135; margin-left: 5px;width:100%"
-      ),
-      helpText("zipped folder is ready for download", style = "margin-left: 10px"),
-    )
+    if (is.null(BCA_processed_zip_ready())) {
+      tagList(
+        p("download processed data:", style = "color:#84B135;margin-left: 5px"),
+        actionButton(
+          inputId = "BCA_downloadProcessedData_prepare",
+          label = "prepare processed BCA assay data for download",
+          style = "color:#FFFFFF; background-color: #060606; border-color: #84B135; margin-left: 5px;width:100%"
+        )
+      )
+    } else {
+      tagList(
+        p("download processed data:", style = "color:#84B135;margin-left: 5px"),
+        downloadButton(
+          outputId = "BCA_downloadProcessedData",
+          label = "download processed BCA assay data",
+          style = "color:#FFFFFF; background-color: #060606; border-color: #84B135; margin-left: 5px;width:100%"
+        ),
+        helpText("zipped folder is ready for download", style = "margin-left: 10px"),
+      )
+    }
   }
 })
 
 
 
-output$BCA_downloadProcessedData <- downloadHandler(
-  filename = paste(format(Sys.Date(), "%Y_%m_%d_"), "__", file_name(), "__shinyBCA_output.zip", sep = ""),
-  content = function(fname) {
-    # tmpdir <- gsub("//", "/", tempdir(), fixed = TRUE)
-    # tmpdir <- gsub("\\", "\\\\", tempdir(), fixed = TRUE)
-    # setwd(tmpdir)
-    # print(tmpdir)
+# prepare (generate + zip) the processed BCA assay data download
+observeEvent(input$BCA_downloadProcessedData_prepare, {
+    fname <- tempfile(fileext = ".zip")
+    zip_filename <- paste(format(Sys.Date(), "%Y_%m_%d_"), "__", file_name(), "__shinyBCA_output.zip", sep = "")
 
     # shinyalert
     shinyalert("generating download", "This might take while", type = "info", timer = 2000)
@@ -1487,5 +1546,25 @@ output$BCA_downloadProcessedData <- downloadHandler(
         file.remove(fs)
       }
     )
+
+    # mark the zip as ready for download (generation happened here, so the
+    # actual downloadHandler below just serves the finished file)
+    BCA_processed_zip_ready(list(path = fname, filename = zip_filename))
+
+    # auto-trigger the browser download once the download button has rendered
+    session$sendCustomMessage(type = "mspp_trigger_download", message = "BCA_downloadProcessedData")
+}) # end prepare processed BCA assay data download
+
+
+# download processed BCA assay data ------------------------------------------
+# generation already happened in the observeEvent above; this just serves the
+# already-zipped file, so the download starts (near-)instantly and doesn't
+# risk a proxy/gateway timeout (e.g. nginx 502) while the zip is being built.
+output$BCA_downloadProcessedData <- downloadHandler(
+  filename = function() {
+    BCA_processed_zip_ready()$filename
+  },
+  content = function(fname) {
+    file.copy(BCA_processed_zip_ready()$path, fname)
   }
 )

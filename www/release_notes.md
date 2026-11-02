@@ -1,3 +1,7 @@
+## version 1.1.4
+
+- fix SP3 remove function to offset radial x-axis remove from 1.5mm to 0.2 mm and offset Z-remove from 0.5mm to 0.1mm
+
 ## version 1.1.3
 
 - fix download issue of zip files

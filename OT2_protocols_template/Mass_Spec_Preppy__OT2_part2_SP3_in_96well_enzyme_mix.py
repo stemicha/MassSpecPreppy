@@ -61,8 +61,9 @@ def run(protocol: protocol_api.ProtocolContext):
 
   #paramters for magnet
   OFFSET_RADIAL = 1.5  # in mm
+  OFFSET_RADIAL_remove = 0.2 # in mm
   OFFSET_Z = 3.0  # in mm
-  OFFSET_Z_remove = 0.5 # in mm
+  OFFSET_Z_remove = 0.1 # in mm
   MAGNET_HEIGHT = 12.0  # in mm
   INCUBATION_TIME = 3.0  # in minutes
   
@@ -117,7 +118,7 @@ def run(protocol: protocol_api.ProtocolContext):
         m300.flow_rate.aspirate /= 8  # modulate flow rate for removal
         for i, m in enumerate(mag_samples):
             side = -1 if i % 2 == 0 else 1  # select side away from beads
-            loc = m.bottom().move(Point(x=side*OFFSET_RADIAL, z=OFFSET_Z_remove))
+            loc = m.bottom().move(Point(x=side*OFFSET_RADIAL_remove, z=OFFSET_Z_remove))
             m300.pick_up_tip()
             m300.move_to(m.center())
             m300.transfer(vol, loc, waste_position, new_tip='never', air_gap=20)

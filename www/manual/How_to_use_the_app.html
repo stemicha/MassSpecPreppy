@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.151">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="description" content="How to use the Mass Spec Preppy app">
 
-<title>Mass Spec Preppy Manual - How to use the app</title>
+<title>How to use the app – Mass Spec Preppy Manual</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,27 +31,30 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-2ec1ecde4794cf0ca2676fdbadd3167b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
   "keyboard-shortcut": [
     "f",
     "/",
     "s"
   ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -60,6 +63,7 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -70,50 +74,51 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="theme.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./Mass_Spec_Preppy_hexbin_small.png" alt="" class="navbar-logo">
+    <img src="./Mass_Spec_Preppy_hexbin_small.png" alt="" class="navbar-logo light-content">
+    <img src="./Mass_Spec_Preppy_hexbin_small.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Mass Spec Preppy Manual</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="./index.html" rel="" target=""><i class="bi bi-fa-home" role="img">
+    <a class="nav-link" href="./index.html"> <i class="bi bi-fa-home" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./materials.html" rel="" target="">
- <span class="menu-text">list of essential materials</span></a>
+    <a class="nav-link" href="./materials.html"> 
+<span class="menu-text">list of essential materials</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./printed_parts.html" rel="" target="">
- <span class="menu-text">3D printed parts</span></a>
+    <a class="nav-link" href="./printed_parts.html"> 
+<span class="menu-text">3D printed parts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./MassSpecPreppy_sample_preparation.html" rel="" target="">
- <span class="menu-text">sample preparation</span></a>
+    <a class="nav-link" href="./MassSpecPreppy_sample_preparation.html"> 
+<span class="menu-text">sample preparation</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./How_to_use_the_app.html" rel="" target="" aria-current="page">
- <span class="menu-text">how to use the app</span></a>
+    <a class="nav-link active" href="./How_to_use_the_app.html" aria-current="page"> 
+<span class="menu-text">how to use the app</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -188,16 +193,22 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
+
 </header>
+
 
 <section id="how-to-use-the-app" class="level1">
 <h1>How to use the app</h1>
 <section id="bca-assay" class="level2">
 <h2 class="anchored" data-anchor-id="bca-assay">BCA assay</h2>
-<div id="fig-BCAassayScreenshotUI" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="screenshots_app/BCA_assay_UI_labeled.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;1: BCA assay user interface screenshot</figcaption>
+<div id="fig-BCAassayScreenshotUI" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-BCAassayScreenshotUI-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="screenshots_app/BCA_assay_UI_labeled.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-BCAassayScreenshotUI-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: BCA assay user interface screenshot
+</figcaption>
 </figure>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -234,23 +245,24 @@ Tip
 </ol>
 <section id="bca-template-excel-file" class="level3">
 <h3 class="anchored" data-anchor-id="bca-template-excel-file">BCA template excel file</h3>
-<div class="callout callout-style-simple callout-important callout-titled" style="color: red;">
-<div class="callout-header d-flex align-content-center">
+<div class="callout callout-style-simple callout-important" style="color: red;">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<div class="callout-body-container">
 <p><strong>DO NOT USE “STD” or “BLK” in sample naming !!!</strong></p>
 </div>
 </div>
-<div id="fig-BCAassayTemplateFile" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="screenshots_app/BCA_template_labeled.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;2: BCA assay template excel file</figcaption>
+</div>
+<div id="fig-BCAassayTemplateFile" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-BCAassayTemplateFile-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="screenshots_app/BCA_template_labeled.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-BCAassayTemplateFile-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: BCA assay template excel file
+</figcaption>
 </figure>
 </div>
 <ul>
@@ -261,10 +273,14 @@ Tip
 </ul>
 <section id="bca-template---multiple-dilutions-per-sample" class="level4">
 <h4 class="anchored" data-anchor-id="bca-template---multiple-dilutions-per-sample">BCA template - multiple dilutions per sample</h4>
-<div id="fig-BCAassayTemplateFileMultipleDilutions" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="screenshots_app/BCA_template_mulitple_dilutions_per_sample.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;3: BCA assay template excel file - multiple dilutions per sample</figcaption>
+<div id="fig-BCAassayTemplateFileMultipleDilutions" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-BCAassayTemplateFileMultipleDilutions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="screenshots_app/BCA_template_mulitple_dilutions_per_sample.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-BCAassayTemplateFileMultipleDilutions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: BCA assay template excel file - multiple dilutions per sample
+</figcaption>
 </figure>
 </div>
 <p>It is also possible to perform multiple dilutions per sample, e.g.&nbsp;if you cannot estimate the rough range where you sample may lie in the standard curve. For example, a human plasma sample (approx. 70-80 µg/µl) should be initially 50-fold diluted, and a 40-fold dilution should be used in the BCA assay to have read-outs in the linear range of the standard curve.</p>
@@ -279,18 +295,26 @@ Tip
 <li>OT-2 python protocol</li>
 <li>sample meta excel file essential for the analysis of the assay results later</li>
 </ul>
-<div id="fig-BCAassayHTML" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="screenshots_app/BCA_assay_OT2_html_screenshot.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;4: BCA assay HTML file</figcaption>
+<div id="fig-BCAassayHTML" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-BCAassayHTML-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="screenshots_app/BCA_assay_OT2_html_screenshot.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-BCAassayHTML-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: BCA assay HTML file
+</figcaption>
 </figure>
 </div>
 <p><a href="screenshots_app/2023_03_22___test_set_BCA__BCA_assay_description.html" target="_blank">example BCA assay HTML file</a></p>
 <p>When opening the HTML file (<a href="#fig-BCAassayHTML" class="quarto-xref">Figure&nbsp;4</a>) you may find a detailed how-to procedure for the operation of the OT-2. The instructions in the HTML document include beside the sample list a deck layout plot (<a href="#fig-BCAassayDeckLayout" class="quarto-xref">Figure&nbsp;5</a>), which graphically explains the user how to load the OT-2 for the assay.</p>
-<div id="fig-BCAassayDeckLayout" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="screenshots_app/BCA_assay_example_decklayout.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;5: BCA assay decklayout example</figcaption>
+<div id="fig-BCAassayDeckLayout" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-BCAassayDeckLayout-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="screenshots_app/BCA_assay_example_decklayout.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-BCAassayDeckLayout-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: BCA assay decklayout example
+</figcaption>
 </figure>
 </div>
 <p>After the OT-2 is prepared, the python protocol can be executed in the OT-2 control software (<a href="https://support.opentrons.com/s/article/Get-started-Run-your-protocol" target="_blank">detailed instruction to run a protocol on OT-2</a>).</p>
@@ -342,10 +366,14 @@ Note
 <li>Plate Layout
 <ul>
 <li>See provided layout file (<a href="supplemental_data/PlateLayout_BCA_96well.xml">PlateLayout_BCA_96well.xml</a>) (<a href="#fig-BCAassayPlateLayout" class="quarto-xref">Figure&nbsp;6</a>)</li>
-<li><div id="fig-BCAassayPlateLayout" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="supplemental_data/PlateLayout_BCA_96well_import.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;6: import plate layout</figcaption>
+<li><div id="fig-BCAassayPlateLayout" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-BCAassayPlateLayout-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="supplemental_data/PlateLayout_BCA_96well_import.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-BCAassayPlateLayout-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: import plate layout
+</figcaption>
 </figure>
 </div></li>
 </ul></li>
@@ -371,10 +399,14 @@ Note
 </ul></li>
 </ul></li>
 </ul>
-<div id="fig-BCAExcelExportSettings" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="supplemental_data/Export_xlsx_settings.PNG" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;7: Excel Report/Export Builders</figcaption>
+<div id="fig-BCAExcelExportSettings" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-BCAExcelExportSettings-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="supplemental_data/Export_xlsx_settings.PNG" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-BCAExcelExportSettings-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Excel Report/Export Builders
+</figcaption>
 </figure>
 </div>
 </section>
@@ -390,10 +422,14 @@ Note
 <li>plate reader measurement xlsx file</li>
 <li>sample meta Excel file, which was generated by the app during the OT-2 protocol generation</li>
 </ol>
-<div id="fig-BCAassayInput" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="screenshots_app/BCA_assay_analysis_of_BCA_assay_input.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;8: BCA assay analysis input</figcaption>
+<div id="fig-BCAassayInput" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-BCAassayInput-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="screenshots_app/BCA_assay_analysis_of_BCA_assay_input.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-BCAassayInput-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: BCA assay analysis input
+</figcaption>
 </figure>
 </div>
 <p>After up-loading the files hit the “Run data processing” button and the app will perfom the analysis.</p>
@@ -402,30 +438,42 @@ Note
 <h3 class="anchored" data-anchor-id="bca-assay-analysis-results">BCA assay analysis results</h3>
 <section id="cv-over-samples" class="level4">
 <h4 class="anchored" data-anchor-id="cv-over-samples">CV over samples</h4>
-<div id="fig-BCAassayResultsCVsamples" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="screenshots_app/BCA_assay_RESULTS_CV_plot_samples.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;9: BCA assay analysis - CV over samples</figcaption>
+<div id="fig-BCAassayResultsCVsamples" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-BCAassayResultsCVsamples-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="screenshots_app/BCA_assay_RESULTS_CV_plot_samples.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-BCAassayResultsCVsamples-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: BCA assay analysis - CV over samples
+</figcaption>
 </figure>
 </div>
 <p>The first graph you see is the CV graph of the samples (<a href="#fig-BCAassayResultsCVsamples" class="quarto-xref">Figure&nbsp;9</a>), which represents the CV over the technical measurement repetitions and is a measure of the reproducibility of the sample measurement.</p>
 </section>
 <section id="standard-curve" class="level4">
 <h4 class="anchored" data-anchor-id="standard-curve">Standard curve</h4>
-<div id="fig-BCAassayResultsStdCurve" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="screenshots_app/BCA_assay_RESULTS_standard_curve_plot.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;10: BCA assay analysis - standard curve plot</figcaption>
+<div id="fig-BCAassayResultsStdCurve" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-BCAassayResultsStdCurve-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="screenshots_app/BCA_assay_RESULTS_standard_curve_plot.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-BCAassayResultsStdCurve-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: BCA assay analysis - standard curve plot
+</figcaption>
 </figure>
 </div>
 <p>In the standard plot panel (<a href="#fig-BCAassayResultsStdCurve" class="quarto-xref">Figure&nbsp;10</a>) the standard curve of the measurement is shown. The green background curve shows an optimal standard reference curve. Furthermore, also CV, residuals of the regression and Z-score of the measured standard curve are shown.</p>
 </section>
 <section id="data-table" class="level4">
 <h4 class="anchored" data-anchor-id="data-table">Data table</h4>
-<div id="fig-BCAassayResultsDataTable" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="screenshots_app/BCA_assay_RESULTS_data_table.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;11: BCA assay analysis - data table</figcaption>
+<div id="fig-BCAassayResultsDataTable" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-BCAassayResultsDataTable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="screenshots_app/BCA_assay_RESULTS_data_table.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-BCAassayResultsDataTable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: BCA assay analysis - data table
+</figcaption>
 </figure>
 </div>
 <p>In the data table (<a href="#fig-BCAassayResultsDataTable" class="quarto-xref">Figure&nbsp;11</a>) you can find information like:</p>
@@ -438,42 +486,51 @@ Note
 <li>estimated protein concentration in µg/µl</li>
 <li>comment, which refers to <a href="#fig-BCAassayResultsComment" class="quarto-xref">Figure&nbsp;12</a> (also stored in “how to …” panel)</li>
 </ul>
-<div id="fig-BCAassayResultsComment" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="screenshots_app/BCA_assay_comments.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;12: BCA assay analysis - comment categories</figcaption>
+<div id="fig-BCAassayResultsComment" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-BCAassayResultsComment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="screenshots_app/BCA_assay_comments.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-BCAassayResultsComment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12: BCA assay analysis - comment categories
+</figcaption>
 </figure>
 </div>
 </section>
 <section id="samples-measurements" class="level4">
 <h4 class="anchored" data-anchor-id="samples-measurements">Samples measurements</h4>
-<div id="fig-BCAassayResultsSampleMeasurements" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="screenshots_app/BCA_assay_RESULTS_sample_measurements.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;13: BCA assay analysis - sample measurements</figcaption>
+<div id="fig-BCAassayResultsSampleMeasurements" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-BCAassayResultsSampleMeasurements-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="screenshots_app/BCA_assay_RESULTS_sample_measurements.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-BCAassayResultsSampleMeasurements-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13: BCA assay analysis - sample measurements
+</figcaption>
 </figure>
 </div>
 <p>In the sample measurements plot panel (<a href="#fig-BCAassayResultsSampleMeasurements" class="quarto-xref">Figure&nbsp;13</a>) the standard curve of the measurement is shown together with the sample measurements. This indicates if you are in the linear region of the standard curve.</p>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<div class="callout-body-container">
 <p>If you do not meet the linear range, it is advisable to repeat the measurement with a different sample dilution.</p>
+</div>
 </div>
 </div>
 </section>
 <section id="comments-count" class="level4">
 <h4 class="anchored" data-anchor-id="comments-count">Comments count</h4>
-<div id="fig-BCAassayResultsCommentCount" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="screenshots_app/BCA_assay_RESULTS_barchart_comments.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;14: BCA assay analysis - comments count barchart</figcaption>
+<div id="fig-BCAassayResultsCommentCount" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-BCAassayResultsCommentCount-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="screenshots_app/BCA_assay_RESULTS_barchart_comments.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-BCAassayResultsCommentCount-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14: BCA assay analysis - comments count barchart
+</figcaption>
 </figure>
 </div>
 <p>In the comments count bar chart (<a href="#fig-BCAassayResultsCommentCount" class="quarto-xref">Figure&nbsp;14</a>) the count of comments is summarized. This is based on the comment categories defined in <a href="#fig-BCAassayResultsComment" class="quarto-xref">Figure&nbsp;12</a>. If all sample measurements are in the desired linear range of the standard curve it will look like in <a href="#fig-BCAassayResultsCommentCount" class="quarto-xref">Figure&nbsp;14</a>.</p>
@@ -484,7 +541,7 @@ Note
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="screenshots_app/2022_04_22__BCA_assay_test_measurement_file__shinyBCA_output.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">example BCA assay result excel file screenshot</figcaption>
+<figcaption>example BCA assay result excel file screenshot</figcaption>
 </figure>
 </div>
 <p><a href="screenshots_app/2022_04_22__BCA_assay_test_measurement_file__shinyBCA_output.xlsx">example BCA assay result excel file</a></p>
@@ -499,21 +556,27 @@ Note
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-import custom labware definition
+<span class="screen-reader-only">Important</span>import custom labware definition
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <ul>
 <li><a href="supplemental_data/labware_definitions/cfungeneot2msvialrack_48_tuberack_100ul.json" target="_blank">MS vial adapter</a></li>
 <li><a href="supplemental_data/labware_definitions/cfungeneapapterevotips_96_tuberack_200ul.json" target="_blank">Evotip adapter</a></li>
+<li><a href="supplemental_data/labware_definitions/eppendorf_twintec_96_wellplate_150ul.json" target="_blank">twin-tec plate</a></li>
+<li><a href="supplemental_data/labware_definitions/eppendorf_twintec_96_wellplate_150ul_opentrons_96_pcr_adapter.json" target="_blank">twin-tec plate on heat shaker</a></li>
 </ul>
 <p>Please use the link (<a href="https://support.opentrons.com/s/article/Import-a-custom-labware-definition" target="_blank">import custom labware definition in the OT-2 app</a>) for a detailed description of how to import the custom labware definition for operating MassSpecPrepp successfully.</p>
 </div>
 </div>
-<div id="fig-SampleDigestScreenshotUI" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="screenshots_app/Sample_digest_sequential_UI_labeled.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;15: Sample digest user interface screenshot</figcaption>
+<div id="fig-SampleDigestScreenshotUI" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-SampleDigestScreenshotUI-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="screenshots_app/Sample_digest_sequential_UI_labeled.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-SampleDigestScreenshotUI-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;15: Sample digest user interface screenshot
+</figcaption>
 </figure>
 </div>
 <ol type="1">
@@ -526,20 +589,28 @@ import custom labware definition
 <li>unpack the downloaded zip folder</li>
 <li>execute the python protocols in the OT-2 App step-wise (<a href="https://support.opentrons.com/s/article/Get-started-Run-your-protocol" target="_blank">detailed instruction to run a protocol on OT-2</a>)</li>
 </ol>
-<div id="fig-SampleDigestTemplateFile" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="screenshots_app/Sample_digest_template_labeled.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;16: Sample digest template Excel file</figcaption>
+<div id="fig-SampleDigestTemplateFile" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-SampleDigestTemplateFile-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="screenshots_app/Sample_digest_template_labeled.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-SampleDigestTemplateFile-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;16: Sample digest template Excel file
+</figcaption>
 </figure>
 </div>
 <section id="sample-digest-excel-file" class="level3">
 <h3 class="anchored" data-anchor-id="sample-digest-excel-file">Sample digest excel file</h3>
 <section id="sample-digest-template---multiple-digests-of-e.g.-one-sample" class="level4">
 <h4 class="anchored" data-anchor-id="sample-digest-template---multiple-digests-of-e.g.-one-sample">Sample digest template - multiple digests of e.g.&nbsp;one sample</h4>
-<div id="fig-SampleDigestTemplateFileMultipleDigests" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="screenshots_app/Sample_digest_template_multiple_digests_of_one_sample.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;17: Sample digest template excel file - multiple digests of e.g.&nbsp;one sample</figcaption>
+<div id="fig-SampleDigestTemplateFileMultipleDigests" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-SampleDigestTemplateFileMultipleDigests-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="screenshots_app/Sample_digest_template_multiple_digests_of_one_sample.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-SampleDigestTemplateFileMultipleDigests-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;17: Sample digest template excel file - multiple digests of e.g.&nbsp;one sample
+</figcaption>
 </figure>
 </div>
 <p>It is also possible to perform multiple digests per sample, e.g.&nbsp;if you want to add five digest batch standards. Be aware of the correct entries in <em>OT-2 slot</em> &amp; <em>OT-2 position</em> column when using multiple digests per sample. Also adjust the volume accordingly (<a href="#fig-SampleDigestTemplateFileMultipleDigests" class="quarto-xref">Figure&nbsp;17</a>).</p>
@@ -552,43 +623,58 @@ import custom labware definition
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-    return false;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
@@ -596,257 +682,346 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
       return codeEl.innerText;
     }
-  });
-  clipboard.on('success', function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  });
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      return note.innerHTML;
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    if (id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        for (let i = 0; i < 2; i++) {
-          container.appendChild(note.children[i].cloneNode(true));
-        }
-        return container.innerHTML
-      } else {
-        return note.innerHTML;
-      }
-    } else {
-      return note.innerHTML;
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      try { hash = new URL(url).hash; } catch {}
-      const id = hash.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note !== null) {
-        try {
-          const html = processXRef(id, note);
-          instance.setContent(html);
-        } finally {
-          instance.enable();
-          instance.show();
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
         }
-      } else {
-        // See if we can fetch this
-        fetch(url.split('#')[0])
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.getElementById(id);
-          if (note !== null) {
-            const html = processXRef(id, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
       }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
       };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
+      if (contentFn) {
+        config.content = contentFn;
       }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
       }
-    } else {
-      return undefined;
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
     }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
       });
     }
-  }
-});
-</script>
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 </div> <!-- /content -->
 
 

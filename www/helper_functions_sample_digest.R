@@ -38,7 +38,7 @@ ggplot(slot_template_96,aes(col_pos,row_pos))+
 
 # preparation plate plot -----------------------------------------------------------
 
-prep_plate_plot <- function(label = "preparation plate (96 NEST 100ul plate)",
+prep_plate_plot <- function(label = "preparation plate (96well Twin-Tec plate)",
                           OT_slot = "6",
                           number_of_samples = 12,
                           text_color = "black", outline = F, outline_color = "orangered"){
@@ -335,7 +335,7 @@ plot_deck_layout_step1 <- function(red_alk = TRUE,
     Slot6 <- tip_rack_plot(label = "20ul_tips_5",text_color = text_color,OT_slot = 6,number_of_used_tips = ifelse((prep__tips-192)>=192,192,ifelse((prep__tips-192)<0,0,(prep__tips-192))))
 
     #preparation plate
-    Slot7<- prep_plate_plot(label = "HEAT/SHAKER MODULE +\nsample plate (96well NEST plate)",
+    Slot7<- prep_plate_plot(label = "HEAT/SHAKER MODULE +\nsample plate (96well twin-tec plate)",
                             text_color = text_color,
                             OT_slot = 7,
                             outline = T,
@@ -396,7 +396,7 @@ plot_deck_layout_step1 <- function(red_alk = TRUE,
     Slot9 <- plot_spacer()
     
     #preparation plate
-    Slot6<- prep_plate_plot(label = "sample plate (96 NEST plate)",text_color = text_color,OT_slot = 6,number_of_samples = number_of_samples)
+    Slot6<- prep_plate_plot(label = "sample plate (96 twin-tec plate)",text_color = text_color,OT_slot = 6,number_of_samples = number_of_samples)
     #samples plot
     Slot4 <- sample_rack_plot(label = "samples_1 (24x 1.5ml tube rack)",
                               text_color = text_color,
@@ -507,7 +507,7 @@ plot_deck_layout_step2_SP3 <- function(number_of_samples = 96,
     Slot6 <- tip_rack_plot(label = "20ul_tips_2",text_color = text_color, OT_slot = 6,number_of_used_tips = ifelse((digest_tips-96)>=96,96,ifelse((digest_tips-96)<0,0,(digest_tips-96))))
     
     #preparation plate
-    Slot1<- prep_plate_plot(label = "MAGNET MODULE +\nsample plate (96well NEST plate)",
+    Slot1<- prep_plate_plot(label = "MAGNET MODULE +\nsample plate (96well twin-tec plate)",
                             text_color = text_color,OT_slot = 1,
                             number_of_samples = number_of_samples,
                             outline = T,
@@ -557,7 +557,7 @@ plot_deck_layout_step3_MSvial <- function(number_of_samples = 96,
   Slot9 <- plot_spacer()
 
   #preparation plate
-  Slot1<- prep_plate_plot(label = "MAGNET MODULE +\nsample plate (96well NEST plate)",
+  Slot1<- prep_plate_plot(label = "MAGNET MODULE +\nsample plate (96well twin-tec plate)",
                           text_color = text_color,OT_slot = 1,number_of_samples = number_of_samples,
                           outline = T,
                           outline_color = "dodgerblue")
@@ -615,7 +615,7 @@ plot_deck_layout_step3_EvoTips <- function(number_of_samples = 96,
   Slot9 <- tip_rack_plot(label = "300ul_tips_1",text_color = text_color, OT_slot = 9,number_of_used_tips = ifelse(tips_300ul>96,96,tips_300ul))
   
   #preparation plate
-  Slot1<- prep_plate_plot(label = "MAGNET MODULE +\nsample plate (96well NEST plate)",
+  Slot1<- prep_plate_plot(label = "MAGNET MODULE +\nsample plate (96well twin-tec plate)",
                           text_color = text_color,OT_slot = 1,number_of_samples = number_of_samples,
                           outline = T,
                           outline_color = "dodgerblue")

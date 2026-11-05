@@ -82,7 +82,7 @@ def run(protocol: protocol_api.ProtocolContext):
   tiprack20_3 = protocol.load_labware("opentrons_96_tiprack_20ul", "11",label = "OT_96_tiprack_20ul_3")
   
   #preparation plate
-  prep_plate = protocol.load_labware("nest_96_wellplate_100ul_pcr_full_skirt", "6", label = "preparation_plate")
+  prep_plate = protocol.load_labware("eppendorf_twintec_96_wellplate_150ul", "6", label = "preparation_plate")
   
   #pipettes
   p20 = protocol.load_instrument("p20_single_gen2", mount = "left", tip_racks = [tiprack20_1,tiprack20_2])

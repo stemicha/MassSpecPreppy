@@ -63,16 +63,16 @@ def run(protocol: protocol_api.ProtocolContext):
   num_cols = math.ceil(sample_number/8)
 
   #paramters for magnet
-  OFFSET_RADIAL = 1.5  # in mm
+  OFFSET_RADIAL = 1.0  # in mm
   OFFSET_Z = 3.0  # in mm
   OFFSET_Z_remove = 0.6 # in mm
-  MAGNET_HEIGHT = 12.0  # in mm
+  MAGNET_HEIGHT = 11.0  # in mm
   INCUBATION_TIME = 3 # in minutes
   
   #load magnetic module
   magnet_module = protocol.load_module("magnetic module gen2", "1")
   #preparation plate on magnet
-  magplate = magnet_module.load_labware("nest_96_wellplate_100ul_pcr_full_skirt")
+  magplate = magnet_module.load_labware("eppendorf_twintec_96_wellplate_150ul")
   mag_samples = magplate.rows()[0][:num_cols]
 
   #prep plate column positions

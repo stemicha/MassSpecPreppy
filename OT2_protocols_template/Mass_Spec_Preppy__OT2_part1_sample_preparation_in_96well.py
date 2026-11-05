@@ -91,7 +91,7 @@ def run(protocol: protocol_api.ProtocolContext):
 
   #preparation plate
   hs_mod = protocol.load_module('heaterShakerModuleV1', '7')
-  prep_plate = hs_mod.load_labware('opentrons_96_pcr_adapter_nest_wellplate_100ul_pcr_full_skirt',label = "preparation_plate")
+  prep_plate = hs_mod.load_labware('eppendorf_twintec_96_wellplate_150ul_opentrons_96_pcr_adapter',label = "preparation_plate")
   #prep_plate = protocol.load_labware("nest_96_wellplate_100ul_pcr_full_skirt", "6", label = "preparation_plate")
   
   #pipettes

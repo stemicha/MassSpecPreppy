@@ -65,7 +65,8 @@ def run(protocol: protocol_api.ProtocolContext):
   OFFSET_RADIAL = 1.5  # in mm
   OFFSET_RADIAL_remove = 0.2 # in mm
   OFFSET_Z = 3.0  # in mm
-  OFFSET_Z_remove = 0.4 # in mm
+  OFFSET_Z_ADDITION_ABOVE_BEADS = 3.5
+  OFFSET_Z_remove = 0.5 # in mm
   MAGNET_HEIGHT = 11.0  # in mm
   INCUBATION_TIME = 3.0  # in minutes
   
@@ -134,7 +135,7 @@ def run(protocol: protocol_api.ProtocolContext):
   def resuspend_beads_m300(vol, buffer_position):
         def resuspend_mix(side, vol, reps, well):
             # offset + 2 mm in z-axis and 1.4fold to x axis for dispensing at reaction tube wall above bead pellet
-            bead_loc = well.bottom().move(Point(x=side*OFFSET_RADIAL*1.4, z=OFFSET_Z+2))
+            bead_loc = well.bottom().move(Point(x=side*OFFSET_RADIAL*1.4, z=OFFSET_Z+OFFSET_Z_ADDITION_ABOVE_BEADS))
             #bead_loc = well.bottom().move(Point(x=side*OFFSET_RADIAL, z=OFFSET_Z))
             for _ in range(reps):
                 m300.aspirate(vol*0.7, well.bottom(OFFSET_Z)) #offset from bottom
